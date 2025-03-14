@@ -1,26 +1,62 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@plugin "tailwindcss-animate";
+
+@custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-warning: var(--warning);
+  --color-success: var(--success);
+  --color-primary: var(--primary);
+  --color-link: var(--link);
+  --color-font: var(--font);
+  --color-font-foreground: var(--font-foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+:root {
+  --radius: 0.625rem;
+  --background: #0F172A;
+  --foreground: #F8FAFC;
+  --card: #0F172A;
+  --card-foreground: #0B101E;
+  --primary: #4F46E5;
+  --success: #22C55E;
+  --destructive: #EF4444;
+  --warning: #ECB92C;
+  --border: #94A3B8;
+  --link: #60A5FA;
+  --font: #F8FAFC;
+  --font-foreground: #94A3B8;
+}
+
+.dark {
+  --background: #0F172A;
+  --foreground: #F8FAFC;
+  --card: #0F172A;
+  --card-foreground: #0B101E;
+  --primary: #4F46E5;
+  --success: #22C55E;
+  --destructive: #EF4444;
+  --warning: #ECB92C;
+  --border: #94A3B8;
+  --link: #60A5FA;
+  --font: #F8FAFC;
+  --font-foreground: #94A3B8;
+}
+
+@layer base {
+  * {
+    @apply border-border;
   }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  body {
+    @apply bg-background text-font;
+  }
 }
