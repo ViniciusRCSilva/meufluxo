@@ -9,53 +9,147 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-  --color-border: var(--border);
-  --color-destructive: var(--destructive);
-  --color-warning: var(--warning);
-  --color-success: var(--success);
+
   --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-ring: var(--primary-ring);
+
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-success-hover: var(--success-hover);
+  --color-success-ring: var(--success-ring);
+
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-destructive-hover: var(--destructive-hover);
+  --color-destructive-ring: var(--destructive-ring);
+
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-warning-hover: var(--warning-hover);
+  --color-warning-ring: var(--warning-ring);
+
+  --color-border: var(--border);
+  --color-border-hover: var(--border-hover);
+  --color-border-ring: var(--border-ring);
+
   --color-link: var(--link);
+  --color-link-hover: var(--link-hover);
+  --color-link-ring: var(--link-ring);
+
   --color-font: var(--font);
   --color-font-foreground: var(--font-foreground);
+  --color-font-muted: var(--font-muted);
+
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
+  --color-card-hover: var(--card-hover);
+  --color-card-ring: var(--card-ring);
+
+  --color-input: var(--input);
+  --color-input-hover: var(--input-hover);
+  --color-input-ring: var(--input-ring);
 }
 
 :root {
   --radius: 0.625rem;
   --background: #0F172A;
   --foreground: #F8FAFC;
-  --card: #0F172A;
-  --card-foreground: #0B101E;
+
   --primary: #4F46E5;
+  --primary-foreground: #F8FAFC;
+  --primary-hover: #4338CA;
+  --primary-ring: rgba(79, 70, 229, 0.2);
+
   --success: #22C55E;
+  --success-foreground: #F8FAFC;
+  --success-hover: #16A34A;
+  --success-ring: rgba(34, 197, 94, 0.2);
+
   --destructive: #EF4444;
+  --destructive-foreground: #F8FAFC;
+  --destructive-hover: #DC2626;
+  --destructive-ring: rgba(239, 68, 68, 0.2);
+
   --warning: #ECB92C;
+  --warning-foreground: #0F172A;
+  --warning-hover: #CA8A04;
+  --warning-ring: rgba(236, 185, 44, 0.2);
+
   --border: #94A3B8;
+  --border-hover: #64748B;
+  --border-ring: rgba(148, 163, 184, 0.2);
+
   --link: #60A5FA;
+  --link-hover: #3B82F6;
+  --link-ring: rgba(96, 165, 250, 0.2);
+
   --font: #F8FAFC;
   --font-foreground: #94A3B8;
+  --font-muted: #64748B;
+
+  --card: #0F172A;
+  --card-foreground: #0B101E;
+  --card-hover: #1E293B;
+  --card-ring: rgba(15, 23, 42, 0.2);
+
+  --input: #1E293B;
+  --input-hover: #334155;
+  --input-ring: rgba(30, 41, 59, 0.2);
 }
 
 .dark {
   --background: #0F172A;
   --foreground: #F8FAFC;
-  --card: #0F172A;
-  --card-foreground: #0B101E;
+
   --primary: #4F46E5;
+  --primary-foreground: #F8FAFC;
+  --primary-hover: #4338CA;
+  --primary-ring: rgba(79, 70, 229, 0.2);
+
   --success: #22C55E;
+  --success-foreground: #F8FAFC;
+  --success-hover: #16A34A;
+  --success-ring: rgba(34, 197, 94, 0.2);
+
   --destructive: #EF4444;
+  --destructive-foreground: #F8FAFC;
+  --destructive-hover: #DC2626;
+  --destructive-ring: rgba(239, 68, 68, 0.2);
+
   --warning: #ECB92C;
+  --warning-foreground: #0F172A;
+  --warning-hover: #CA8A04;
+  --warning-ring: rgba(236, 185, 44, 0.2);
+
   --border: #94A3B8;
+  --border-hover: #64748B;
+  --border-ring: rgba(148, 163, 184, 0.2);
+
   --link: #60A5FA;
+  --link-hover: #3B82F6;
+  --link-ring: rgba(96, 165, 250, 0.2);
+
   --font: #F8FAFC;
   --font-foreground: #94A3B8;
+  --font-muted: #64748B;
+
+  --card: #0F172A;
+  --card-foreground: #0B101E;
+  --card-hover: #1E293B;
+  --card-ring: rgba(15, 23, 42, 0.2);
+
+  --input: #1E293B;
+  --input-hover: #334155;
+  --input-ring: rgba(30, 41, 59, 0.2);
 }
 
 @layer base {
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-font;
   }
