@@ -22,7 +22,7 @@ const Register = async () => {
                 />
                 <div className="flex flex-col gap-4 text-center select-none">
                     <h1 className="text-4xl md:text-5xl italic font-[family-name:var(--font-montserrat-alternates)]">MeuFluxo</h1>
-                    <p className="font-light text-sm md:text-base font-[family-name:var(--font-poppins)]">Novo por aqui? Crie sua conta para começar a gerenciar seus finanças.</p>
+                    <p className="font-light text-sm md:text-base font-[family-name:var(--font-poppins)]">Novo por aqui? Crie sua conta para começar a gerenciar suas finanças.</p>
                 </div>
             </div>
             <div className="flex h-full w-full items-center justify-center bg-card-foreground md:min-h-screen">
