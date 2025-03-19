@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Poppins, Montserrat_Alternates } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
+import { currentUser } from "@clerk/nextjs/server";
+import Sidebar from "@/app/_components/sidebar";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -25,7 +27,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -33,9 +35,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${poppins.variable} ${montserrat_alternates.variable} antialiased`}
+        className={`${poppins.variable} ${montserrat_alternates.variable} dark antialiased`}
       >
         <ClerkProvider>
+          {(await currentUser()) ? <Sidebar /> : null}
           {children}
         </ClerkProvider>
       </body>
