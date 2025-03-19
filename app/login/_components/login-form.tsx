@@ -22,6 +22,7 @@ import Link from "next/link"
 import { useState } from "react";
 import { getClerkErrorMessage } from "@/app/_utils/clerkErrors";
 import ResetPasswordButton from "./reset-password-button";
+import { UserRound } from "lucide-react";
 
 const formSchema = z.object({
     email: z.string().email({
@@ -94,7 +95,8 @@ const LoginForm = () => {
 
     return (
         <div className="w-full max-w-md p-8 space-y-6">
-            <div className="space-y-2 text-center">
+            <div className="flex flex-col items-center">
+                <UserRound className="w-8 h-8" />
                 <h1 className="text-2xl tracking-tight font-[var(--font-poppins)]">Bem-vindo de volta</h1>
                 <p className="text-sm text-font-muted font-[var(--font-poppins)]">Entre na sua conta para continuar</p>
             </div>

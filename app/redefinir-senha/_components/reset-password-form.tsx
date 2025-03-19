@@ -24,6 +24,7 @@ import {
 import { Input } from "@/app/_components/ui/input";
 import Spinner from "@/app/_components/ui/spinner";
 import { getClerkErrorMessage } from "@/app/_utils/clerkErrors";
+import { KeyRound, MailSearch } from "lucide-react";
 
 const formSchema = z.object({
     password: z.string().min(8, {
@@ -120,7 +121,17 @@ const ResetPasswordForm = () => {
         <div key={forceRender} className="w-full max-w-md p-8 space-y-6">
             <div className="space-y-2 text-center">
                 <h1 className="text-2xl tracking-tight font-[var(--font-poppins)]">
-                    {pendingVerification ? "Verifique seu e-mail" : "Redefinir senha"}
+                    {pendingVerification ? (
+                        <div className="flex flex-col items-center">
+                            <MailSearch className="w-8 h-8" />
+                            <h1 className="text-2xl tracking-tight">Verifique seu e-mail</h1>
+                        </div>
+                    ) : (
+                        <div className="flex flex-col items-center">
+                            <KeyRound className="w-8 h-8" />
+                            <h1 className="text-2xl tracking-tight">Redefinir Senha</h1>
+                        </div>
+                    )}
                 </h1>
                 <p className="text-sm text-font-muted font-[var(--font-poppins)]">
                     {pendingVerification

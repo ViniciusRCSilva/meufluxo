@@ -27,6 +27,7 @@ import Spinner from "@/app/_components/ui/spinner";
 import Image from "next/image";
 import Link from "next/link";
 import { getClerkErrorMessage } from "@/app/_utils/clerkErrors";
+import { MailSearch, UserRoundPlus } from "lucide-react";
 
 const formSchema = z.object({
     username: z.string().min(4, {
@@ -147,9 +148,19 @@ const RegisterForm = () => {
     return (
         <div className="w-full max-w-md p-8 space-y-6">
             <div className="space-y-2 text-center">
-                <h1 className="text-2xl tracking-tight font-[var(--font-poppins)]">
-                    {pendingVerification ? "Verifique seu e-mail" : "Crie sua conta"}
-                </h1>
+                <div className="font-[var(--font-poppins)]">
+                    {pendingVerification ? (
+                        <div className="flex flex-col items-center">
+                            <MailSearch className="w-8 h-8" />
+                            <h1 className="text-2xl tracking-tight">Verifique seu e-mail</h1>
+                        </div>
+                    ) : (
+                        <div className="flex flex-col items-center">
+                            <UserRoundPlus className="w-8 h-8" />
+                            <h1 className="text-2xl tracking-tight">Crie sua conta</h1>
+                        </div>
+                    )}
+                </div>
                 <p className="text-sm text-font-muted font-[var(--font-poppins)]">
                     {pendingVerification
                         ? "Digite o código enviado para seu e-mail."

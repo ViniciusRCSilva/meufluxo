@@ -58,7 +58,7 @@ const ResetPasswordButton = () => {
                 identifier: values.email,
             });
 
-            router.push("/recuperar-senha");
+            router.push("/redefinir-senha");
         } catch (err: unknown) {
             if (err instanceof Error) {
                 setError(getClerkErrorMessage(err.message));
@@ -79,7 +79,7 @@ const ResetPasswordButton = () => {
             </DialogTrigger>
             <DialogContent>
                 <DialogHeader>
-                    <DialogTitle className="text-xl font-[var(--font-poppins)]">Recuperar Senha</DialogTitle>
+                    <DialogTitle className="text-xl font-[var(--font-poppins)]">Resetar Senha</DialogTitle>
                     <DialogDescription className="text-sm text-font-muted font-[var(--font-poppins)]">
                         Digite seu e-mail para receber o código de recuperação.
                     </DialogDescription>
