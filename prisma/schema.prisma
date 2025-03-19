@@ -1,0 +1,87 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Balance {
+  id        String   @id @default(cuid())
+  amount    Float
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  userId    String
+}
+
+model Transaction {
+  id            String                   @id @default(cuid())
+  name          String
+  amount        Float
+  category      TransactionCategory
+  type          TransactionType
+  paymentMethod TransactionPaymentMethod
+  createdAt     DateTime                 @default(now())
+  updatedAt     DateTime                 @updatedAt
+  userId        String
+}
+
+enum TransactionType {
+  DEPOSIT
+  EXPENSE
+  INVESTMENT
+}
+
+enum TransactionCategory {
+  HOUSING
+  TRANSPORTATION
+  FOOD
+  ENTERTAINMENT
+  HEALTH
+  UTILITY
+  SALARY
+  EDUCATION
+  OTHER
+}
+
+enum TransactionPaymentMethod {
+  CREDIT_CARD
+  DEBIT_CARD
+  BANK_TRANSFER
+  BANK_SLIP
+  CASH
+  PIX
+  OTHER
+}
+
+model Bill {
+  id            String                   @id @default(cuid())
+  name          String
+  amount        Float
+  dueDate       DateTime
+  category      TransactionCategory
+  paymentMethod TransactionPaymentMethod
+  recurrence    BillRecurrence?
+  isPaid        Boolean                  @default(false)
+  createdAt     DateTime                 @default(now())
+  updatedAt     DateTime                 @updatedAt
+  userId        String
+}
+
+enum BillRecurrence {
+  DAILY
+  MONTHLY
+  WEEKLY
+  YEARLY
+}
+
+model FinancialGoal {
+  id            String   @id @default(cuid())
+  name          String
+  currentAmount Float
+  goalAmount    Float
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  userId        String
+}
