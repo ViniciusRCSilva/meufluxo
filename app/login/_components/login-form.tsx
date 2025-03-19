@@ -23,6 +23,7 @@ import { useState } from "react";
 import { getClerkErrorMessage } from "@/app/_utils/clerkErrors";
 import ResetPasswordButton from "./reset-password-button";
 import { UserRound } from "lucide-react";
+import { toast } from "sonner";
 
 const formSchema = z.object({
     email: z.string().email({
@@ -59,6 +60,7 @@ const LoginForm = () => {
 
             if (result.status === "complete") {
                 await setActive({ session: result.createdSessionId });
+                toast.success(`Login bem-sucedido como ${result.identifier}.`);
                 router.push("/")
             }
         } catch (err: unknown) {
@@ -82,6 +84,7 @@ const LoginForm = () => {
                 redirectUrl: "/sso-callback",
                 redirectUrlComplete: "/",
             });
+            toast.success(`Login com Google bem-sucedido.`);
         } catch (err: unknown) {
             if (err instanceof Error) {
                 setError(getClerkErrorMessage(err.message));

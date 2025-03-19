@@ -25,6 +25,7 @@ import { Input } from "@/app/_components/ui/input";
 import Spinner from "@/app/_components/ui/spinner";
 import { getClerkErrorMessage } from "@/app/_utils/clerkErrors";
 import { KeyRound, MailSearch } from "lucide-react";
+import { toast } from "sonner";
 
 const formSchema = z.object({
     password: z.string().min(8, {
@@ -76,6 +77,7 @@ const ResetPasswordForm = () => {
 
             if (result.status === "complete") {
                 await setActive({ session: result.createdSessionId });
+                toast.success(`Senha redefinida para ${result.identifier}.`);
                 router.push("/");
             }
         } catch (err: unknown) {

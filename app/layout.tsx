@@ -4,6 +4,7 @@ import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { currentUser } from "@clerk/nextjs/server";
 import Sidebar from "@/app/_components/sidebar";
+import { Toaster } from "@/app/_components/ui/sonner";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -41,6 +42,7 @@ export default async function RootLayout({
           {(await currentUser()) ? <Sidebar /> : null}
           {children}
         </ClerkProvider>
+        <Toaster />
       </body>
     </html>
   );

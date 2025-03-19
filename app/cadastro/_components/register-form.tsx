@@ -28,6 +28,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { getClerkErrorMessage } from "@/app/_utils/clerkErrors";
 import { MailSearch, UserRoundPlus } from "lucide-react";
+import { toast } from "sonner";
 
 const formSchema = z.object({
     username: z.string().min(4, {
@@ -112,6 +113,7 @@ const RegisterForm = () => {
 
             if (result.status === "complete") {
                 await setActive({ session: result.createdSessionId });
+                toast.success(`Conta criada para ${result.emailAddress}.`);
                 router.push("/");
             } else {
                 setError("Código incorreto. Tente novamente.");
@@ -136,6 +138,7 @@ const RegisterForm = () => {
                 redirectUrl: "/sso-callback",
                 redirectUrlComplete: "/",
             });
+            toast.success("Conta criada com sucesso.");
         } catch (err: unknown) {
             if (err instanceof Error) {
                 setError(getClerkErrorMessage(err.message));
