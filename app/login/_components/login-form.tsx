@@ -21,6 +21,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { useState } from "react";
 import { getClerkErrorMessage } from "@/app/_utils/clerkErrors";
+import ResetPasswordButton from "./reset-password-button";
 
 const formSchema = z.object({
     email: z.string().email({
@@ -131,9 +132,7 @@ const LoginForm = () => {
                             <FormItem>
                                 <div className="flex items-center justify-between">
                                     <FormLabel className="text-sm font-medium">Senha</FormLabel>
-                                    <Button type="button" variant="link" className="text-xs text-link hover:text-link-hover transition-colors">
-                                        Esqueceu a senha?
-                                    </Button>
+                                    <ResetPasswordButton />
                                 </div>
                                 <FormControl>
                                     <Input
