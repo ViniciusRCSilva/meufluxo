@@ -97,6 +97,16 @@
   --input: #1E293B;
   --input-hover: #334155;
   --input-ring: rgba(30, 41, 59, 0.2);
+
+  --color-success: #22C55E;
+  --color-destructive: #EF4444;
+
+  --pie-chart-destructive-1: #EF4444;
+  --pie-chart-destructive-2: #FF6060;
+  --pie-chart-destructive-3: #FF7B7B;
+  --pie-chart-destructive-4: #FF9292;
+  --pie-chart-destructive-5: #FFB0B0;
+  --pie-chart-destructive-6: #FFC9C9;
 }
 
 .dark {
@@ -143,6 +153,16 @@
   --input: #1E293B;
   --input-hover: #334155;
   --input-ring: rgba(30, 41, 59, 0.2);
+
+  --color-success: #22C55E;
+  --color-destructive: #EF4444;
+
+  --pie-chart-destructive-1: #EF4444;
+  --pie-chart-destructive-2: #FF6060;
+  --pie-chart-destructive-3: #FF7B7B;
+  --pie-chart-destructive-4: #FF9292;
+  --pie-chart-destructive-5: #FFB0B0;
+  --pie-chart-destructive-6: #FFC9C9;
 }
 
 @layer base {

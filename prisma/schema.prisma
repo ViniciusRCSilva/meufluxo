@@ -18,7 +18,7 @@ model Balance {
 model Transaction {
   id            String                   @id @default(cuid())
   name          String
-  amount        Float
+  value         Float
   category      TransactionCategory
   type          TransactionType
   paymentMethod TransactionPaymentMethod
@@ -58,7 +58,7 @@ enum TransactionPaymentMethod {
 model Bill {
   id            String                   @id @default(cuid())
   name          String
-  amount        Float
+  value         Float
   dueDate       DateTime
   category      TransactionCategory
   paymentMethod TransactionPaymentMethod

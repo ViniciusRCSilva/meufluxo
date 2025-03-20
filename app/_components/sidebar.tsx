@@ -28,6 +28,7 @@ const Sidebar = () => {
         { icon: <Settings className="w-5 h-5 text-link" />, label: "Configurações", href: "/configuracoes" },
     ];
 
+
     return (
         <div className="flex items-center justify-between w-full fixed top-0 left-0 py-5 px-10 z-50 bg-background/20 backdrop-blur-xs">
             <div className="flex items-center select-none">
