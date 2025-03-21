@@ -149,21 +149,19 @@ const RegisterForm = () => {
     };
 
     return (
-        <div className="w-full max-w-md p-8 space-y-6">
+        <div className="w-full max-w-md p-8 space-y-6 font-[family-name:var(--font-poppins)]">
             <div className="space-y-2 text-center">
-                <div className="font-[var(--font-poppins)]">
-                    {pendingVerification ? (
-                        <div className="flex flex-col items-center">
-                            <MailSearch className="w-8 h-8" />
-                            <h1 className="text-2xl tracking-tight">Verifique seu e-mail</h1>
-                        </div>
-                    ) : (
-                        <div className="flex flex-col items-center">
-                            <UserRoundPlus className="w-8 h-8" />
-                            <h1 className="text-2xl tracking-tight">Crie sua conta</h1>
-                        </div>
-                    )}
-                </div>
+                {pendingVerification ? (
+                    <div className="flex flex-col items-center">
+                        <MailSearch className="w-8 h-8" />
+                        <h1 className="text-2xl tracking-tight">Verifique seu e-mail</h1>
+                    </div>
+                ) : (
+                    <div className="flex flex-col items-center">
+                        <UserRoundPlus className="w-8 h-8" />
+                        <h1 className="text-2xl tracking-tight">Crie sua conta</h1>
+                    </div>
+                )}
                 <p className="text-sm text-font-muted font-[var(--font-poppins)]">
                     {pendingVerification
                         ? "Digite o código enviado para seu e-mail."

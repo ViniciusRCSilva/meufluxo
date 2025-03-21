@@ -120,7 +120,7 @@ const ResetPasswordForm = () => {
 
 
     return (
-        <div key={forceRender} className="w-full max-w-md p-8 space-y-6">
+        <div key={forceRender} className="w-full max-w-md p-8 space-y-6 font-[family-name:var(--font-poppins)]">
             <div className="space-y-2 text-center">
                 <h1 className="text-2xl tracking-tight font-[var(--font-poppins)]">
                     {pendingVerification ? (

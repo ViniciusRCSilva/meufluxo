@@ -77,10 +77,10 @@ const ResetPasswordButton = () => {
                     Esqueceu a senha?
                 </Button>
             </DialogTrigger>
-            <DialogContent>
+            <DialogContent className="font-[family-name:var(--font-poppins)]">
                 <DialogHeader>
-                    <DialogTitle className="text-xl font-[var(--font-poppins)]">Resetar Senha</DialogTitle>
-                    <DialogDescription className="text-sm text-font-muted font-[var(--font-poppins)]">
+                    <DialogTitle className="text-xl">Resetar Senha</DialogTitle>
+                    <DialogDescription className="text-sm text-font-muted">
                         Digite seu e-mail para receber o código de recuperação.
                     </DialogDescription>
                 </DialogHeader>
