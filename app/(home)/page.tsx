@@ -46,10 +46,10 @@ const Home = async () => {
     return (
         <div className="flex flex-col gap-6 px-4 sm:px-10 pt-28 pb-10">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 h-fit gap-6">
-                <DashboardCard title="Saldo atual" icon={<PiggyBank className="h-20 w-20 text-warning" />} content="R$ 0,00" />
-                <DashboardCard title="Entradas" icon={<TrendingUp className="h-20 w-20 text-success" />} content="R$ 0,00" />
-                <DashboardCard title="Saídas" icon={<TrendingDown className="h-20 w-20 text-destructive" />} content="R$ 0,00" />
-                <DashboardCard title="Conta a pagar" description="Água - 11/03/2025" icon={<Calendar className="h-20 w-20 text-link" />} content="R$ 0,00" />
+                <DashboardCard title="Saldo atual" icon={<PiggyBank className="h-16 w-16 text-warning" />} content="R$ 0,00" />
+                <DashboardCard title="Entradas" icon={<TrendingUp className="h-16 w-16 text-success" />} content="R$ 0,00" />
+                <DashboardCard title="Saídas" icon={<TrendingDown className="h-16 w-16 text-destructive" />} content="R$ 0,00" />
+                <DashboardCard title="Conta a pagar" description="Água - 11/03/2025" icon={<Calendar className="h-16 w-16 text-link" />} content="R$ 0,00" />
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <BarchartRevenueAndExpenses />

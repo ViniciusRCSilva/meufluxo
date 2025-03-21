@@ -15,7 +15,7 @@ interface DashboardCardProps {
 
 const DashboardCard = ({ title, description, icon, content }: DashboardCardProps) => {
     return (
-        <Card className="grid grid-cols-[0.5fr_1.5fr] items-center p-6 gap-0 font-[family-name:var(--font-poppins)]">
+        <Card className="grid grid-cols-[0.5fr_2fr] items-center p-6 gap-0 font-[family-name:var(--font-poppins)]">
             {icon}
             <div>
                 <CardHeader>
