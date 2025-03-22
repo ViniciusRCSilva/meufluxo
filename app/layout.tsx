@@ -41,8 +41,8 @@ export default async function RootLayout({
         <ClerkProvider>
           {(await currentUser()) ? <Sidebar /> : null}
           {children}
+          <Toaster toastOptions={{ className: "font-[family-name:var(--font-poppins)]" }} />
         </ClerkProvider>
-        <Toaster toastOptions={{ className: "font-[family-name:var(--font-poppins)]" }} />
       </body>
     </html>
   );

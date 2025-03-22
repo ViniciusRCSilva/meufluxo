@@ -10,6 +10,7 @@ const clerkErrorMessages: Record<string, string> = {
     "Couldn't find your account.": "E-mail não encontrado.",
     "Password has been found in an online data breach. For account safety, please use a different password.": "A senha foi encontrada em um vazamento de dados online. Por segurança, use uma senha diferente.",
     "Password is incorrect. Try again, or use another method.": "Senha incorreta. Tente novamente, ou use outro método.",
+    "username must be included.": "O campo de nome não pode ser vazio."
 };
 
 export const getClerkErrorMessage = (errorKey: string) => {

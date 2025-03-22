@@ -1,15 +1,7 @@
 import Image from "next/image";
 import ResetPasswordForm from "./_components/reset-password-form";
-import { auth } from "@clerk/nextjs/server";
-import { redirect } from "next/navigation";
 
 const ResetPassword = async () => {
-    const { userId } = await auth();
-
-    if (userId) {
-        redirect("/");
-    }
-
     return (
         <div className="grid md:grid-cols-[1.5fr_1fr] grid-cols-1 items-center min-h-screen">
             <div className="flex flex-col items-center justify-center hover:scale-105 transition-transform duration-300 p-8 md:p-0">
