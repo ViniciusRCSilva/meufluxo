@@ -2,6 +2,7 @@
 
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/app/_components/ui/card";
 import { Separator } from "@/app/_components/ui/separator";
+import Link from "next/link";
 
 interface NextBillsToPayCardProps {
     bills: {
@@ -15,7 +16,9 @@ const NextBillsToPayCard = ({ bills }: NextBillsToPayCardProps) => {
     return (
         <Card className="font-[family-name:var(--font-poppins)]">
             <CardHeader>
-                <CardTitle className="text-xl text-font-foreground">Próximas contas</CardTitle>
+                <Link href="/contas" className="hover:underline hover:text-font-foreground">
+                    <CardTitle className="text-xl text-font-foreground">Próximas contas</CardTitle>
+                </Link>
                 <CardDescription className="text-font-muted">Contas que vencem em breve</CardDescription>
             </CardHeader>
             <CardContent className="flex flex-col justify-around h-full">

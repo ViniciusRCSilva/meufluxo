@@ -1,5 +1,6 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/app/_components/ui/card"
 import FinancialGoalProgressBar from "./financial-goal-progress-bar"
+import Link from "next/link"
 
 const FinancialGoalsProgressCard = () => {
     const goals = [
@@ -18,10 +19,12 @@ const FinancialGoalsProgressCard = () => {
     ]
 
     return (
-        <Card>
+        <Card className="font-[family-name:var(--font-poppins)]">
             <CardHeader>
-                <CardTitle className="text-xl text-font-foreground font-[family-name:var(--font-poppins)]">Progresso das metas financeiras</CardTitle>
-                <CardDescription className="text-font-muted font-[family-name:var(--font-poppins)]">Acompanhe o progresso das suas principais metas.</CardDescription>
+                <Link href="/metas-financeiras" className="hover:underline hover:text-font-foreground">
+                    <CardTitle className="text-xl text-font-foreground">Progresso das metas financeiras</CardTitle>
+                </Link>
+                <CardDescription className="text-font-muted">Acompanhe o progresso das suas principais metas.</CardDescription>
             </CardHeader>
             <CardContent className="flex flex-col gap-4">
                 {goals.map((goal) => (

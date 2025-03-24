@@ -2,6 +2,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/app/_components/ui/card"
 import { Separator } from "./ui/separator";
+import Link from "next/link";
 
 interface LastTransactionsCardProps {
     transactions: {
@@ -16,7 +17,9 @@ const LastTransactionsCard = ({ transactions }: LastTransactionsCardProps) => {
     return (
         <Card className="font-[family-name:var(--font-poppins)]">
             <CardHeader>
-                <CardTitle className="text-xl text-font-foreground">Últimas transações</CardTitle>
+                <Link href="/transacoes" className="hover:underline hover:text-font-foreground">
+                    <CardTitle className="text-xl text-font-foreground">Últimas transações</CardTitle>
+                </Link>
                 <CardDescription className="text-font-muted">Transações realizadas recentemente</CardDescription>
             </CardHeader>
             <CardContent className="flex flex-col justify-around h-full">
