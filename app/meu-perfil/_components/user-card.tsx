@@ -19,7 +19,7 @@ const UserCard = () => {
     });
 
     return (
-        <Card className="flex flex-col items-center text-font px-10 h-full font-[family-name:var(--font-poppins)]">
+        <Card className="flex flex-col items-center text-font lg:px-10 h-full font-[family-name:var(--font-poppins)]">
             <CardHeader className="flex flex-col items-center w-full">
                 <div className="flex w-full justify-end items-center gap-2 mb-4 cursor-pointer text-link">
                     <EditProfile />
@@ -30,7 +30,7 @@ const UserCard = () => {
                     </Avatar>
                 </div>
                 <CardTitle className="font-bold text-xl mt-4">{user?.fullName || user?.username}</CardTitle>
-                <CardDescription className="text-font-muted">{user?.emailAddresses[0].emailAddress}</CardDescription>
+                <CardDescription className="text-font-foreground">{user?.emailAddresses[0].emailAddress}</CardDescription>
 
                 <div className="w-full flex justify-center mt-4">
                     <div className="flex items-center gap-2 text-sm text-font-muted">
@@ -39,10 +39,10 @@ const UserCard = () => {
                     </div>
                 </div>
             </CardHeader>
-            <div className="w-[80%] flex items-center my-6">
+            <div className="w-[80%] flex items-center my-2 lg:my-6">
                 <Separator />
             </div>
-            <CardContent className="flex flex-col justify-around w-full h-full">
+            <CardContent className="flex flex-col justify-around gap-6 w-full h-full">
                 <div className="grid grid-cols-2 gap-4 w-full">
                     <Link href="/metas-financeiras" className="text-center p-4 bg-secondary rounded-lg group">
                         <p className="text-2xl font-bold group-hover:text-link transition-colors">12</p>

@@ -15,6 +15,11 @@
   --color-primary-hover: var(--primary-hover);
   --color-primary-ring: var(--primary-ring);
 
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-ring: var(--accent-ring);
+
   --color-success: var(--success);
   --color-success-foreground: var(--success-foreground);
   --color-success-hover: var(--success-hover);
@@ -61,6 +66,11 @@
   --primary-foreground: #F8FAFC;
   --primary-hover: #4338CA;
   --primary-ring: rgba(79, 70, 229, 0.2);
+
+  --accent: #818CF8;
+  --accent-foreground: #F8FAFC;
+  --accent-hover: #6366F1;
+  --accent-ring: rgba(129, 140, 248, 0.2);
 
   --success: #22C55E;
   --success-foreground: #F8FAFC;
@@ -117,6 +127,11 @@
   --primary-foreground: #F8FAFC;
   --primary-hover: #4338CA;
   --primary-ring: rgba(79, 70, 229, 0.2);
+
+  --accent: #818CF8;
+  --accent-foreground: #F8FAFC;
+  --accent-hover: #6366F1;
+  --accent-ring: rgba(129, 140, 248, 0.2);
 
   --success: #22C55E;
   --success-foreground: #F8FAFC;

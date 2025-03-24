@@ -19,7 +19,7 @@ const DashboardCard = ({ title, description, icon, content }: DashboardCardProps
             {icon}
             <div>
                 <CardHeader>
-                    <CardTitle className="text-xl text-font-muted">{title}</CardTitle>
+                    <CardTitle className="text-xl text-font-foreground">{title}</CardTitle>
                     <CardDescription className="text-font-muted">{description}</CardDescription>
                 </CardHeader>
                 <CardContent className="text-font text-2xl font-semibold">
