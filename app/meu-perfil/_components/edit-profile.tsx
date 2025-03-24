@@ -10,8 +10,15 @@ import {
     DialogFooter,
     DialogClose
 } from "@/app/_components/ui/dialog";
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipProvider,
+    TooltipTrigger,
+} from "@/app/_components/ui/tooltip"
+
 import { Button } from "@/app/_components/ui/button";
-import { SquarePen, Loader2, KeyRound, Camera } from "lucide-react";
+import { SquarePen, Loader2, Camera, HelpCircle } from "lucide-react";
 import { useUser, useClerk, useSignIn } from "@clerk/nextjs";
 import { useState, useEffect } from "react";
 import { Input } from "@/app/_components/ui/input";
@@ -253,9 +260,19 @@ const EditProfile = () => {
                         {/* Seção da Senha */}
                         <div className="space-y-2 pt-4 border-t border-border/20">
                             <Label className="text-sm font-medium flex items-center gap-2">
-                                <KeyRound className="w-4 h-4" />
                                 <span>Senha</span>
+                                <TooltipProvider>
+                                    <Tooltip>
+                                        <TooltipTrigger>
+                                            <HelpCircle className="w-4 h-4 text-font-muted cursor-pointer" />
+                                        </TooltipTrigger>
+                                        <TooltipContent className="w-80">
+                                            <p>Enviaremos um código de verificação para o seu email ({user?.primaryEmailAddress?.emailAddress}) para redefinir sua senha</p>
+                                        </TooltipContent>
+                                    </Tooltip>
+                                </TooltipProvider>
                             </Label>
+
                             <Button
                                 onClick={handleResetPassword}
                                 disabled={isLoading}
