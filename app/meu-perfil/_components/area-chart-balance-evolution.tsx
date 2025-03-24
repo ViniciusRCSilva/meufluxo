@@ -75,6 +75,13 @@ export function AreaChartBalanceEvolution() {
                             fill="var(--color-primary)"
                             fillOpacity={0.4}
                             stroke="var(--color-primary)"
+                            strokeWidth={2}
+                            dot={{
+                                fill: "var(--color-primary)",
+                            }}
+                            activeDot={{
+                                r: 6,
+                            }}
                         />
                     </AreaChart>
                 </ChartContainer>
