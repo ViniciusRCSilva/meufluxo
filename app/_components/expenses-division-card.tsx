@@ -5,6 +5,7 @@ import { Pie, PieChart } from "recharts"
 import {
     Card,
     CardContent,
+    CardDescription,
     CardFooter,
     CardHeader,
     CardTitle,
@@ -54,7 +55,8 @@ export function ExpensesDivisionCard() {
     return (
         <Card className="flex flex-col">
             <CardHeader className="items-center pb-0">
-                <CardTitle className="text-xl text-font-muted font-[family-name:var(--font-poppins)]">Divisão de despesas</CardTitle>
+                <CardTitle className="text-xl text-font-foreground font-[family-name:var(--font-poppins)]">Divisão de despesas</CardTitle>
+                <CardDescription className="text-font-muted font-[family-name:var(--font-poppins)]">Análise da distribuição de despesas.</CardDescription>
             </CardHeader>
             <CardContent className="flex-1 pb-0">
                 <ChartContainer

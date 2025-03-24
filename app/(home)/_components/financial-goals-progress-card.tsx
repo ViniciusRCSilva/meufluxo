@@ -20,7 +20,7 @@ const FinancialGoalsProgressCard = () => {
     return (
         <Card>
             <CardHeader>
-                <CardTitle className="text-xl text-font-muted font-[family-name:var(--font-poppins)]">Progresso das metas financeiras</CardTitle>
+                <CardTitle className="text-xl text-font-foreground font-[family-name:var(--font-poppins)]">Progresso das metas financeiras</CardTitle>
                 <CardDescription className="text-font-muted font-[family-name:var(--font-poppins)]">Acompanhe o progresso das suas principais metas.</CardDescription>
             </CardHeader>
             <CardContent className="flex flex-col gap-4">

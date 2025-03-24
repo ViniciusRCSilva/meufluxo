@@ -40,7 +40,7 @@ export function BarchartRevenueAndExpenses() {
     return (
         <Card>
             <CardHeader>
-                <CardTitle className="text-xl text-font-muted font-semibold font-[family-name:var(--font-poppins)]">Receitas x Despesas</CardTitle>
+                <CardTitle className="text-xl text-font-foreground font-semibold font-[family-name:var(--font-poppins)]">Receitas x Despesas</CardTitle>
                 <CardDescription className="text-font-muted font-[family-name:var(--font-poppins)]">Janeiro - Junho 2024</CardDescription>
             </CardHeader>
             <CardContent>
