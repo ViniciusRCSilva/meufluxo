@@ -18,7 +18,7 @@ const DashboardCard = ({ title, description, icon, content }: DashboardCardProps
         <Card className="grid grid-cols-[0.5fr_2fr] items-center p-6 gap-0 font-[family-name:var(--font-poppins)]">
             {icon}
             <div>
-                <CardHeader>
+                <CardHeader className="flex flex-col gap-0 mb-2">
                     <CardTitle className="text-xl text-font-foreground">{title}</CardTitle>
                     <CardDescription className="text-font-muted">{description}</CardDescription>
                 </CardHeader>

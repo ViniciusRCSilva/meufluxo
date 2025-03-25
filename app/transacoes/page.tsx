@@ -1,4 +1,4 @@
-import DataTableTransactions from "./_components/data-table-transactions";
+import { DataTableTransactions } from "./_components/data-table-transactions";
 import { columns } from "./_columns/transactions";
 import { auth } from "@clerk/nextjs/server";
 import AddTransactionButton from "./_components/add-transaction-button";

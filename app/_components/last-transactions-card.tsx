@@ -23,6 +23,11 @@ const LastTransactionsCard = ({ transactions }: LastTransactionsCardProps) => {
                 <CardDescription className="text-font-muted">Transações realizadas recentemente</CardDescription>
             </CardHeader>
             <CardContent className="flex flex-col justify-around h-full">
+                {transactions.length === 0 && (
+                    <div className="flex flex-col justify-center items-center h-full">
+                        <span className="text-font-muted">Nenhuma transação encontrada.</span>
+                    </div>
+                )}
                 {transactions.map((transaction) => (
                     <div className="flex flex-col gap-2 mb-2 lg:mb-0" key={transaction.name}>
                         <div className="flex justify-between gap-2">

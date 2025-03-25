@@ -4,13 +4,16 @@ import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/app
 import { useUser } from "@clerk/nextjs";
 import { Avatar, AvatarImage } from "@/app/_components/ui/avatar";
 import { Separator } from "@/app/_components/ui/separator";
-import DashboardCard from "@/app/_components/dashboard-card";
-import { PiggyBank, Calendar } from "lucide-react";
+import { Calendar } from "lucide-react";
 import LogoutButton from "@/app/_components/ui/logout-button";
 import Link from "next/link";
 import EditProfile from "./edit-profile";
 
-const UserCard = () => {
+interface UserCardProps {
+    balanceCard: React.ReactNode;
+}
+
+const UserCard = ({ balanceCard }: UserCardProps) => {
     const { user } = useUser();
 
     const joinDate = new Date(user?.createdAt || '').toLocaleDateString('pt-BR', {
@@ -54,7 +57,7 @@ const UserCard = () => {
                     </Link>
                 </div>
 
-                <DashboardCard title="Saldo atual" icon={<PiggyBank className="h-16 w-16 text-warning" />} content="R$ 0,00" />
+                {balanceCard}
 
                 <LogoutButton />
             </CardContent>

@@ -3,11 +3,12 @@ import { redirect } from "next/navigation";
 import UserCard from "./_components/user-card";
 import NextBillsToPayCard from "./_components/next-bills-to-pay-card";
 import LastTransactionsCard from "../_components/last-transactions-card";
-import { TrendingDown, TrendingUp } from "lucide-react";
+import { PiggyBank, TrendingDown, TrendingUp } from "lucide-react";
 import DashboardCard from "../_components/dashboard-card";
 import { AreaChartBalanceEvolution } from "./_components/area-chart-balance-evolution";
-
-type TransactionType = "DEPOSIT" | "EXPENSE" | "INVESTMENT";
+import { getTransactions } from "../_actions/transaction";
+import { getBalance } from "../_actions/balance";
+import { formatCurrency } from "@/app/_utils/formatCurrency";
 
 const MyProfile = async () => {
     const { userId } = await auth();
@@ -15,6 +16,35 @@ const MyProfile = async () => {
     if (!userId) {
         redirect("/login");
     }
+
+    const currentDate = new Date();
+    const currentMonth = currentDate.getMonth();
+    const currentYear = currentDate.getFullYear();
+
+    const balance = await getBalance(userId);
+    const rawTransactions = await getTransactions(userId);
+
+    const lastTransactions = rawTransactions?.map(transaction => ({
+        id: transaction.id,
+        name: transaction.name,
+        date: transaction.createdAt.toLocaleDateString('pt-BR'),
+        type: transaction.type,
+        value: transaction.value
+    }));
+
+    const currentMonthTransactions = rawTransactions?.filter(transaction => {
+        const transactionDate = new Date(transaction.createdAt);
+        return transactionDate.getMonth() === currentMonth &&
+            transactionDate.getFullYear() === currentYear;
+    });
+
+    const formattedBalance = formatCurrency(balance?.amount || 0);
+
+    const highestDepositOfTheMonth = currentMonthTransactions?.find(transaction => transaction.type === "DEPOSIT" && transaction.value === Math.max(...currentMonthTransactions?.filter(transaction => transaction.type === "DEPOSIT")?.map(transaction => transaction.value) || []));
+    const highestExpenseOfTheMonth = currentMonthTransactions?.find(transaction => transaction.type === "EXPENSE" && transaction.value === Math.max(...currentMonthTransactions?.filter(transaction => transaction.type === "EXPENSE")?.map(transaction => transaction.value) || []));
+
+    const formattedHighestDeposit = formatCurrency(highestDepositOfTheMonth?.value || 0);
+    const formattedHighestExpense = formatCurrency(highestExpenseOfTheMonth?.value || 0);
 
     const billsTest: Array<{
         name: string;
@@ -38,51 +68,27 @@ const MyProfile = async () => {
             },
         ]
 
-    const lastTransactionsTest: Array<{
-        name: string;
-        date: string;
-        type: TransactionType;
-        value: number;
-    }> = [
-            {
-                name: "Salário",
-                date: "11/03/2025",
-                type: "DEPOSIT",
-                value: 3200
-            },
-            {
-                name: "Água",
-                date: "05/03/2025",
-                type: "EXPENSE",
-                value: 250
-            },
-            {
-                name: "Aluguel",
-                date: "12/03/2025",
-                type: "EXPENSE",
-                value: 500
-            },
-        ]
-
     return (
         <div className="flex flex-col lg:grid lg:grid-cols-[1fr_2.5fr] min-h-screen gap-6 px-4 sm:px-10 pt-28 pb-10">
             <div>
-                <UserCard />
+                <UserCard balanceCard={
+                    <DashboardCard title="Saldo atual" icon={<PiggyBank className="h-16 w-16 text-warning" />} content={formattedBalance} />
+                } />
             </div>
             <div className="flex flex-col justify-between gap-6 lg:gap-0">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     <NextBillsToPayCard bills={billsTest} />
-                    <LastTransactionsCard transactions={lastTransactionsTest} />
+                    <LastTransactionsCard transactions={lastTransactions?.slice(0, 3) || []} />
                     <div className="grid grid-cols-1 gap-4">
                         <DashboardCard
                             title="Maior depósito do mês"
                             icon={<TrendingUp className="h-16 w-16 text-success" />}
-                            content="R$ 3.200"
+                            content={formattedHighestDeposit}
                         />
                         <DashboardCard
                             title="Maior gasto do mês"
                             icon={<TrendingDown className="h-16 w-16 text-destructive" />}
-                            content="R$ 500"
+                            content={formattedHighestExpense}
                         />
                     </div>
                 </div>
