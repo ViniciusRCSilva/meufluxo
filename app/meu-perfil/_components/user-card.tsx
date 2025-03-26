@@ -11,9 +11,10 @@ import EditProfile from "./edit-profile";
 
 interface UserCardProps {
     balanceCard: React.ReactNode;
+    billsQuantity: number;
 }
 
-const UserCard = ({ balanceCard }: UserCardProps) => {
+const UserCard = ({ balanceCard, billsQuantity }: UserCardProps) => {
     const { user } = useUser();
 
     const joinDate = new Date(user?.createdAt || '').toLocaleDateString('pt-BR', {
@@ -52,7 +53,7 @@ const UserCard = ({ balanceCard }: UserCardProps) => {
                         <p className="text-sm text-font-muted group-hover:text-link transition-colors">Metas Financeiras</p>
                     </Link>
                     <Link href="/contas" className="text-center p-4 bg-secondary rounded-lg group">
-                        <p className="text-2xl font-bold group-hover:text-link transition-colors">20</p>
+                        <p className="text-2xl font-bold group-hover:text-link transition-colors">{billsQuantity}</p>
                         <p className="text-sm text-font-muted group-hover:text-link transition-colors">Contas registradas</p>
                     </Link>
                 </div>

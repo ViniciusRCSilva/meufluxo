@@ -9,6 +9,7 @@ import { AreaChartBalanceEvolution } from "./_components/area-chart-balance-evol
 import { getTransactions } from "../_actions/transaction";
 import { getBalance } from "../_actions/balance";
 import { formatCurrency } from "@/app/_utils/formatCurrency";
+import { getBills } from "../_actions/bills";
 
 const MyProfile = async () => {
     const { userId } = await auth();
@@ -46,38 +47,32 @@ const MyProfile = async () => {
     const formattedHighestDeposit = formatCurrency(highestDepositOfTheMonth?.value || 0);
     const formattedHighestExpense = formatCurrency(highestExpenseOfTheMonth?.value || 0);
 
-    const billsTest: Array<{
-        name: string;
-        date: string;
-        value: number;
-    }> = [
-            {
-                name: "Água",
-                date: "05/03/2025",
-                value: 250
-            },
-            {
-                name: "Aluguel",
-                date: "12/03/2025",
-                value: 500
-            },
-            {
-                name: "Internet",
-                date: "15/03/2025",
-                value: 100
-            },
-        ]
+    const rawBills = await getBills(userId);
+
+    const lastBills = rawBills?.map(bill => ({
+        id: bill.id,
+        name: bill.name,
+        date: bill.createdAt.toLocaleDateString('pt-BR'),
+        value: bill.value
+    }));
 
     return (
         <div className="flex flex-col lg:grid lg:grid-cols-[1fr_2.5fr] min-h-screen gap-6 px-4 sm:px-10 pt-28 pb-10">
             <div>
-                <UserCard balanceCard={
-                    <DashboardCard title="Saldo atual" icon={<PiggyBank className="h-16 w-16 text-warning" />} content={formattedBalance} />
-                } />
+                <UserCard
+                    balanceCard={
+                        <DashboardCard
+                            title="Saldo atual"
+                            icon={<PiggyBank className="h-16 w-16 text-warning" />}
+                            content={formattedBalance}
+                        />
+                    }
+                    billsQuantity={rawBills?.length || 0}
+                />
             </div>
             <div className="flex flex-col justify-between gap-6 lg:gap-0">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <NextBillsToPayCard bills={billsTest} />
+                    <NextBillsToPayCard bills={lastBills?.slice(0, 3) || []} />
                     <LastTransactionsCard transactions={lastTransactions?.slice(0, 3) || []} />
                     <div className="grid grid-cols-1 gap-4">
                         <DashboardCard
