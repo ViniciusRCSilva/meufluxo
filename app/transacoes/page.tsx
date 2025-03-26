@@ -7,7 +7,7 @@ import { getTransactions } from "../_actions/transaction";
 import { HelpCircle } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../_components/ui/tooltip";
 
-const Transacoes = async () => {
+const Transactions = async () => {
     const { userId } = await auth();
 
     if (!userId) {
@@ -48,4 +48,4 @@ const Transacoes = async () => {
     );
 };
 
-export default Transacoes;
+export default Transactions;
