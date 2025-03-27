@@ -178,7 +178,7 @@ const AddTransactionButton = ({ userId }: userIdProps) => {
                                         <FormLabel className="text-foreground/90">Tipo</FormLabel>
                                         <Select onValueChange={field.onChange} defaultValue={field.value}>
                                             <FormControl>
-                                                <SelectTrigger className="h-11 bg-input border-border/20 transition-colors hover:bg-input-hover focus:ring-2 focus:ring-primary-ring">
+                                                <SelectTrigger className="w-full h-11 bg-input border-border/20 transition-colors hover:bg-input-hover focus:ring-2 focus:ring-primary-ring">
                                                     <SelectValue placeholder="Selecione o tipo" />
                                                 </SelectTrigger>
                                             </FormControl>
@@ -203,7 +203,7 @@ const AddTransactionButton = ({ userId }: userIdProps) => {
                                         <FormLabel className="text-foreground/90">Categoria</FormLabel>
                                         <Select onValueChange={field.onChange} defaultValue={field.value}>
                                             <FormControl>
-                                                <SelectTrigger className="h-11 bg-input border-border/20 transition-colors hover:bg-input-hover focus:ring-2 focus:ring-primary-ring">
+                                                <SelectTrigger className="w-full h-11 bg-input border-border/20 transition-colors hover:bg-input-hover focus:ring-2 focus:ring-primary-ring">
                                                     <SelectValue placeholder="Selecione a categoria" />
                                                 </SelectTrigger>
                                             </FormControl>
@@ -229,7 +229,7 @@ const AddTransactionButton = ({ userId }: userIdProps) => {
                                     <FormLabel className="text-foreground/90">Método de Pagamento</FormLabel>
                                     <Select onValueChange={field.onChange} defaultValue={field.value}>
                                         <FormControl>
-                                            <SelectTrigger className="h-11 bg-input border-border/20 transition-colors hover:bg-input-hover focus:ring-2 focus:ring-primary-ring">
+                                            <SelectTrigger className="w-full h-11 bg-input border-border/20 transition-colors hover:bg-input-hover focus:ring-2 focus:ring-primary-ring">
                                                 <SelectValue placeholder="Selecione o método de pagamento" />
                                             </SelectTrigger>
                                         </FormControl>
