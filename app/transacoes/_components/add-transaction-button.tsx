@@ -118,11 +118,11 @@ const AddTransactionButton = ({ userId }: userIdProps) => {
                 </Button>
             </DialogTrigger>
             <DialogContent className="font-[family-name:var(--font-poppins)] max-w-[500px] p-0 bg-card">
-                <DialogHeader className="p-6 pb-0">
+                <DialogHeader className="p-8 pb-0">
                     <DialogTitle className="flex items-center gap-2 text-2xl font-semibold">
-                        <Plus className="w-6 h-6" /> Nova Transação
+                        <Plus className="w-7 h-7" /> Nova Transação
                     </DialogTitle>
-                    <DialogDescription className="text-font-foreground mt-2">
+                    <DialogDescription className="text-font-muted mt-3">
                         Preencha os dados abaixo para adicionar uma nova transação.
                     </DialogDescription>
                 </DialogHeader>
@@ -246,10 +246,32 @@ const AddTransactionButton = ({ userId }: userIdProps) => {
                             )}
                         />
 
-                        <DialogFooter className="gap-2 pt-4">
-                            <Button type="button" variant="outline" className="bg-background" disabled={loading} onClick={resetForm}>Cancelar</Button>
-                            <Button type="submit" className="bg-primary hover:bg-primary/90" disabled={loading}>
-                                {loading ? <span className="flex items-center gap-2"><Loader2 className="animate-spin" /> Adicionando...</span> : "Adicionar"}
+
+                        <DialogFooter className="flex gap-3 pt-2">
+                            <Button
+                                type="button"
+                                variant="outline"
+                                onClick={resetForm}
+                                className="flex-1 h-11 transition-all duration-200 hover:bg-secondary/80"
+                            >
+                                Cancelar
+                            </Button>
+                            <Button
+                                type="submit"
+                                disabled={loading}
+                                className="flex-1 h-11 gap-2 bg-primary transition-all duration-200 hover:bg-primary/90 disabled:opacity-70"
+                            >
+                                {loading ? (
+                                    <>
+                                        <Loader2 className="w-4 h-4 animate-spin" />
+                                        Salvando...
+                                    </>
+                                ) : (
+                                    <>
+                                        <Plus className="w-4 h-4" />
+                                        Adicionar
+                                    </>
+                                )}
                             </Button>
                         </DialogFooter>
                     </form>
