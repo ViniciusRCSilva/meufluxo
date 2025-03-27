@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/app/_components/ui/button";
-import { Loader2, Plus } from "lucide-react";
+import { HelpCircle, Loader2, Plus } from "lucide-react";
 import {
     Dialog,
     DialogContent,
@@ -30,6 +30,7 @@ import {
     SelectValue,
     SelectItem,
 } from "@/app/_components/ui/select";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/app/_components/ui/tooltip";
 import { categoryOptions, categorySelect, paymentMethodOptions, paymentMethodSelect, typeOptions, typeSelect } from "@/app/_utils/selectHelper";
 import { useState } from "react";
 import { addTransaction } from "@/app/_actions/transaction";
@@ -123,6 +124,14 @@ const AddTransactionButton = ({ userId }: userIdProps) => {
                 <DialogHeader className="p-8 pb-0">
                     <DialogTitle className="flex items-center gap-2 text-2xl font-semibold">
                         <Plus className="w-7 h-7" /> Nova Transação
+                        <Tooltip>
+                            <TooltipTrigger className="cursor-pointer">
+                                <HelpCircle className="h-6 w-6 text-font-muted" />
+                            </TooltipTrigger>
+                            <TooltipContent className="w-80 text-center">
+                                <p>Ao <span className="font-semibold">adicionar uma transação</span>, o sistema irá <span className="font-semibold">depositar</span> ou <span className="font-semibold">descontar</span> o <span className="font-semibold">valor da transação</span> em seu saldo atual.</p>
+                            </TooltipContent>
+                        </Tooltip>
                     </DialogTitle>
                     <DialogDescription className="text-font-muted mt-3">
                         Preencha os dados abaixo para adicionar uma nova transação.
