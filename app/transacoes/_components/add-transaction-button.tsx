@@ -33,6 +33,7 @@ import {
 import { categoryOptions, categorySelect, paymentMethodOptions, paymentMethodSelect, typeOptions, typeSelect } from "@/app/_utils/selectHelper";
 import { useState } from "react";
 import { addTransaction } from "@/app/_actions/transaction";
+import { toast } from "sonner";
 
 const formSchema = z.object({
     name: z.string().min(1, "A descrição é obrigatória"),
@@ -95,6 +96,7 @@ const AddTransactionButton = ({ userId }: userIdProps) => {
                 userId: userId
             })
 
+            toast.success("Transação adicionada com sucesso");
             resetForm();
             setOpen(false);
         } catch (error) {
