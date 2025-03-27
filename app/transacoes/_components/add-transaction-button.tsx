@@ -182,7 +182,7 @@ const AddTransactionButton = ({ userId }: userIdProps) => {
                                                     <SelectValue placeholder="Selecione o tipo" />
                                                 </SelectTrigger>
                                             </FormControl>
-                                            <SelectContent>
+                                            <SelectContent className="font-[family-name:var(--font-poppins)]">
                                                 {typeOptions.map((option) => (
                                                     <SelectItem key={option.value} value={option.value}>
                                                         {typeSelect(option.value)}
@@ -207,7 +207,7 @@ const AddTransactionButton = ({ userId }: userIdProps) => {
                                                     <SelectValue placeholder="Selecione a categoria" />
                                                 </SelectTrigger>
                                             </FormControl>
-                                            <SelectContent>
+                                            <SelectContent className="font-[family-name:var(--font-poppins)]">
                                                 {categoryOptions.map((option) => (
                                                     <SelectItem key={option.value} value={option.value}>
                                                         {categorySelect(option.value)}
@@ -233,7 +233,7 @@ const AddTransactionButton = ({ userId }: userIdProps) => {
                                                 <SelectValue placeholder="Selecione o método de pagamento" />
                                             </SelectTrigger>
                                         </FormControl>
-                                        <SelectContent>
+                                        <SelectContent className="font-[family-name:var(--font-poppins)]">
                                             {paymentMethodOptions.map((option) => (
                                                 <SelectItem key={option.value} value={option.value}>
                                                     {paymentMethodSelect(option.value)}
