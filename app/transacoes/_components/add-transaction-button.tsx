@@ -125,8 +125,15 @@ const AddTransactionButton = ({ userId }: userIdProps) => {
                     <DialogTitle className="flex items-center gap-2 text-2xl font-semibold">
                         <Plus className="w-7 h-7" /> Nova Transação
                         <Tooltip>
-                            <TooltipTrigger className="cursor-pointer">
-                                <HelpCircle className="h-6 w-6 text-font-muted" />
+                            <TooltipTrigger asChild>
+                                <Button
+                                    type="button"
+                                    variant="link"
+                                    className="p-0 h-6 w-6 text-font-muted hover:decoration-0 hover:text-font-muted/80"
+                                    tabIndex={-1}
+                                >
+                                    <HelpCircle className="h-6 w-6" />
+                                </Button>
                             </TooltipTrigger>
                             <TooltipContent className="w-80 text-center">
                                 <p>Ao <span className="font-semibold">adicionar uma transação</span>, o sistema irá <span className="font-semibold">depositar</span> ou <span className="font-semibold">descontar</span> o <span className="font-semibold">valor da transação</span> em seu saldo atual.</p>
