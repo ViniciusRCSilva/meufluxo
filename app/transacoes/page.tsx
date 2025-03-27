@@ -35,7 +35,7 @@ const Transactions = async () => {
                             <HelpCircle className="h-6 w-6 text-font-muted" />
                         </TooltipTrigger>
                         <TooltipContent className="w-64 text-center">
-                            <p>Visualize, adicione e edite todas as transações que foram feitas na sua conta.</p>
+                            <p>Visualize, adicione e edite todas as transações que foram realizadas.</p>
                         </TooltipContent>
                     </Tooltip>
                 </div>
