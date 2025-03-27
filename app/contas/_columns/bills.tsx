@@ -2,6 +2,8 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import { transactionValue, transactionCategory, transactionPaymentMethod } from "@/app/_utils/transactionHelper";
+import { billRecurrence } from "@/app/_utils/billHelper";
+import { Check, X } from "lucide-react";
 
 export const columns: ColumnDef<{ date: string; name: string; category: string; paymentMethod: string; value: number; recurrence: string; isPaid: boolean; dueDate: string; }>[] = [
     {
@@ -51,7 +53,7 @@ export const columns: ColumnDef<{ date: string; name: string; category: string; 
         cell: ({ row }) => {
             return (
                 <>
-                    {row.getValue("recurrence")}
+                    {billRecurrence(row.getValue("recurrence"))}
                 </>
             );
         },
@@ -62,7 +64,17 @@ export const columns: ColumnDef<{ date: string; name: string; category: string; 
         cell: ({ row }) => {
             return (
                 <>
-                    {row.getValue("isPaid") ? "Sim" : "Não"}
+                    {row.getValue("isPaid") ? (
+                        <span className="flex items-center">
+                            <Check className="text-success" />
+                            Sim
+                        </span>
+                    ) : (
+                        <span className="flex items-center">
+                            <X className="text-destructive" />
+                            Não
+                        </span>
+                    )}
                 </>
             );
         },

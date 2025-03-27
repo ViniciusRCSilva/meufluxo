@@ -37,7 +37,7 @@ const Bills = async () => {
                             <HelpCircle className="h-6 w-6 text-font-muted" />
                         </TooltipTrigger>
                         <TooltipContent className="w-64 text-center">
-                            <p>Visualize, adicione e edite todas as contas que foram feitas na sua conta.</p>
+                            <p>Visualize, adicione e edite todas as contas que foram realizadas.</p>
                         </TooltipContent>
                     </Tooltip>
                 </div>

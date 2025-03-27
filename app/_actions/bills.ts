@@ -1,5 +1,8 @@
+"use server";
+
 import { BillRecurrence, TransactionCategory, TransactionPaymentMethod } from "@prisma/client";
 import { db } from "../_lib/prisma";
+import { revalidatePath } from "next/cache";
 
 interface Bill {
     name: string;
@@ -21,11 +24,12 @@ const addBill = async (params: Bill) => {
                 dueDate: params.dueDate,
                 category: params.category,
                 paymentMethod: params.paymentMethod,
-                recurrence: params.recurrence,
+                recurrence: params.recurrence || "",
                 isPaid: params.isPaid,
                 userId: params.userId
             }
         });
+        revalidatePath("/contas");
         return newBill;
     } catch (error) {
         console.error(error);

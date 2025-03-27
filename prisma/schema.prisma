@@ -62,7 +62,7 @@ model Bill {
   dueDate       DateTime
   category      TransactionCategory
   paymentMethod TransactionPaymentMethod
-  recurrence    BillRecurrence?
+  recurrence    BillRecurrence
   isPaid        Boolean                  @default(false)
   createdAt     DateTime                 @default(now())
   updatedAt     DateTime                 @updatedAt
@@ -70,6 +70,7 @@ model Bill {
 }
 
 enum BillRecurrence {
+  NONE
   DAILY
   MONTHLY
   WEEKLY
