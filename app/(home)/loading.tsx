@@ -2,7 +2,7 @@ import { Skeleton } from "@/app/_components/ui/skeleton";
 
 export default function Loading() {
     return (
-        <div className="flex flex-col gap-6 px-4 sm:px-10 pt-28 pb-10">
+        <div className="animate-page-transition flex flex-col gap-6 px-4 sm:px-10 pt-28 pb-10">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 h-fit gap-6">
                 {Array.from({ length: 4 }).map((_, i) => (
                     <div key={i} className="rounded-lg border bg-card text-card-foreground shadow-sm p-6">

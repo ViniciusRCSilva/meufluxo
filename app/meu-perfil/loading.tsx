@@ -3,7 +3,7 @@ import { Skeleton } from "@/app/_components/ui/skeleton"
 
 const Loading = () => {
     return (
-        <div className="flex flex-col lg:grid lg:grid-cols-[1fr_2.5fr] min-h-screen gap-6 px-4 sm:px-10 pt-28 pb-10">
+        <div className="animate-page-transition flex flex-col lg:grid lg:grid-cols-[1fr_2.5fr] min-h-screen gap-6 px-4 sm:px-10 pt-28 pb-10">
             {/* User Card Skeleton */}
             <div>
                 <Card className="flex flex-col items-center text-font lg:px-10 h-full">

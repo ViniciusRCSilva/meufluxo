@@ -3,7 +3,7 @@ import { ScrollArea, ScrollBar } from "@/app/_components/ui/scroll-area";
 
 export default function Loading() {
     return (
-        <div className="flex flex-col gap-6 px-4 sm:px-10 pt-28 pb-10 font-[family-name:var(--font-poppins)]">
+        <div className="animate-page-transition flex flex-col gap-6 px-4 sm:px-10 pt-28 pb-10 font-[family-name:var(--font-poppins)]">
             <div className="flex items-center justify-between">
                 <Skeleton className="h-7 w-32" />
                 <Skeleton className="h-10 w-[180px]" />

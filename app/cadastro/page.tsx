@@ -11,7 +11,7 @@ const Register = async () => {
     }
 
     return (
-        <div className="grid md:grid-cols-[1.5fr_1fr] grid-cols-1 items-center min-h-screen">
+        <div className="animate-page-transition grid md:grid-cols-[1.5fr_1fr] grid-cols-1 items-center min-h-screen">
             <div className="flex flex-col items-center justify-center hover:scale-105 transition-transform duration-300 p-8 md:p-0">
                 <Image
                     src="/logo_meufluxo.svg"
