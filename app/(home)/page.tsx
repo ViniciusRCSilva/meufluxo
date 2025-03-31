@@ -9,7 +9,7 @@ import FinancialInsightsCard from "./_components/financial-insights-card";
 import FinancialGoalsProgressCard from "./_components/financial-goals-progress-card";
 import { getBalance } from "../_actions/balance";
 import { getTransactions } from "../_actions/transaction";
-import { formatCurrency } from "@/app/_utils/formatCurrency";
+import { getBills } from "../_actions/bills";
 
 const Home = async () => {
     const { userId } = await auth();
@@ -33,8 +33,6 @@ const Home = async () => {
         value: transaction.value
     }));
 
-    const formattedBalance = formatCurrency(balance?.amount || 0);
-
     const currentMonthTransactions = rawTransactions?.filter(transaction => {
         const transactionDate = new Date(transaction.createdAt);
         return transactionDate.getMonth() === currentMonth &&
@@ -46,16 +44,19 @@ const Home = async () => {
     const exits = currentMonthTransactions?.filter(transaction => transaction.type === 'EXPENSE')
         .reduce((total, transaction) => total + transaction.value, 0) || 0;
 
-    const formattedEntrances = formatCurrency(entrances);
-    const formattedExits = formatCurrency(exits);
+    const bills = await getBills(userId);
+
+    if (!bills) {
+        return null;
+    }
 
     return (
         <div className="flex flex-col gap-6 px-4 sm:px-10 pt-28 pb-10">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 h-fit gap-6">
-                <DashboardCard title="Saldo atual" icon={<PiggyBank className="h-16 w-16 text-warning" />} content={formattedBalance} />
-                <DashboardCard title="Entradas" description={`no mês de ${new Date().toLocaleDateString('pt-BR', { month: 'long' })}`} icon={<TrendingUp className="h-16 w-16 text-success" />} content={formattedEntrances} />
-                <DashboardCard title="Saídas" description={`no mês de ${new Date().toLocaleDateString('pt-BR', { month: 'long' })}`} icon={<TrendingDown className="h-16 w-16 text-destructive" />} content={formattedExits} />
-                <DashboardCard title="Conta a pagar" description="Água - 11/03/2025" icon={<Calendar className="h-16 w-16 text-link" />} content="R$ 0,00" />
+                <DashboardCard title="Saldo atual" icon={<PiggyBank className="h-16 w-16 text-warning" />} content={balance?.amount || 0} />
+                <DashboardCard title="Entradas" description={`no mês de ${new Date().toLocaleDateString('pt-BR', { month: 'long' })}`} icon={<TrendingUp className="h-16 w-16 text-success" />} content={entrances} />
+                <DashboardCard title="Saídas" description={`no mês de ${new Date().toLocaleDateString('pt-BR', { month: 'long' })}`} icon={<TrendingDown className="h-16 w-16 text-destructive" />} content={exits} />
+                <DashboardCard title="Conta a pagar" description={bills?.length > 0 ? `${bills?.[0]?.name} - ${bills?.[0]?.createdAt?.toLocaleDateString('pt-BR')}` : ""} icon={<Calendar className="h-16 w-16 text-link" />} content={bills?.[0]?.value || 0} />
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <BarchartRevenueAndExpenses />

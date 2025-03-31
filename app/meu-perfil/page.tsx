@@ -8,7 +8,6 @@ import DashboardCard from "../_components/dashboard-card";
 import { AreaChartBalanceEvolution } from "./_components/area-chart-balance-evolution";
 import { getTransactions } from "../_actions/transaction";
 import { getBalance } from "../_actions/balance";
-import { formatCurrency } from "@/app/_utils/formatCurrency";
 import { getBills } from "../_actions/bills";
 
 const MyProfile = async () => {
@@ -39,13 +38,8 @@ const MyProfile = async () => {
             transactionDate.getFullYear() === currentYear;
     });
 
-    const formattedBalance = formatCurrency(balance?.amount || 0);
-
     const highestDepositOfTheMonth = currentMonthTransactions?.find(transaction => transaction.type === "DEPOSIT" && transaction.value === Math.max(...currentMonthTransactions?.filter(transaction => transaction.type === "DEPOSIT")?.map(transaction => transaction.value) || []));
     const highestExpenseOfTheMonth = currentMonthTransactions?.find(transaction => transaction.type === "EXPENSE" && transaction.value === Math.max(...currentMonthTransactions?.filter(transaction => transaction.type === "EXPENSE")?.map(transaction => transaction.value) || []));
-
-    const formattedHighestDeposit = formatCurrency(highestDepositOfTheMonth?.value || 0);
-    const formattedHighestExpense = formatCurrency(highestExpenseOfTheMonth?.value || 0);
 
     const rawBills = await getBills(userId);
 
@@ -64,26 +58,26 @@ const MyProfile = async () => {
                         <DashboardCard
                             title="Saldo atual"
                             icon={<PiggyBank className="h-16 w-16 text-warning" />}
-                            content={formattedBalance}
+                            content={balance?.amount || 0}
                         />
                     }
                     billsQuantity={rawBills?.length || 0}
                 />
             </div>
-            <div className="flex flex-col justify-between gap-6 lg:gap-0">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="flex flex-col justify-between gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 h-full">
                     <NextBillsToPayCard bills={lastBills?.slice(0, 3) || []} />
                     <LastTransactionsCard transactions={lastTransactions?.slice(0, 3) || []} />
                     <div className="grid grid-cols-1 gap-4">
                         <DashboardCard
                             title="Maior depósito do mês"
                             icon={<TrendingUp className="h-16 w-16 text-success" />}
-                            content={formattedHighestDeposit}
+                            content={highestDepositOfTheMonth?.value || 0}
                         />
                         <DashboardCard
                             title="Maior gasto do mês"
                             icon={<TrendingDown className="h-16 w-16 text-destructive" />}
-                            content={formattedHighestExpense}
+                            content={highestExpenseOfTheMonth?.value || 0}
                         />
                     </div>
                 </div>
