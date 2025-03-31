@@ -39,16 +39,22 @@ const removeFromBalance = async (userId: string, amount: number) => {
             }
         });
         if (!balance) {
-            return;
+            await db.balance.create({
+                data: {
+                    amount: -amount,
+                    userId: userId
+                }
+            });
+        } else {
+            await db.balance.update({
+                where: {
+                    id: balance.id
+                },
+                data: {
+                    amount: balance.amount - amount
+                }
+            });
         }
-        await db.balance.update({
-            where: {
-                id: balance.id
-            },
-            data: {
-                amount: balance.amount - amount
-            }
-        });
     } catch (error) {
         console.error(error);
     }

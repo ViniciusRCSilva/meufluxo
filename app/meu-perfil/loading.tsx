@@ -37,7 +37,7 @@ const Loading = () => {
             </div>
 
             {/* Main Content Skeleton */}
-            <div className="flex flex-col justify-between gap-6 lg:gap-0">
+            <div className="flex flex-col justify-between gap-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {/* Next Bills Card Skeleton */}
                     <Card>
