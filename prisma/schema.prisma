@@ -78,11 +78,12 @@ enum BillRecurrence {
 }
 
 model FinancialGoal {
-  id            String   @id @default(cuid())
-  name          String
-  currentAmount Float
-  goalAmount    Float
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-  userId        String
+  id               String    @id @default(cuid())
+  name             String
+  currentAmount    Float
+  goalAmount       Float
+  goalAchievedDate DateTime?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+  userId           String
 }
