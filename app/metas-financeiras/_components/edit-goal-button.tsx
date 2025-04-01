@@ -1,0 +1,240 @@
+"use client"
+
+import { Button } from "@/app/_components/ui/button";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/app/_components/ui/dialog";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/app/_components/ui/tooltip";
+import { Edit, HelpCircle, Loader2 } from "lucide-react";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import {
+    Form,
+    FormControl,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
+} from "@/app/_components/ui/form";
+import { Input } from "@/app/_components/ui/input";
+import { addToBalance, removeFromBalance } from "@/app/_actions/balance";
+import { updateFinancialGoal } from "@/app/_actions/financial-goals";
+
+const formSchema = z.object({
+    name: z.string().min(1, "O nome da meta é obrigatória"),
+    currentAmount: z.string().min(1, "O valor atual é obrigatório"),
+    goalAmount: z.string().min(1, "O valor da meta é obrigatório"),
+});
+
+interface UserId {
+    userId: string
+}
+
+interface UserBalance {
+    balance: number
+}
+
+interface Goal {
+    goal: {
+        id: string
+        name: string
+        currentAmount: number
+        goalAmount: number
+    }
+}
+
+const EditGoalButton = ({ userId, balance, goal }: UserId & UserBalance & Goal) => {
+    const [open, setOpen] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState("");
+
+    const form = useForm<z.infer<typeof formSchema>>({
+        resolver: zodResolver(formSchema),
+        defaultValues: {
+            name: goal.name,
+            currentAmount: goal.currentAmount.toString(),
+            goalAmount: goal.goalAmount.toString(),
+        },
+    });
+
+    const onSubmit = async (data: z.infer<typeof formSchema>) => {
+        try {
+            setLoading(true);
+
+            if (Number(data.currentAmount) > Number(data.goalAmount)) {
+                setError("O valor atual não pode ser maior que o valor da meta");
+                return;
+            }
+
+            if (Number(data.currentAmount) > balance) {
+                setError("Saldo insuficiente para adicionar a meta");
+                return;
+            }
+
+            await updateFinancialGoal({
+                id: goal.id,
+                name: data.name,
+                currentAmount: Number(data.currentAmount),
+                goalAmount: Number(data.goalAmount),
+                goalAchievedDate: (Number(data.currentAmount) === Number(data.goalAmount)) ? new Date() : undefined,
+                userId: userId
+            })
+
+            if (Number(data.currentAmount) < goal.currentAmount) {
+                await addToBalance(userId, -(Number(data.currentAmount) - goal.currentAmount));
+            } else {
+                await removeFromBalance(userId, Number(data.currentAmount) - goal.currentAmount);
+            }
+
+            toast.success("Meta financeira atualizada com sucesso");
+            resetForm();
+            setOpen(false);
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        form.reset({
+            name: goal.name,
+            currentAmount: goal.currentAmount.toString(),
+            goalAmount: goal.goalAmount.toString(),
+        })
+    }, [form, goal]);
+
+    const resetForm = () => {
+        form.reset();
+        setError("");
+        setOpen(false);
+    };
+
+    return (
+        <Dialog open={open} onOpenChange={setOpen}>
+            <DialogTrigger asChild>
+                <Button variant="outline"><Edit className="w-4 h-4 text-font-foreground" /></Button>
+            </DialogTrigger>
+            <DialogContent className="font-[family-name:var(--font-poppins)] max-w-[500px] p-0 bg-card">
+                <DialogHeader className="p-8 pb-0">
+                    <DialogTitle className="flex items-center gap-2 text-2xl font-semibold">
+                        <Edit className="w-7 h-7" /> Atualizar Meta Financeira
+                        <Tooltip>
+                            <TooltipTrigger asChild>
+                                <Button
+                                    type="button"
+                                    variant="link"
+                                    className="p-0 h-6 w-6 text-font-muted hover:decoration-0 hover:text-font-muted/80"
+                                    tabIndex={-1}
+                                >
+                                    <HelpCircle className="h-6 w-6" />
+                                </Button>
+                            </TooltipTrigger>
+                            <TooltipContent className="w-96 text-center">
+                                <p>Ao <span className="font-semibold">adicionar uma meta financeira</span>, você terá a opção de utilizar <span className="font-semibold">parte do seu saldo atual</span> para <span className="font-semibold">contribuir diretamente com a realização dessa meta</span>.</p>
+                            </TooltipContent>
+                        </Tooltip>
+                    </DialogTitle>
+                    <DialogDescription className="text-font-muted mt-3">
+                        Preencha os dados abaixo para atualizar sua meta financeira.
+                    </DialogDescription>
+                </DialogHeader>
+
+                <Form {...form}>
+                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5 p-6">
+                        <FormField
+                            control={form.control}
+                            name="name"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel className="text-foreground/90">Nome</FormLabel>
+                                    <FormControl>
+                                        <Input
+                                            placeholder="Nome da meta"
+                                            className="h-11 bg-input border-border/20 transition-colors hover:bg-input-hover focus:ring-2 focus:ring-primary-ring"
+                                            {...field}
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+
+                        {error && <p className="text-destructive text-sm mt-2">{error}</p>}
+                        <div className="grid grid-cols-2 gap-4">
+                            <FormField
+                                control={form.control}
+                                name="currentAmount"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel className="text-foreground/90">Valor atual (R$)</FormLabel>
+                                        <FormControl>
+                                            <Input
+                                                type="number"
+                                                step="0.01"
+                                                placeholder="Valor atual"
+                                                className="h-11 bg-input border-border/20 transition-colors hover:bg-input-hover focus:ring-2 focus:ring-primary-ring"
+                                                {...field}
+                                            />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                control={form.control}
+                                name="goalAmount"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel className="text-foreground/90">Valor meta (R$)</FormLabel>
+                                        <FormControl>
+                                            <Input
+                                                type="number"
+                                                step="0.01"
+                                                placeholder="Valor meta"
+                                                className="h-11 bg-input border-border/20 transition-colors hover:bg-input-hover focus:ring-2 focus:ring-primary-ring"
+                                                {...field}
+                                            />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                        </div>
+
+                        <DialogFooter className="flex gap-3 pt-2">
+                            <Button
+                                type="button"
+                                variant="outline"
+                                onClick={resetForm}
+                                className="flex-1 h-11 transition-all duration-200 hover:bg-secondary/80"
+                            >
+                                Cancelar
+                            </Button>
+                            <Button
+                                type="submit"
+                                disabled={loading}
+                                className="flex-1 h-11 gap-2 bg-primary transition-all duration-200 hover:bg-primary/90 disabled:opacity-70"
+                            >
+                                {loading ? (
+                                    <>
+                                        <Loader2 className="w-4 h-4 animate-spin" />
+                                        Salvando...
+                                    </>
+                                ) : (
+                                    <>
+                                        <Edit className="w-4 h-4" />
+                                        Atualizar
+                                    </>
+                                )}
+                            </Button>
+                        </DialogFooter>
+                    </form>
+                </Form>
+            </DialogContent>
+        </Dialog>
+    )
+}
+
+export default EditGoalButton

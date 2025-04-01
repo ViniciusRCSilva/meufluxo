@@ -75,7 +75,7 @@ const Home = async () => {
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-[1fr_3fr] gap-6">
                 <FinancialInsightsCard />
-                <FinancialGoalsProgressCard goals={financialGoals || []} />
+                <FinancialGoalsProgressCard goals={financialGoals?.slice(0, 3) || []} />
             </div>
         </div>
     );

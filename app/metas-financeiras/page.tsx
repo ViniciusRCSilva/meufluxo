@@ -33,16 +33,17 @@ const FinancialGoals = async () => {
                 </div>
                 <AddGoalButton userId={userId} balance={balance?.amount || 0} />
             </div>
+
             {(!goals || goals.length === 0) ? (
                 <div className="flex items-center justify-center">
                     <p className="text-font-muted border border-border/20 p-4 rounded-md">Nenhuma meta financeira cadastrada</p>
                 </div>
             ) : (
-                goals?.map((goal, index) => (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" key={index}>
-                        <GoalCard {...goal} />
-                    </div>
-                ))
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {goals?.map((goal, index) => (
+                        <GoalCard {...goal} key={index} userId={userId} balance={balance?.amount || 0} />
+                    ))}
+                </div>
             )}
         </div>
     )
