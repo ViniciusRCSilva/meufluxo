@@ -1,10 +1,11 @@
-import { Button } from "../_components/ui/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../_components/ui/tooltip";
-import { HelpCircle, Plus } from "lucide-react";
+import { HelpCircle } from "lucide-react";
 import GoalCard from "./_components/goal-card";
 import { getFinancialGoals } from "../_actions/financial-goals";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
+import AddGoalButton from "./_components/add-goal-button";
+import { getBalance } from "../_actions/balance";
 
 const FinancialGoals = async () => {
     const { userId } = await auth();
@@ -14,6 +15,7 @@ const FinancialGoals = async () => {
     }
 
     const goals = await getFinancialGoals(userId);
+    const balance = await getBalance(userId);
 
     return (
         <div className="flex flex-col gap-6 px-4 sm:px-10 pt-28 pb-10 font-[family-name:var(--font-poppins)]">
@@ -29,7 +31,7 @@ const FinancialGoals = async () => {
                         </TooltipContent>
                     </Tooltip>
                 </div>
-                <Button><Plus className="w-5 h-5" /> Adicionar meta</Button>
+                <AddGoalButton userId={userId} balance={balance?.amount || 0} />
             </div>
             {(!goals || goals.length === 0) ? (
                 <div className="flex items-center justify-center">
