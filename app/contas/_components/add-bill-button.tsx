@@ -194,15 +194,17 @@ const AddBillButton = ({ userId }: AddBillButtonProps) => {
                                     name="value"
                                     render={({ field }) => (
                                         <FormItem>
-                                            <FormLabel className="text-foreground/90 font-medium">Valor (R$)</FormLabel>
+                                            <FormLabel className="text-foreground/90 font-medium">Valor</FormLabel>
                                             <FormControl>
-                                                <Input
-                                                    type="number"
-                                                    step="0.01"
-                                                    placeholder="0.00"
-                                                    className="h-11 bg-input border-border/20 transition-all duration-200 hover:bg-input-hover focus:ring-2 focus:ring-primary/20 focus:border-primary"
-                                                    {...field}
-                                                />
+                                                <div className="flex items-center gap-2">
+                                                    <p className="text-font-foreground">R$</p>
+                                                    <Input
+                                                        type="number"
+                                                        placeholder="0.00"
+                                                        className="h-11 bg-input border-border/20 transition-colors hover:bg-input-hover focus:ring-2 focus:ring-primary-ring"
+                                                        {...field}
+                                                    />
+                                                </div>
                                             </FormControl>
                                             <FormMessage className="text-sm" />
                                         </FormItem>

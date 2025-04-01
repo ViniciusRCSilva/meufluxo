@@ -153,7 +153,7 @@ const AddTransactionButton = ({ userId }: userIdProps) => {
                                 name="name"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel className="text-foreground/90">Descrição</FormLabel>
+                                        <FormLabel>Descrição</FormLabel>
                                         <FormControl>
                                             <Input
                                                 placeholder="Descrição da transação"
@@ -171,15 +171,17 @@ const AddTransactionButton = ({ userId }: userIdProps) => {
                                 name="value"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel className="text-foreground/90">Valor (R$)</FormLabel>
+                                        <FormLabel>Valor</FormLabel>
                                         <FormControl>
-                                            <Input
-                                                type="number"
-                                                step="0.01"
-                                                placeholder="0.00"
-                                                className="h-11 bg-input border-border/20 transition-colors hover:bg-input-hover focus:ring-2 focus:ring-primary-ring"
-                                                {...field}
-                                            />
+                                            <div className="flex items-center gap-2">
+                                                <p className="text-font-foreground">R$</p>
+                                                <Input
+                                                    type="number"
+                                                    placeholder="0.00"
+                                                    className="h-11 bg-input border-border/20 transition-colors hover:bg-input-hover focus:ring-2 focus:ring-primary-ring"
+                                                    {...field}
+                                                />
+                                            </div>
                                         </FormControl>
                                         <FormMessage />
                                     </FormItem>
@@ -193,7 +195,7 @@ const AddTransactionButton = ({ userId }: userIdProps) => {
                                 name="type"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel className="text-foreground/90">Tipo</FormLabel>
+                                        <FormLabel>Tipo</FormLabel>
                                         <Select onValueChange={field.onChange} defaultValue={field.value}>
                                             <FormControl>
                                                 <SelectTrigger className="w-full h-11 bg-input border-border/20 transition-colors hover:bg-input-hover focus:ring-2 focus:ring-primary-ring">
@@ -218,7 +220,7 @@ const AddTransactionButton = ({ userId }: userIdProps) => {
                                 name="category"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel className="text-foreground/90">Categoria</FormLabel>
+                                        <FormLabel>Categoria</FormLabel>
                                         <Select onValueChange={field.onChange} defaultValue={field.value}>
                                             <FormControl>
                                                 <SelectTrigger className="w-full h-11 bg-input border-border/20 transition-colors hover:bg-input-hover focus:ring-2 focus:ring-primary-ring">
@@ -244,7 +246,7 @@ const AddTransactionButton = ({ userId }: userIdProps) => {
                             name="paymentMethod"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel className="text-foreground/90">Método de Pagamento</FormLabel>
+                                    <FormLabel>Método de Pagamento</FormLabel>
                                     <Select onValueChange={field.onChange} defaultValue={field.value}>
                                         <FormControl>
                                             <SelectTrigger className="w-full h-11 bg-input border-border/20 transition-colors hover:bg-input-hover focus:ring-2 focus:ring-primary-ring">

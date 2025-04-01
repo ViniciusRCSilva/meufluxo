@@ -68,7 +68,7 @@ const EditGoalButton = ({ userId, balance, goal }: UserId & UserBalance & Goal) 
             }
 
             if (Number(data.currentAmount) > balance) {
-                setError("Saldo insuficiente para adicionar a meta");
+                setError("Saldo insuficiente para atualizar a meta");
                 return;
             }
 
@@ -148,7 +148,7 @@ const EditGoalButton = ({ userId, balance, goal }: UserId & UserBalance & Goal) 
                             name="name"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel className="text-foreground/90">Nome</FormLabel>
+                                    <FormLabel>Nome</FormLabel>
                                     <FormControl>
                                         <Input
                                             placeholder="Nome da meta"
@@ -168,15 +168,17 @@ const EditGoalButton = ({ userId, balance, goal }: UserId & UserBalance & Goal) 
                                 name="currentAmount"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel className="text-foreground/90">Valor atual (R$)</FormLabel>
+                                        <FormLabel>Valor atual</FormLabel>
                                         <FormControl>
-                                            <Input
-                                                type="number"
-                                                step="0.01"
-                                                placeholder="Valor atual"
-                                                className="h-11 bg-input border-border/20 transition-colors hover:bg-input-hover focus:ring-2 focus:ring-primary-ring"
-                                                {...field}
-                                            />
+                                            <div className="flex items-center gap-2">
+                                                <p className="text-font-foreground">R$</p>
+                                                <Input
+                                                    type="number"
+                                                    placeholder="0.00"
+                                                    className="h-11 bg-input border-border/20 transition-colors hover:bg-input-hover focus:ring-2 focus:ring-primary-ring"
+                                                    {...field}
+                                                />
+                                            </div>
                                         </FormControl>
                                         <FormMessage />
                                     </FormItem>
@@ -187,15 +189,17 @@ const EditGoalButton = ({ userId, balance, goal }: UserId & UserBalance & Goal) 
                                 name="goalAmount"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel className="text-foreground/90">Valor meta (R$)</FormLabel>
+                                        <FormLabel>Valor meta</FormLabel>
                                         <FormControl>
-                                            <Input
-                                                type="number"
-                                                step="0.01"
-                                                placeholder="Valor meta"
-                                                className="h-11 bg-input border-border/20 transition-colors hover:bg-input-hover focus:ring-2 focus:ring-primary-ring"
-                                                {...field}
-                                            />
+                                            <div className="flex items-center gap-2">
+                                                <p className="text-font-foreground">R$</p>
+                                                <Input
+                                                    type="number"
+                                                    placeholder="0.00"
+                                                    className="h-11 bg-input border-border/20 transition-colors hover:bg-input-hover focus:ring-2 focus:ring-primary-ring"
+                                                    {...field}
+                                                />
+                                            </div>
                                         </FormControl>
                                         <FormMessage />
                                     </FormItem>
