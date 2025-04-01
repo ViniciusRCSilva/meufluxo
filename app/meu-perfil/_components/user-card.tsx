@@ -12,9 +12,10 @@ import EditProfile from "./edit-profile";
 interface UserCardProps {
     balanceCard: React.ReactNode;
     billsQuantity: number;
+    goalsQuantity: number;
 }
 
-const UserCard = ({ balanceCard, billsQuantity }: UserCardProps) => {
+const UserCard = ({ balanceCard, billsQuantity, goalsQuantity }: UserCardProps) => {
     const { user } = useUser();
 
     const joinDate = new Date(user?.createdAt || '').toLocaleDateString('pt-BR', {
@@ -49,7 +50,7 @@ const UserCard = ({ balanceCard, billsQuantity }: UserCardProps) => {
             <CardContent className="flex flex-col justify-around gap-6 w-full h-full">
                 <div className="grid grid-cols-2 gap-4 w-full">
                     <Link href="/metas-financeiras" className="text-center p-4 bg-secondary rounded-lg group">
-                        <p className="text-2xl font-bold group-hover:text-link transition-colors">12</p>
+                        <p className="text-2xl font-bold group-hover:text-link transition-colors">{goalsQuantity}</p>
                         <p className="text-sm text-font-muted group-hover:text-link transition-colors">Metas Financeiras</p>
                     </Link>
                     <Link href="/contas" className="text-center p-4 bg-secondary rounded-lg group">

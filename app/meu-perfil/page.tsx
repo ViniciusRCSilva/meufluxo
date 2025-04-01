@@ -9,6 +9,7 @@ import { AreaChartBalanceEvolution } from "./_components/area-chart-balance-evol
 import { getTransactions } from "../_actions/transaction";
 import { getBalance } from "../_actions/balance";
 import { getBills } from "../_actions/bills";
+import { getFinancialGoals } from "../_actions/financial-goals";
 
 const MyProfile = async () => {
     const { userId } = await auth();
@@ -23,6 +24,7 @@ const MyProfile = async () => {
 
     const balance = await getBalance(userId);
     const rawTransactions = await getTransactions(userId);
+    const goals = await getFinancialGoals(userId);
 
     const lastTransactions = rawTransactions?.map(transaction => ({
         id: transaction.id,
@@ -62,6 +64,7 @@ const MyProfile = async () => {
                         />
                     }
                     billsQuantity={rawBills?.length || 0}
+                    goalsQuantity={goals?.length || 0}
                 />
             </div>
             <div className="flex flex-col justify-between gap-6">

@@ -2,22 +2,12 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/app
 import FinancialGoalProgressBar from "./financial-goal-progress-bar"
 import Link from "next/link"
 
-const FinancialGoalsProgressCard = () => {
-    const goals = [
-        {
-            title: "Viagem",
-            progress: 50
-        },
-        {
-            title: "Reserva",
-            progress: 75
-        },
-        {
-            title: "Investimento",
-            progress: 25
-        }
-    ]
+interface Goal {
+    name: string;
+    progress: number;
+}
 
+const FinancialGoalsProgressCard = ({ goals }: { goals: Goal[] }) => {
     return (
         <Card className="font-[family-name:var(--font-poppins)]">
             <CardHeader>
@@ -27,8 +17,13 @@ const FinancialGoalsProgressCard = () => {
                 <CardDescription className="text-font-muted">Acompanhe o progresso das suas principais metas.</CardDescription>
             </CardHeader>
             <CardContent className="flex flex-col gap-4">
+                {goals.length === 0 && (
+                    <div className="flex flex-col items-center justify-center">
+                        <p className="text-font-muted">Nenhuma meta financeira cadastrada</p>
+                    </div>
+                )}
                 {goals.map((goal) => (
-                    <FinancialGoalProgressBar key={goal.title} title={goal.title} progress={goal.progress} />
+                    <FinancialGoalProgressBar key={goal.name} name={goal.name} progress={goal.progress} />
                 ))}
             </CardContent>
         </Card>

@@ -10,6 +10,7 @@ import FinancialGoalsProgressCard from "./_components/financial-goals-progress-c
 import { getBalance } from "../_actions/balance";
 import { getTransactions } from "../_actions/transaction";
 import { getBills } from "../_actions/bills";
+import { getFinancialGoals } from "../_actions/financial-goals";
 
 const Home = async () => {
     const { userId } = await auth();
@@ -50,6 +51,13 @@ const Home = async () => {
         return null;
     }
 
+    const goals = await getFinancialGoals(userId);
+
+    const financialGoals = goals?.map(goal => ({
+        name: goal.name,
+        progress: (goal.currentAmount / goal.goalAmount) * 100
+    }));
+
     return (
         <div className="flex flex-col gap-6 px-4 sm:px-10 pt-28 pb-10">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 h-fit gap-6">
@@ -67,7 +75,7 @@ const Home = async () => {
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-[1fr_3fr] gap-6">
                 <FinancialInsightsCard />
-                <FinancialGoalsProgressCard />
+                <FinancialGoalsProgressCard goals={financialGoals || []} />
             </div>
         </div>
     );
