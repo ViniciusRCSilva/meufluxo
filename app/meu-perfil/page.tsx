@@ -8,7 +8,7 @@ import DashboardCard from "../_components/dashboard-card";
 import { AreaChartBalanceEvolution } from "./_components/area-chart-balance-evolution";
 import { getTransactions } from "../_actions/transaction";
 import { getBalance } from "../_actions/balance";
-import { getBills } from "../_actions/bills";
+import { getBillsNotPaid } from "../_actions/bills";
 import { getFinancialGoals } from "../_actions/financial-goals";
 
 const MyProfile = async () => {
@@ -43,7 +43,7 @@ const MyProfile = async () => {
     const highestDepositOfTheMonth = currentMonthTransactions?.find(transaction => transaction.type === "DEPOSIT" && transaction.value === Math.max(...currentMonthTransactions?.filter(transaction => transaction.type === "DEPOSIT")?.map(transaction => transaction.value) || []));
     const highestExpenseOfTheMonth = currentMonthTransactions?.find(transaction => transaction.type === "EXPENSE" && transaction.value === Math.max(...currentMonthTransactions?.filter(transaction => transaction.type === "EXPENSE")?.map(transaction => transaction.value) || []));
 
-    const rawBills = await getBills(userId);
+    const rawBills = await getBillsNotPaid(userId);
 
     const lastBills = rawBills?.map(bill => ({
         id: bill.id,

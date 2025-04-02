@@ -52,6 +52,23 @@ const getBills = async (userId: string) => {
     }
 }
 
+const getBillsNotPaid = async (userId: string) => {
+    try {
+        const bills = await db.bill.findMany({
+            where: {
+                userId: userId,
+                isPaid: false
+            },
+            orderBy: {
+                dueDate: "asc"
+            }
+        });
+        return bills;
+    } catch (error) {
+        console.error(error);
+    }
+}
+
 const getNearestBill = async (userId: string) => {
     try {
         const bills = await db.bill.findMany({
@@ -72,5 +89,6 @@ const getNearestBill = async (userId: string) => {
 export {
     addBill,
     getBills,
+    getBillsNotPaid,
     getNearestBill
 }
