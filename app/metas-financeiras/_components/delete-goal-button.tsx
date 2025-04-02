@@ -40,7 +40,7 @@ const DeleteGoalButton = ({ id, goalName, goalCurrentAmount, userId }: DeleteGoa
                 <DialogHeader className="p-8 pb-0">
                     <DialogTitle className="flex items-center gap-2 text-2xl font-semibold text-destructive">
                         <Trash className="w-7 h-7" />
-                        Deletar meta
+                        Deletar Meta Financeira
                     </DialogTitle>
                     <DialogDescription className="text-font-foreground mt-3">
                         Tem certeza que deseja deletar a meta <span className="text-destructive">{goalName}</span>?

@@ -2,8 +2,7 @@
 
 import { Button } from "@/app/_components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/app/_components/ui/dialog";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/app/_components/ui/tooltip";
-import { Edit, HelpCircle, Loader2 } from "lucide-react";
+import { Edit, Loader2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { useForm } from "react-hook-form";
@@ -120,21 +119,6 @@ const EditGoalButton = ({ userId, balance, goal }: UserId & UserBalance & Goal) 
                 <DialogHeader className="p-8 pb-0">
                     <DialogTitle className="flex items-center gap-2 text-2xl font-semibold text-warning">
                         <Edit className="w-7 h-7" /> Atualizar Meta Financeira
-                        <Tooltip>
-                            <TooltipTrigger asChild>
-                                <Button
-                                    type="button"
-                                    variant="link"
-                                    className="p-0 h-6 w-6 text-font-muted hover:decoration-0 hover:text-font-muted/80"
-                                    tabIndex={-1}
-                                >
-                                    <HelpCircle className="h-6 w-6" />
-                                </Button>
-                            </TooltipTrigger>
-                            <TooltipContent className="w-96 text-center">
-                                <p>Ao <span className="font-semibold">adicionar uma meta financeira</span>, você terá a opção de utilizar <span className="font-semibold">parte do seu saldo atual</span> para <span className="font-semibold">contribuir diretamente com a realização dessa meta</span>.</p>
-                            </TooltipContent>
-                        </Tooltip>
                     </DialogTitle>
                     <DialogDescription className="text-font-muted mt-3">
                         Preencha os dados abaixo para atualizar sua meta financeira.
