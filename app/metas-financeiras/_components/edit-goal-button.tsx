@@ -114,11 +114,11 @@ const EditGoalButton = ({ userId, balance, goal }: UserId & UserBalance & Goal) 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                <Button variant="outline"><Edit className="w-4 h-4 text-font-foreground" /></Button>
+                <Button variant="outline"><Edit className="w-4 h-4 text-warning" /></Button>
             </DialogTrigger>
             <DialogContent className="font-[family-name:var(--font-poppins)] max-w-[500px] p-0 bg-card">
                 <DialogHeader className="p-8 pb-0">
-                    <DialogTitle className="flex items-center gap-2 text-2xl font-semibold">
+                    <DialogTitle className="flex items-center gap-2 text-2xl font-semibold text-warning">
                         <Edit className="w-7 h-7" /> Atualizar Meta Financeira
                         <Tooltip>
                             <TooltipTrigger asChild>
