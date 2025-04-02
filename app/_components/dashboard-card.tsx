@@ -12,14 +12,17 @@ interface DashboardCardProps {
     description?: string;
     icon: React.ReactNode;
     content: number;
+    iconBgColor: string;
 }
 
-const DashboardCard = ({ title, description, icon, content }: DashboardCardProps) => {
+const DashboardCard = ({ title, description, icon, content, iconBgColor }: DashboardCardProps) => {
     const formattedContent = formatCurrency(content);
 
     return (
         <Card className="grid grid-cols-[0.5fr_2fr] items-center p-6 gap-0 font-[family-name:var(--font-poppins)]">
-            {icon}
+            <div className={`flex items-center p-4 rounded-lg ${iconBgColor}`}>
+                {icon}
+            </div>
             <div>
                 <CardHeader className="flex flex-col gap-0 mb-2">
                     <CardTitle className="text-xl text-font-foreground">{title}</CardTitle>

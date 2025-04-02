@@ -2,6 +2,7 @@
 
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/app/_components/ui/card";
 import { Separator } from "@/app/_components/ui/separator";
+import { Calendar } from "lucide-react";
 import Link from "next/link";
 
 interface NextBillsToPayCardProps {
@@ -26,13 +27,16 @@ const NextBillsToPayCard = ({ bills }: NextBillsToPayCardProps) => {
                     bills.map((bill) => (
                         <div className="flex flex-col gap-2 mb-2" key={bill.name}>
                             <div className="flex justify-between gap-2">
-                                <div className="flex flex-col gap-1">
-                                    <span className="text-font w-40 overflow-hidden text-ellipsis">{bill.name}</span>
-                                    <span className="text-sm text-font-muted">{bill.date}</span>
+                                <div className="flex items-center gap-2">
+                                    <Calendar className="w-10 h-10 text-link bg-link/20 rounded-md p-2" />
+                                    <div className="flex flex-col gap-1">
+                                        <span className="text-font w-40 overflow-hidden text-ellipsis">{bill.name}</span>
+                                        <span className="text-sm text-font-muted">{bill.date}</span>
+                                    </div>
                                 </div>
                                 <span className="font-semibold text-destructive">R$ {bill.value.toLocaleString()}</span>
                             </div>
-                            <Separator />
+                            <Separator className="opacity-50" />
                         </div>
                     ))
                 ) : (

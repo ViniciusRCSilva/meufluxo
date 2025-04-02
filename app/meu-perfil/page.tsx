@@ -48,7 +48,7 @@ const MyProfile = async () => {
     const lastBills = rawBills?.map(bill => ({
         id: bill.id,
         name: bill.name,
-        date: bill.createdAt.toLocaleDateString('pt-BR'),
+        date: bill.dueDate.toLocaleDateString('pt-BR'),
         value: bill.value
     }));
 
@@ -60,6 +60,7 @@ const MyProfile = async () => {
                         <DashboardCard
                             title="Saldo atual"
                             icon={<PiggyBank className="h-16 w-16 text-warning" />}
+                            iconBgColor="bg-warning/20"
                             content={balance?.amount || 0}
                         />
                     }
@@ -75,11 +76,13 @@ const MyProfile = async () => {
                         <DashboardCard
                             title="Maior depósito do mês"
                             icon={<TrendingUp className="h-16 w-16 text-success" />}
+                            iconBgColor="bg-success/20"
                             content={highestDepositOfTheMonth?.value || 0}
                         />
                         <DashboardCard
                             title="Maior gasto do mês"
                             icon={<TrendingDown className="h-16 w-16 text-destructive" />}
+                            iconBgColor="bg-destructive/20"
                             content={highestExpenseOfTheMonth?.value || 0}
                         />
                     </div>

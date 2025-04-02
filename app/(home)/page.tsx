@@ -9,7 +9,7 @@ import FinancialInsightsCard from "./_components/financial-insights-card";
 import FinancialGoalsProgressCard from "./_components/financial-goals-progress-card";
 import { getBalance } from "../_actions/balance";
 import { getTransactions } from "../_actions/transaction";
-import { getBills } from "../_actions/bills";
+import { getNearestBill } from "../_actions/bills";
 import { getFinancialGoals } from "../_actions/financial-goals";
 
 const Home = async () => {
@@ -45,9 +45,9 @@ const Home = async () => {
     const exits = currentMonthTransactions?.filter(transaction => transaction.type === 'EXPENSE')
         .reduce((total, transaction) => total + transaction.value, 0) || 0;
 
-    const bills = await getBills(userId);
+    const bill = await getNearestBill(userId);
 
-    if (!bills) {
+    if (!bill) {
         return null;
     }
 
@@ -61,10 +61,33 @@ const Home = async () => {
     return (
         <div className="flex flex-col gap-6 px-4 sm:px-10 pt-28 pb-10">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 h-fit gap-6">
-                <DashboardCard title="Saldo atual" icon={<PiggyBank className="h-16 w-16 text-warning" />} content={balance?.amount || 0} />
-                <DashboardCard title="Entradas" description={`no mês de ${new Date().toLocaleDateString('pt-BR', { month: 'long' })}`} icon={<TrendingUp className="h-16 w-16 text-success" />} content={entrances} />
-                <DashboardCard title="Saídas" description={`no mês de ${new Date().toLocaleDateString('pt-BR', { month: 'long' })}`} icon={<TrendingDown className="h-16 w-16 text-destructive" />} content={exits} />
-                <DashboardCard title="Conta a pagar" description={bills?.length > 0 ? `${bills?.[0]?.name} - ${bills?.[0]?.createdAt?.toLocaleDateString('pt-BR')}` : ""} icon={<Calendar className="h-16 w-16 text-link" />} content={bills?.[0]?.value || 0} />
+                <DashboardCard
+                    title="Saldo atual"
+                    icon={<PiggyBank className="h-16 w-16 text-warning" />}
+                    iconBgColor="bg-warning/20"
+                    content={balance?.amount || 0}
+                />
+                <DashboardCard
+                    title="Entradas"
+                    description={`no mês de ${new Date().toLocaleDateString('pt-BR', { month: 'long' })}`}
+                    icon={<TrendingUp className="h-16 w-16 text-success" />}
+                    iconBgColor="bg-success/20"
+                    content={entrances}
+                />
+                <DashboardCard
+                    title="Saídas"
+                    description={`no mês de ${new Date().toLocaleDateString('pt-BR', { month: 'long' })}`}
+                    icon={<TrendingDown className="h-16 w-16 text-destructive" />}
+                    iconBgColor="bg-destructive/20"
+                    content={exits}
+                />
+                <DashboardCard
+                    title="Conta a pagar"
+                    description={bill?.name ? `${bill?.name} - ${bill?.dueDate?.toLocaleDateString('pt-BR')}` : ""}
+                    icon={<Calendar className="h-16 w-16 text-link" />}
+                    iconBgColor="bg-link/20"
+                    content={bill?.value || 0}
+                />
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <BarchartRevenueAndExpenses />
