@@ -2,6 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/app/_components/ui/c
 import { formatCurrency } from "@/app/_utils/formatCurrency"
 import { Progress } from "@/app/_components/ui/progress"
 import EditGoalButton from "./edit-goal-button"
+import DeleteGoalButton from "./delete-goal-button"
 
 interface UserId {
     userId: string
@@ -29,22 +30,24 @@ const GoalCard = ({ id, name, createdAt, goalAchievedDate, currentAmount, goalAm
     return (
         <Card className="font-[family-name:var(--font-poppins)]">
             <CardHeader>
-                <CardTitle className="flex items-center justify-between">
-                    <div className="flex items-center gap-4">
+                <CardTitle className="flex justify-between">
+                    <div className="flex flex-col gap-2">
                         <h1 className="text-xl font-semibold text-font-foreground">
                             {name}
                         </h1>
 
-                        <EditGoalButton userId={userId} balance={balance} goal={goal} />
+                        <p className="text-sm text-font-muted font-light">
+                            {goalPercentage >= 100 ?
+                                (<span className="text-success">Meta atingida em {goalAchievedDate?.toLocaleDateString()}</span>)
+                                :
+                                "Criada em " + createdAt.toLocaleDateString()
+                            }
+                        </p>
                     </div>
-
-                    <p className="text-sm text-font-muted font-light">
-                        {goalPercentage >= 100 ?
-                            (<span className="text-success">Meta atingida em {goalAchievedDate?.toLocaleDateString()}</span>)
-                            :
-                            "Criada em " + createdAt.toLocaleDateString()
-                        }
-                    </p>
+                    <div className="space-x-2">
+                        <EditGoalButton userId={userId} balance={balance} goal={goal} />
+                        <DeleteGoalButton id={id} goalName={name} goalCurrentAmount={currentAmount} userId={userId} />
+                    </div>
                 </CardTitle>
             </CardHeader>
             <CardContent className="flex flex-col gap-2">
