@@ -43,7 +43,7 @@ const Sidebar = ({ notifications }: SidebarProps) => {
                         <p className="text-xl font-medium italic font-[family-name:var(--font-montserrat-alternates)]">MeuFluxo</p>
                     </Link>
                     <div className="flex items-center gap-4">
-                        <Notifications notifications={notifications} />
+                        <Notifications notifications={notifications} userId={user.id} />
                         <Sheet>
                             <SheetTrigger className="cursor-pointer text-font-foreground hover:text-font transition-colors">
                                 <Menu className="w-5 h-5" />

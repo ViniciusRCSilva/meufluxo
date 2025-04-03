@@ -50,6 +50,7 @@ const markNotificationAsRead = async (notificationId: string) => {
                 isRead: true
             }
         })
+        revalidatePath("/")
     } catch (error) {
         console.error("Erro ao marcar notificação como lida:", error)
     }
@@ -65,6 +66,7 @@ const markAllNotificationsAsRead = async (userId: string) => {
                 isRead: true
             }
         })
+        revalidatePath("/")
     } catch (error) {
         console.error("Erro ao marcar todas as notificações como lidas:", error)
     }
@@ -77,6 +79,7 @@ const deleteNotifications = async (userId: string) => {
                 userId
             }
         })
+        revalidatePath("/")
     } catch (error) {
         console.error("Erro ao excluir notificações:", error)
     }
