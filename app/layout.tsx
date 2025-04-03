@@ -5,6 +5,8 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { currentUser } from "@clerk/nextjs/server";
 import Sidebar from "@/app/_components/sidebar";
 import { Toaster } from "@/app/_components/ui/sonner";
+import { getNotifications } from "./_actions/notifications";
+import { DBNotification } from "./_types/notification";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -33,13 +35,32 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const user = await currentUser();
+
+  if (!user) {
+    return (
+      <html lang="en">
+        <body
+          className={`${poppins.variable} ${montserrat_alternates.variable} dark antialiased`}
+        >
+          <ClerkProvider>
+            {children}
+            <Toaster toastOptions={{ className: "font-[family-name:var(--font-poppins)]" }} />
+          </ClerkProvider>
+        </body>
+      </html>
+    );
+  }
+
+  const notifications: DBNotification[] = await getNotifications(user.id);
+
   return (
     <html lang="en">
       <body
         className={`${poppins.variable} ${montserrat_alternates.variable} dark antialiased`}
       >
         <ClerkProvider>
-          {(await currentUser()) ? <Sidebar /> : null}
+          <Sidebar notifications={notifications} />
           {children}
           <Toaster toastOptions={{ className: "font-[family-name:var(--font-poppins)]" }} />
         </ClerkProvider>

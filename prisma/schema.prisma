@@ -87,3 +87,20 @@ model FinancialGoal {
   updatedAt        DateTime  @updatedAt
   userId           String
 }
+
+model Notification {
+  id        String           @id @default(cuid())
+  title     String
+  message   String
+  isRead    Boolean          @default(false)
+  type      NotificationType
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
+  userId    String
+}
+
+enum NotificationType {
+  BILL
+  FINANCIAL_GOAL
+  TRANSACTION
+}
