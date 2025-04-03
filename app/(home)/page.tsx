@@ -47,10 +47,6 @@ const Home = async () => {
 
     const bill = await getNearestBill(userId);
 
-    if (!bill) {
-        return null;
-    }
-
     const goals = await getFinancialGoals(userId);
 
     const financialGoals = goals?.map(goal => ({
@@ -83,7 +79,7 @@ const Home = async () => {
                 />
                 <DashboardCard
                     title="Conta a pagar"
-                    description={bill?.name ? `${bill?.name} - ${bill?.dueDate?.toLocaleDateString('pt-BR')}` : ""}
+                    description={bill ? `${bill.name} - ${bill.dueDate.toLocaleDateString('pt-BR')}` : ""}
                     icon={<Calendar className="h-16 w-16 text-link" />}
                     iconBgColor="bg-link/20"
                     content={bill?.value || 0}

@@ -103,4 +103,5 @@ enum NotificationType {
   BILL
   FINANCIAL_GOAL
   TRANSACTION
+  AUTH
 }

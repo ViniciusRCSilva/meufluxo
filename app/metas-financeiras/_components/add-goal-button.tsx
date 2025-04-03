@@ -79,7 +79,7 @@ const AddGoalButton = ({ userId, balance }: UserId & UserBalance) => {
                 isRead: false,
                 type: "FINANCIAL_GOAL",
                 userId: userId
-            }, "/metas-financeiras")
+            })
 
             toast.success("Meta financeira adicionada com sucesso");
             resetForm();

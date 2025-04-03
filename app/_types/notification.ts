@@ -1,4 +1,4 @@
-export type NotificationType = 'BILL' | 'FINANCIAL_GOAL' | 'TRANSACTION';
+export type NotificationType = 'BILL' | 'FINANCIAL_GOAL' | 'TRANSACTION' | 'AUTH';
 
 export interface DBNotification {
     id: string;
