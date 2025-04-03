@@ -125,7 +125,7 @@ const AddBillButton = ({ userId }: AddBillButtonProps) => {
                 isRead: false,
                 type: "BILL",
                 userId: userId
-            }, "/contas")
+            })
 
             toast.success("Conta registrada com sucesso");
             resetForm();

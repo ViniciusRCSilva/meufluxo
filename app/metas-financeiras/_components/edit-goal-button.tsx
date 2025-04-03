@@ -93,7 +93,7 @@ const EditGoalButton = ({ userId, balance, goal }: UserId & UserBalance & Goal) 
                 isRead: false,
                 type: "FINANCIAL_GOAL",
                 userId: userId
-            }, "/metas-financeiras")
+            })
 
             toast.success("Meta financeira atualizada com sucesso");
             resetForm();

@@ -32,7 +32,7 @@ const DeleteGoalButton = ({ id, goalName, goalCurrentAmount, userId }: DeleteGoa
                 isRead: false,
                 type: "FINANCIAL_GOAL",
                 userId: userId
-            }, "/metas-financeiras")
+            })
 
             toast.success("Meta deletada com sucesso")
             setOpen(false)

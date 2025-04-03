@@ -104,7 +104,7 @@ const AddTransactionButton = ({ userId }: userIdProps) => {
                 isRead: false,
                 type: "TRANSACTION",
                 userId: userId
-            }, "/transacoes")
+            })
 
             toast.success("Transação realizada com sucesso");
             resetForm();

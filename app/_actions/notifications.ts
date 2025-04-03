@@ -12,12 +12,12 @@ interface Notification {
     userId: string;
 }
 
-const addNotification = async (notification: Notification, path: string) => {
+const addNotification = async (notification: Notification) => {
     try {
         await db.notification.create({
             data: notification
         })
-        revalidatePath(path)
+        revalidatePath("/")
     } catch (error) {
         console.error("Erro ao adicionar notificação:", error)
     }
