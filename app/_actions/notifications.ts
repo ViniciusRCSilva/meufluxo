@@ -1,5 +1,6 @@
 "use server"
 
+import { revalidatePath } from "next/cache";
 import { db } from "../_lib/prisma"
 import { NotificationType } from "../_types/notification"
 
@@ -11,11 +12,12 @@ interface Notification {
     userId: string;
 }
 
-const addNotification = async (notification: Notification) => {
+const addNotification = async (notification: Notification, path: string) => {
     try {
         await db.notification.create({
             data: notification
         })
+        revalidatePath(path)
     } catch (error) {
         console.error("Erro ao adicionar notificação:", error)
     }

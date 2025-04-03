@@ -20,6 +20,7 @@ import {
 } from "@/app/_components/ui/form";
 import { Input } from "@/app/_components/ui/input";
 import { removeFromBalance } from "@/app/_actions/balance";
+import { addNotification } from "@/app/_actions/notifications";
 
 const formSchema = z.object({
     name: z.string().min(1, "O nome da meta é obrigatória"),
@@ -71,6 +72,14 @@ const AddGoalButton = ({ userId, balance }: UserId & UserBalance) => {
             })
 
             await removeFromBalance(userId, Number(data.currentAmount));
+
+            await addNotification({
+                title: "Meta financeira adicionada",
+                message: `A meta financeira ${data.name} foi adicionada com sucesso`,
+                isRead: false,
+                type: "FINANCIAL_GOAL",
+                userId: userId
+            }, "/metas-financeiras")
 
             toast.success("Meta financeira adicionada com sucesso");
             resetForm();

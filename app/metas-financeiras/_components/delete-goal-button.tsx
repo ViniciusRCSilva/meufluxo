@@ -7,6 +7,7 @@ import { deleteFinancialGoal } from "@/app/_actions/financial-goals";
 import { toast } from "sonner";
 import { useState } from "react";
 import { addToBalance } from "@/app/_actions/balance";
+import { addNotification } from "@/app/_actions/notifications";
 
 interface DeleteGoalButtonProps {
     id: string,
@@ -24,6 +25,15 @@ const DeleteGoalButton = ({ id, goalName, goalCurrentAmount, userId }: DeleteGoa
             setLoading(true)
             await deleteFinancialGoal(id)
             await addToBalance(userId, goalCurrentAmount)
+
+            await addNotification({
+                title: "Meta financeira deletada",
+                message: `A meta financeira ${goalName} foi deletada`,
+                isRead: false,
+                type: "FINANCIAL_GOAL",
+                userId: userId
+            }, "/metas-financeiras")
+
             toast.success("Meta deletada com sucesso")
             setOpen(false)
         } catch (error) {

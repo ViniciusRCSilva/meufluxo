@@ -19,6 +19,7 @@ import {
 import { Input } from "@/app/_components/ui/input";
 import { addToBalance, removeFromBalance } from "@/app/_actions/balance";
 import { updateFinancialGoal } from "@/app/_actions/financial-goals";
+import { addNotification } from "@/app/_actions/notifications";
 
 const formSchema = z.object({
     name: z.string().min(1, "O nome da meta é obrigatória"),
@@ -85,6 +86,14 @@ const EditGoalButton = ({ userId, balance, goal }: UserId & UserBalance & Goal) 
             } else {
                 await removeFromBalance(userId, Number(data.currentAmount) - goal.currentAmount);
             }
+
+            await addNotification({
+                title: "Meta financeira atualizada",
+                message: `A meta financeira ${data.name} foi atualizada`,
+                isRead: false,
+                type: "FINANCIAL_GOAL",
+                userId: userId
+            }, "/metas-financeiras")
 
             toast.success("Meta financeira atualizada com sucesso");
             resetForm();

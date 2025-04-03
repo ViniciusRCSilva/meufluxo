@@ -35,6 +35,7 @@ import { categoryOptions, categorySelect, paymentMethodOptions, paymentMethodSel
 import { useState } from "react";
 import { addTransaction } from "@/app/_actions/transaction";
 import { toast } from "sonner";
+import { addNotification } from "@/app/_actions/notifications";
 
 const formSchema = z.object({
     name: z.string().min(1, "A descrição é obrigatória"),
@@ -97,7 +98,15 @@ const AddTransactionButton = ({ userId }: userIdProps) => {
                 userId: userId
             })
 
-            toast.success("Transação adicionada com sucesso");
+            await addNotification({
+                title: "Transação foi realizada",
+                message: `A transação ${data.name} foi realizada`,
+                isRead: false,
+                type: "TRANSACTION",
+                userId: userId
+            }, "/transacoes")
+
+            toast.success("Transação realizada com sucesso");
             resetForm();
             setOpen(false);
         } catch (error) {

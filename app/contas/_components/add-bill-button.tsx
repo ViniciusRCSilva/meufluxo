@@ -45,6 +45,7 @@ import { ptBR } from "date-fns/locale";
 import { cn } from "@/app/_lib/utils";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/app/_components/ui/tooltip";
 import { toast } from "sonner";
+import { addNotification } from "@/app/_actions/notifications";
 
 const formSchema = z.object({
     name: z.string().min(1, "A descrição é obrigatória"),
@@ -118,7 +119,15 @@ const AddBillButton = ({ userId }: AddBillButtonProps) => {
                 userId: userId
             })
 
-            toast.success("Conta adicionada com sucesso");
+            await addNotification({
+                title: "Conta foi registrada",
+                message: `A conta ${data.name} foi registrada`,
+                isRead: false,
+                type: "BILL",
+                userId: userId
+            }, "/contas")
+
+            toast.success("Conta registrada com sucesso");
             resetForm();
             setOpen(false);
         } catch (error) {
