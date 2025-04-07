@@ -62,7 +62,7 @@ const DeleteGoalButton = ({ id, goalName, goalCurrentAmount, userId }: DeleteGoa
                         <AlertTriangle className="h-4 w-4" />
                         Aviso: Esta ação não pode ser desfeita
                     </p>
-                    <p className="mt-2 text-font text-sm">
+                    <p className="mt-2 text-sm text-destructive">
                         Ao excluir a meta, todos os dados relacionados a ela serão perdidos permanentemente.
                     </p>
                 </div>
