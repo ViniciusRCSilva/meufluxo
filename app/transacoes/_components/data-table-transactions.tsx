@@ -7,6 +7,8 @@ import {
     useReactTable,
     getFilteredRowModel,
     ColumnFiltersState,
+    SortingState,
+    getSortedRowModel,
 } from "@tanstack/react-table"
 
 import {
@@ -30,7 +32,13 @@ import {
     SelectValue,
 } from "@/app/_components/ui/select"
 import { categoryOptions, categorySelect, paymentMethodOptions, paymentMethodSelect, typeOptions, typeSelect } from "@/app/_utils/selectHelper"
-import { Filter, FilterX } from "lucide-react"
+import { ArrowDownIcon, ArrowUpIcon, Filter, FilterX, SortAsc, SortDesc } from "lucide-react"
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
+} from "@/app/_components/ui/dropdown-menu"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/app/_components/ui/accordion"
 import { Separator } from "@/app/_components/ui/separator"
 import { Button } from "@/app/_components/ui/button"
@@ -45,15 +53,22 @@ export function DataTableTransactions<TData, TValue>({
     data,
 }: DataTableProps<TData, TValue>) {
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
+    const [sorting, setSorting] = useState<SortingState>([{
+        id: "date",
+        desc: true
+    }])
 
     const table = useReactTable({
         data,
         columns,
         getCoreRowModel: getCoreRowModel(),
         getFilteredRowModel: getFilteredRowModel(),
+        getSortedRowModel: getSortedRowModel(),
         onColumnFiltersChange: setColumnFilters,
+        onSortingChange: setSorting,
         state: {
             columnFilters,
+            sorting,
         },
     })
 
@@ -162,6 +177,85 @@ export function DataTableTransactions<TData, TValue>({
                     </AccordionContent>
                 </AccordionItem>
             </Accordion>
+            <div className="flex items-center gap-2">
+                <span className="text-font-muted text-sm">Ordenar por</span>
+                <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                        <Button
+                            variant="outline"
+                            className="h-9 gap-2 bg-card-foreground border-border/20 transition-all duration-200 hover:bg-secondary/30"
+                        >
+                            {(() => {
+                                const sortConfig = table.getState().sorting[0]
+                                if (!sortConfig) return "Mais recentes"
+
+                                const icon = sortConfig.desc ? <SortDesc className="h-4 w-4" /> : <SortAsc className="h-4 w-4" />
+
+                                const sortMap = {
+                                    date: "Data",
+                                    value: "Valor",
+                                    name: "Nome",
+                                    type: "Tipo",
+                                }
+
+                                const direction = sortConfig.desc ? "(Dec)" : "(Cres)"
+                                return <span className="flex items-center gap-2">{icon} {sortMap[sortConfig.id as keyof typeof sortMap]} {direction}</span>
+                            })()}
+                        </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="start" className="font-[family-name:var(--font-poppins)]">
+                        <DropdownMenuItem
+                            className="gap-2"
+                            onClick={() => setSorting([{ id: "date", desc: true }])}
+                        >
+                            <ArrowDownIcon className="h-4 w-4" />
+                            Mais recentes
+                        </DropdownMenuItem>
+                        <DropdownMenuItem
+                            className="gap-2"
+                            onClick={() => setSorting([{ id: "date", desc: false }])}
+                        >
+                            <ArrowUpIcon className="h-4 w-4" />
+                            Mais antigos
+                        </DropdownMenuItem>
+                        <DropdownMenuItem
+                            className="gap-2"
+                            onClick={() => setSorting([{ id: "value", desc: true }])}
+                        >
+                            <ArrowDownIcon className="h-4 w-4" />
+                            Maior valor
+                        </DropdownMenuItem>
+                        <DropdownMenuItem
+                            className="gap-2"
+                            onClick={() => setSorting([{ id: "value", desc: false }])}
+                        >
+                            <ArrowUpIcon className="h-4 w-4" />
+                            Menor valor
+                        </DropdownMenuItem>
+                        <DropdownMenuItem
+                            className="gap-2"
+                            onClick={() => setSorting([{ id: "type", desc: false }])}
+                        >
+                            <ArrowUpIcon className="h-4 w-4" />
+                            Tipo (Entrada/Saída)
+                        </DropdownMenuItem>
+                        <DropdownMenuItem
+                            className="gap-2"
+                            onClick={() => setSorting([{ id: "name", desc: false }])}
+                        >
+                            <ArrowUpIcon className="h-4 w-4" />
+                            Nome (A-Z)
+                        </DropdownMenuItem>
+                        <DropdownMenuItem
+                            className="gap-2"
+                            onClick={() => setSorting([{ id: "name", desc: true }])}
+                        >
+                            <ArrowDownIcon className="h-4 w-4" />
+                            Nome (Z-A)
+                        </DropdownMenuItem>
+                    </DropdownMenuContent>
+                </DropdownMenu>
+            </div>
             <div className="border border-border/20 rounded-lg overflow-hidden">
                 <ScrollArea className="w-full">
                     <Table>
