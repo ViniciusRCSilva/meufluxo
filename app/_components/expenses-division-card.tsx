@@ -14,92 +14,100 @@ import {
     ChartConfig,
     ChartContainer,
     ChartTooltip,
-    ChartTooltipContent,
 } from "@/app/_components/ui/chart"
+import { transactionCategory } from "../_utils/transactionHelper"
+import Link from "next/link"
 
-const chartData = [
-    { expenseName: "Aluguel", expenses: 275, fill: "var(--pie-chart-destructive-1)" },
-    { expenseName: "Água", expenses: 200, fill: "var(--pie-chart-destructive-2)" },
-    { expenseName: "Energia", expenses: 187, fill: "var(--pie-chart-destructive-3)" },
-    { expenseName: "Internet", expenses: 173, fill: "var(--pie-chart-destructive-4)" },
-    { expenseName: "Outros", expenses: 90, fill: "var(--pie-chart-destructive-5)" },
-]
+interface ChartItem {
+    expenseName: string
+    expenses: number
+    fill: string
+}
+
+interface ExpensesDivisionCardProps {
+    data: ChartItem[]
+}
 
 const chartConfig = {
     expenses: {
         label: "Despesas",
     },
-    aluguel: {
-        label: "Aluguel",
-        color: "var(--pie-chart-destructive-1)",
-    },
-    agua: {
-        label: "Água",
-        color: "var(--pie-chart-destructive-2)",
-    },
-    energia: {
-        label: "Energia",
-        color: "var(--pie-chart-destructive-3)",
-    },
-    internet: {
-        label: "Internet",
-        color: "var(--pie-chart-destructive-4)",
-    },
-    outros: {
-        label: "Outros",
-        color: "var(--pie-chart-destructive-5)",
-    },
 } satisfies ChartConfig
 
-export function ExpensesDivisionCard() {
+export function ExpensesDivisionCard({ data }: ExpensesDivisionCardProps) {
     return (
-        <Card className="flex flex-col">
+        <Card className="flex flex-col font-[family-name:var(--font-poppins)]">
             <CardHeader className="items-center pb-0">
-                <CardTitle className="text-xl text-font-foreground font-[family-name:var(--font-poppins)]">Divisão de despesas</CardTitle>
-                <CardDescription className="text-font-muted font-[family-name:var(--font-poppins)]">Análise da distribuição de despesas.</CardDescription>
+                <Link href="/transacoes" className="hover:underline hover:text-font-foreground">
+                    <CardTitle className="text-xl text-font-foreground">Despesas do mês</CardTitle>
+                </Link>
+                <CardDescription className="text-font-muted">{data.length === 0 ? "Nenhuma despesa registrada" : `Distribuição das despesas em ${new Date().toLocaleDateString('pt-BR', { month: 'long' })}.`}</CardDescription>
             </CardHeader>
             <CardContent className="flex-1 pb-0">
                 <ChartContainer
                     config={chartConfig}
                     className="mx-auto max-h-[200px] px-0"
                 >
-                    <PieChart>
-                        <ChartTooltip
-                            content={<ChartTooltipContent className="text-font" hideLabel />}
-                        />
-                        <Pie
-                            data={chartData}
-                            dataKey="expenses"
-                            labelLine={false}
-                            label={({ payload, ...props }) => {
-                                return (
-                                    <text
-                                        cx={props.cx}
-                                        cy={props.cy}
-                                        x={props.x}
-                                        y={props.y}
-                                        textAnchor={props.textAnchor}
-                                        dominantBaseline={props.dominantBaseline}
-                                        fill="var(--font)"
-                                        className="text-sm font-semibold font-[family-name:var(--font-poppins)]"
-                                    >
-                                        R$ {payload.expenses}
-                                    </text>
-                                )
-                            }}
-                            nameKey={(item) => <p className="text-font font-[family-name:var(--font-poppins)]">{item.expenseName}</p>}
-                        />
-                    </PieChart>
+                    {data.length === 0 ? (
+                        <div className="flex items-center justify-center h-[200px] text-font-muted">
+                            Nenhuma despesa para exibir
+                        </div>
+                    ) : (
+                        <PieChart>
+                            <ChartTooltip
+                                content={({ payload }) => {
+                                    if (payload && payload.length > 0) {
+                                        const data = payload[0].payload;
+                                        return (
+                                            <div className="rounded-lg bg-background p-2 shadow-md border border-border font-[family-name:var(--font-poppins)]">
+                                                <p className="text-font-foreground font-semibold">
+                                                    {transactionCategory(data.expenseName)}
+                                                </p>
+                                                <p className="text-font-foreground text-sm">
+                                                    {new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(data.expenses)}
+                                                </p>
+                                            </div>
+                                        );
+                                    }
+                                    return null;
+                                }}
+                            />
+                            <Pie
+                                data={data}
+                                dataKey="expenses"
+                                labelLine={false}
+                                label={({ payload, ...props }) => {
+                                    return (
+                                        <text
+                                            cx={props.cx}
+                                            cy={props.cy}
+                                            x={props.x}
+                                            y={props.y}
+                                            textAnchor={props.textAnchor}
+                                            dominantBaseline={props.dominantBaseline}
+                                            fill="var(--font)"
+                                            className="text-sm font-semibold"
+                                        >
+                                            R$ {payload.expenses}
+                                        </text>
+                                    )
+                                }}
+                                nameKey={(item) => <p className="text-font">{transactionCategory(item.expenseName)}</p>}
+                            />
+                        </PieChart>
+                    )}
                 </ChartContainer>
             </CardContent>
-            <CardFooter className="grid grid-cols-3 gap-2 text-sm">
-                {chartData.map((item) => (
-                    <div key={item.expenseName} className="flex items-center gap-2">
-                        <div className="h-2 w-2 rounded-full" style={{ backgroundColor: item.fill }} />
-                        <span className="text-font font-[family-name:var(--font-poppins)]">{item.expenseName}</span>
-                    </div>
-                ))}
-            </CardFooter>
+            {data.length > 0 && (
+                <CardFooter className="grid grid-cols-2 gap-2 text-sm">
+                    {data.map((item) => (
+                        <div key={item.expenseName} className="flex items-center gap-2">
+                            <div className="h-2 w-2 rounded-full" style={{ backgroundColor: item.fill }} />
+                            <span className="text-font">{transactionCategory(item.expenseName)}</span>
+                        </div>
+                    ))}
+                </CardFooter>
+            )}
         </Card>
     )
 }

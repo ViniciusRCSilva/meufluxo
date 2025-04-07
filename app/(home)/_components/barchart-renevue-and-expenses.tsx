@@ -16,14 +16,15 @@ import {
     ChartTooltipContent,
 } from "@/app/_components/ui/chart"
 
-const chartData = [
-    { month: "Janeiro", revenue: 186, expenses: 80 },
-    { month: "Fevereiro", revenue: 305, expenses: 200 },
-    { month: "Março", revenue: 237, expenses: 120 },
-    { month: "Abril", revenue: 73, expenses: 190 },
-    { month: "Maio", revenue: 209, expenses: 130 },
-    { month: "Junho", revenue: 214, expenses: 140 },
-]
+interface ChartData {
+    month: string
+    revenue: number
+    expenses: number
+}
+
+interface BarchartRevenueAndExpensesProps {
+    data: ChartData[]
+}
 
 const chartConfig = {
     revenue: {
@@ -36,16 +37,16 @@ const chartConfig = {
     },
 } satisfies ChartConfig
 
-export function BarchartRevenueAndExpenses() {
+export function BarchartRevenueAndExpenses({ data }: BarchartRevenueAndExpensesProps) {
     return (
         <Card>
             <CardHeader>
                 <CardTitle className="text-xl text-font-foreground font-semibold font-[family-name:var(--font-poppins)]">Receitas x Despesas</CardTitle>
-                <CardDescription className="text-font-muted font-[family-name:var(--font-poppins)]">Janeiro - Junho 2024</CardDescription>
+                <CardDescription className="text-font-muted font-[family-name:var(--font-poppins)]">Mostrando dados de {data[0].month} a {data[data.length - 1].month}</CardDescription>
             </CardHeader>
             <CardContent>
                 <ChartContainer config={chartConfig} className="w-full max-h-[220px] px-0">
-                    <BarChart accessibilityLayer data={chartData}>
+                    <BarChart accessibilityLayer data={data}>
                         <CartesianGrid vertical={false} />
                         <XAxis
                             dataKey="month"
