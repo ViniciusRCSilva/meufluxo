@@ -53,7 +53,7 @@ const Notifications = ({ notifications, userId }: NotificationProps & UserId) =>
                 <div className="relative">
                     <Bell className="w-5 h-5 text-font-foreground group-hover:text-font transition-colors" />
                     {notifications.some(notification => !notification.isRead) && (
-                        <div className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-link" />
+                        <div className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-link animate-pulse" />
                     )}
                 </div>
             </DropdownMenuTrigger>
@@ -80,7 +80,7 @@ const Notifications = ({ notifications, userId }: NotificationProps & UserId) =>
                             <Button
                                 variant="outline"
                                 size="sm"
-                                disabled={notifications.length === 0 || loading}
+                                disabled={notifications.length === 0 || loading || notifications.some(notification => !notification.isRead)}
                                 className="text-destructive h-8"
                                 onClick={handleDeleteAllNotifications}
                             >
