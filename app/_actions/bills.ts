@@ -86,9 +86,34 @@ const getNearestBill = async (userId: string) => {
     }
 }
 
+const updateBill = async (id: string, params: Bill) => {
+    try {
+        const updatedBill = await db.bill.update({
+            where: {
+                id: id
+            },
+            data: {
+                name: params.name,
+                value: params.value,
+                dueDate: params.dueDate,
+                category: params.category,
+                paymentMethod: params.paymentMethod,
+                recurrence: params.recurrence || "",
+                isPaid: params.isPaid,
+                userId: params.userId
+            }
+        });
+        revalidatePath("/contas");
+        return updatedBill;
+    } catch (error) {
+        console.error(error);
+    }
+}
+
 export {
     addBill,
     getBills,
     getBillsNotPaid,
-    getNearestBill
+    getNearestBill,
+    updateBill
 }

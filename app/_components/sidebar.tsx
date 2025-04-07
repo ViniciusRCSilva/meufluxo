@@ -17,6 +17,9 @@ import LogoutButton from "./ui/logout-button";
 import { Separator } from "./ui/separator";
 import Notifications from "./notifications";
 import { DBNotification } from "../_types/notification";
+import { getBillsNotPaid } from "../_actions/bills";
+import { useEffect, useCallback } from "react";
+import { notifyNearbyBill } from "../_utils/billHelper";
 
 interface SidebarProps {
     notifications: DBNotification[]
@@ -24,6 +27,27 @@ interface SidebarProps {
 
 const Sidebar = ({ notifications }: SidebarProps) => {
     const { user } = useUser();
+
+    const bills = useCallback(async () => {
+        if (!user) return [];
+        const billsNotPaid = await getBillsNotPaid(user.id);
+        return billsNotPaid;
+    }, [user])
+
+    useEffect(() => {
+        const checkBills = async () => {
+            if (user) {
+                const billsData = await bills();
+                if (billsData) {
+                    for (const bill of billsData) {
+                        await notifyNearbyBill(bill);
+                    }
+                }
+            }
+        };
+
+        checkBills();
+    }, [user, bills]);
 
     const items = [
         { icon: <Home className="w-5 h-5 text-link" />, label: "Início", href: "/" },

@@ -16,16 +16,7 @@ const Bills = async () => {
 
     const rawBills = await getBills(userId);
 
-    const bills = rawBills?.map((bill) => ({
-        date: bill.createdAt.toLocaleDateString(),
-        name: bill.name,
-        category: bill.category,
-        paymentMethod: bill.paymentMethod,
-        value: bill.value,
-        recurrence: bill.recurrence || "",
-        isPaid: bill.isPaid,
-        dueDate: bill.dueDate.toLocaleDateString()
-    })) || [];
+    const bills = rawBills || [];
 
     return (
         <div className="flex flex-col gap-6 px-4 sm:px-10 pt-28 pb-10 font-[family-name:var(--font-poppins)]">

@@ -7,6 +7,8 @@ import {
     useReactTable,
     getFilteredRowModel,
     ColumnFiltersState,
+    SortingState,
+    getSortedRowModel,
 } from "@tanstack/react-table"
 
 import {
@@ -30,10 +32,17 @@ import {
     SelectValue,
 } from "@/app/_components/ui/select"
 import { categoryOptions, categorySelect, paymentMethodOptions, paymentMethodSelect } from "@/app/_utils/selectHelper"
-import { Filter, FilterX } from "lucide-react"
+import { ArrowDownIcon, ArrowUpIcon, Filter, FilterX, SortAsc, SortDesc } from "lucide-react"
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
+} from "@/app/_components/ui/dropdown-menu"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/app/_components/ui/accordion"
 import { Separator } from "@/app/_components/ui/separator"
 import { Button } from "@/app/_components/ui/button"
+import { billStatusOptions, billStatusSelect } from "@/app/_utils/billHelper"
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]
@@ -45,15 +54,22 @@ export function DataTableBills<TData, TValue>({
     data,
 }: DataTableProps<TData, TValue>) {
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
+    const [sorting, setSorting] = useState<SortingState>([{
+        id: "createdAt",
+        desc: true
+    }])
 
     const table = useReactTable({
         data,
         columns,
         getCoreRowModel: getCoreRowModel(),
         getFilteredRowModel: getFilteredRowModel(),
+        getSortedRowModel: getSortedRowModel(),
         onColumnFiltersChange: setColumnFilters,
+        onSortingChange: setSorting,
         state: {
             columnFilters,
+            sorting,
         },
     })
 
@@ -135,9 +151,129 @@ export function DataTableBills<TData, TValue>({
                                 </SelectContent>
                             </Select>
                         </div>
+                        <div className="hidden lg:flex h-20 items-center">
+                            <Separator orientation="vertical" className="h-full bg-border/20" decorative />
+                        </div>
+                        <div className="w-full lg:w-auto flex flex-col gap-2">
+                            <Label htmlFor="isPaid" className="text-font-foreground text-sm">Filtrar por status</Label>
+                            <Select
+                                value={(table.getColumn("isPaid")?.getFilterValue() as string) ?? "all"}
+                                onValueChange={(value) =>
+                                    table.getColumn("isPaid")?.setFilterValue(
+                                        value === "all" ? "" : value === "true" ? true : value === "false" ? false : value
+                                    )
+                                }
+                            >
+                                <SelectTrigger className="w-full h-11 bg-input border-border/20 transition-colors hover:bg-input-hover">
+                                    <SelectValue placeholder="Filtrar por status">
+                                        {(() => {
+                                            const value = table.getColumn("isPaid")?.getFilterValue();
+                                            if (value === true || value === false) {
+                                                return billStatusSelect(value);
+                                            }
+                                            return "Todos";
+                                        })()}
+                                    </SelectValue>
+                                </SelectTrigger>
+                                <SelectContent className="font-[family-name:var(--font-poppins)]">
+                                    <SelectItem value="all">Todos os status</SelectItem>
+                                    {billStatusOptions.map((option) => (
+                                        <SelectItem key={option.label} value={option.value.toString()}>
+                                            {billStatusSelect(option.value)}
+                                        </SelectItem>
+                                    ))}
+                                </SelectContent>
+                            </Select>
+                        </div>
                     </AccordionContent>
                 </AccordionItem>
             </Accordion>
+            <div className="flex items-center gap-2">
+                <span className="text-font-muted text-sm">Ordenar por</span>
+                <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                        <Button
+                            variant="outline"
+                            className="h-9 gap-2 bg-card-foreground border-border/20 transition-all duration-200 hover:bg-secondary/30"
+                        >
+                            {(() => {
+                                const sortConfig = table.getState().sorting[0]
+                                if (!sortConfig) return "Mais recentes"
+
+                                const icon = sortConfig.desc ? <SortDesc className="h-4 w-4" /> : <SortAsc className="h-4 w-4" />
+
+                                const sortMap = {
+                                    createdAt: "Data de criação",
+                                    dueDate: "Data de vencimento",
+                                    value: "Valor",
+                                    name: "Nome",
+                                }
+
+                                const direction = sortConfig.desc ? "(Dec)" : "(Cres)"
+                                return <span className="flex items-center gap-2">{icon} {sortMap[sortConfig.id as keyof typeof sortMap]} {direction}</span>
+                            })()}
+                        </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="start" className="font-[family-name:var(--font-poppins)]">
+                        <DropdownMenuItem
+                            className="gap-2"
+                            onClick={() => setSorting([{ id: "createdAt", desc: true }])}
+                        >
+                            <ArrowDownIcon className="h-4 w-4" />
+                            Mais recentes
+                        </DropdownMenuItem>
+                        <DropdownMenuItem
+                            className="gap-2"
+                            onClick={() => setSorting([{ id: "createdAt", desc: false }])}
+                        >
+                            <ArrowUpIcon className="h-4 w-4" />
+                            Mais antigos
+                        </DropdownMenuItem>
+                        <DropdownMenuItem
+                            className="gap-2"
+                            onClick={() => setSorting([{ id: "dueDate", desc: false }])}
+                        >
+                            <ArrowUpIcon className="h-4 w-4" />
+                            Vencimento próximo
+                        </DropdownMenuItem>
+                        <DropdownMenuItem
+                            className="gap-2"
+                            onClick={() => setSorting([{ id: "dueDate", desc: true }])}
+                        >
+                            <ArrowDownIcon className="h-4 w-4" />
+                            Vencimento distante
+                        </DropdownMenuItem>
+                        <DropdownMenuItem
+                            className="gap-2"
+                            onClick={() => setSorting([{ id: "value", desc: true }])}
+                        >
+                            <ArrowDownIcon className="h-4 w-4" />
+                            Maior valor
+                        </DropdownMenuItem>
+                        <DropdownMenuItem
+                            className="gap-2"
+                            onClick={() => setSorting([{ id: "value", desc: false }])}
+                        >
+                            <ArrowUpIcon className="h-4 w-4" />
+                            Menor valor
+                        </DropdownMenuItem>
+                        <DropdownMenuItem
+                            className="gap-2"
+                            onClick={() => setSorting([{ id: "name", desc: false }])}
+                        >
+                            <ArrowUpIcon className="h-4 w-4" />
+                            Nome (A-Z)
+                        </DropdownMenuItem>
+                        <DropdownMenuItem
+                            className="gap-2"
+                            onClick={() => setSorting([{ id: "name", desc: true }])}
+                        >
+                            <ArrowDownIcon className="h-4 w-4" />
+                            Nome (Z-A)
+                        </DropdownMenuItem>
+                    </DropdownMenuContent>
+                </DropdownMenu>
+            </div>
             <div className="border border-border/20 rounded-lg overflow-hidden">
                 <ScrollArea className="w-full">
                     <Table>

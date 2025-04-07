@@ -2,13 +2,18 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import { transactionValue, transactionCategory, transactionPaymentMethod } from "@/app/_utils/transactionHelper";
+import ConfirmPaymentButton from "../_components/confirm-payment-button";
+import { Bill } from "@prisma/client";
 import { billRecurrence } from "@/app/_utils/billHelper";
-import { Check, X } from "lucide-react";
 
-export const columns: ColumnDef<{ date: string; name: string; category: string; paymentMethod: string; value: number; recurrence: string; isPaid: boolean; dueDate: string; }>[] = [
+export const columns: ColumnDef<Bill>[] = [
     {
-        accessorKey: "date",
-        header: "Data",
+        accessorKey: "createdAt",
+        header: "Data de criação",
+        cell: ({ row }) => {
+            const date = row.getValue("createdAt") as Date;
+            return <>{date.toLocaleDateString("pt-BR")}</>;
+        },
     },
     {
         accessorKey: "name",
@@ -59,35 +64,23 @@ export const columns: ColumnDef<{ date: string; name: string; category: string; 
         },
     },
     {
-        accessorKey: "isPaid",
-        header: "Pago",
-        cell: ({ row }) => {
-            return (
-                <>
-                    {row.getValue("isPaid") ? (
-                        <span className="flex items-center">
-                            <Check className="text-success" />
-                            Sim
-                        </span>
-                    ) : (
-                        <span className="flex items-center">
-                            <X className="text-destructive" />
-                            Não
-                        </span>
-                    )}
-                </>
-            );
-        },
-    },
-    {
         accessorKey: "dueDate",
         header: "Vencimento",
         cell: ({ row }) => {
             return (
                 <>
-                    {row.getValue("dueDate")}
+                    {(row.getValue("dueDate") as Date).toLocaleDateString("pt-BR")}
                 </>
             );
         },
     },
+    {
+        accessorKey: "isPaid",
+        header: "Pago",
+        cell: ({ row }) => {
+            return (
+                <ConfirmPaymentButton bill={row.original} />
+            );
+        },
+    }
 ]
