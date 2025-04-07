@@ -110,10 +110,28 @@ const updateBill = async (id: string, params: Bill) => {
     }
 }
 
+const cancelRecurrence = async (id: string) => {
+    try {
+        const updatedBill = await db.bill.update({
+            where: {
+                id: id
+            },
+            data: {
+                recurrence: "NONE"
+            }
+        });
+        revalidatePath("/contas");
+        return updatedBill;
+    } catch (error) {
+        console.error(error);
+    }
+}
+
 export {
     addBill,
     getBills,
     getBillsNotPaid,
     getNearestBill,
-    updateBill
+    updateBill,
+    cancelRecurrence
 }

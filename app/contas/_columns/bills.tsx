@@ -5,6 +5,7 @@ import { transactionValue, transactionCategory, transactionPaymentMethod } from 
 import ConfirmPaymentButton from "../_components/confirm-payment-button";
 import { Bill } from "@prisma/client";
 import { billRecurrence } from "@/app/_utils/billHelper";
+import CancelRecurrenceButton from "../_components/cancel-recurrence-button";
 
 export const columns: ColumnDef<Bill>[] = [
     {
@@ -76,10 +77,15 @@ export const columns: ColumnDef<Bill>[] = [
     },
     {
         accessorKey: "isPaid",
-        header: "Pago",
+        header: "",
         cell: ({ row }) => {
             return (
-                <ConfirmPaymentButton bill={row.original} />
+                <div className="flex items-center justify-end gap-2">
+                    <ConfirmPaymentButton bill={row.original} />
+                    {!row.getValue("isPaid") && row.getValue("recurrence") !== "NONE" && (
+                        <CancelRecurrenceButton bill={row.original} />
+                    )}
+                </div>
             );
         },
     }
