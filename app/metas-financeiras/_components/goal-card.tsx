@@ -3,6 +3,7 @@ import { formatCurrency } from "@/app/_utils/formatCurrency"
 import { Progress } from "@/app/_components/ui/progress"
 import EditGoalButton from "./edit-goal-button"
 import DeleteGoalButton from "./delete-goal-button"
+import { Calendar } from "lucide-react"
 
 interface UserId {
     userId: string
@@ -38,9 +39,9 @@ const GoalCard = ({ id, name, createdAt, goalAchievedDate, currentAmount, goalAm
 
                         <p className="text-sm text-font-muted font-light">
                             {goalPercentage >= 100 ?
-                                (<span className="text-success">Meta atingida em {goalAchievedDate?.toLocaleDateString()}</span>)
+                                (<span className="text-success flex items-center gap-1"><Calendar className="w-4 h-4" /> Meta atingida em {goalAchievedDate?.toLocaleDateString()}</span>)
                                 :
-                                "Criada em " + createdAt.toLocaleDateString()
+                                (<span className="flex items-center gap-1"><Calendar className="w-4 h-4" /> Criada em {createdAt.toLocaleDateString()}</span>)
                             }
                         </p>
                     </div>
