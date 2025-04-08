@@ -11,6 +11,14 @@ import { getBalance } from "../_actions/balance";
 import { getTransactions } from "../_actions/transaction";
 import { getNearestBill } from "../_actions/bills";
 import { getFinancialGoals } from "../_actions/financial-goals";
+import {
+    formatLastTransactions,
+    getMonthlyTransactions,
+    getCurrentMonthTransactions,
+    calculateMonthlyTotals,
+    getExpensesChartData,
+    formatFinancialGoals
+} from "@/app/_utils/homePageFunctions";
 
 const Home = async () => {
     const { userId } = await auth();
@@ -26,99 +34,14 @@ const Home = async () => {
     const balance = await getBalance(userId);
     const rawTransactions = await getTransactions(userId);
 
-    const lastTransactions = rawTransactions?.map(transaction => ({
-        id: transaction.id,
-        name: transaction.name,
-        date: transaction.createdAt.toLocaleDateString('pt-BR'),
-        type: transaction.type,
-        value: transaction.value
-    }));
-
-    // Agrupa transações por mês
-    const monthlyTransactions = rawTransactions?.reduce((acc, transaction) => {
-        const date = new Date(transaction.createdAt);
-        const month = date.toLocaleDateString('pt-BR', { month: 'long' });
-        
-        if (!acc[month]) {
-            acc[month] = {
-                revenue: 0,
-                expenses: 0
-            };
-        }
-
-        if (transaction.type === 'DEPOSIT') {
-            acc[month].revenue += transaction.value;
-        } else {
-            acc[month].expenses += transaction.value;
-        }
-
-        return acc;
-    }, {} as Record<string, { revenue: number, expenses: number }>) || {};
-
-    // Converte para o formato do gráfico
-    const chartData = Object.entries(monthlyTransactions).map(([month, values]) => ({
-        month,
-        revenue: values.revenue,
-        expenses: values.expenses
-    }));
-
-    // Calcula totais do mês atual
-    const currentMonthTransactions = rawTransactions?.filter(transaction => {
-        const transactionDate = new Date(transaction.createdAt);
-        return transactionDate.getMonth() === currentMonth &&
-            transactionDate.getFullYear() === currentYear;
-    });
-
-    const entrances = currentMonthTransactions?.filter(transaction => transaction.type === 'DEPOSIT')
-        .reduce((total, transaction) => total + transaction.value, 0) || 0;
-    const exits = currentMonthTransactions?.filter(transaction => transaction.type === 'EXPENSE')
-        .reduce((total, transaction) => total + transaction.value, 0) || 0;
-
+    const lastTransactions = formatLastTransactions(rawTransactions);
+    const chartData = getMonthlyTransactions(rawTransactions);
+    const currentMonthTransactions = getCurrentMonthTransactions(rawTransactions, currentMonth, currentYear);
+    const { entrances, exits } = calculateMonthlyTotals(currentMonthTransactions);
     const bill = await getNearestBill(userId);
-
-    // Filtra apenas as transações do tipo EXPENSE
-    const expenses = currentMonthTransactions?.filter(transaction => transaction.type === 'EXPENSE') || [];
-
-    // Agrupa despesas por categoria e calcula o total
-    const expensesByCategory = expenses.reduce((acc, transaction) => {
-        if (!acc[transaction.category]) {
-            acc[transaction.category] = 0;
-        }
-        acc[transaction.category] += transaction.value;
-        return acc;
-    }, {} as Record<string, number>);
-
-    // Define as cores para cada categoria
-    const categoryColors = {
-        HOUSING: "var(--pie-chart-destructive-1)",
-        TRANSPORTATION: "var(--pie-chart-destructive-2)",
-        FOOD: "var(--pie-chart-destructive-3)",
-        UTILITIES: "var(--pie-chart-destructive-4)",
-        HEALTHCARE: "var(--pie-chart-destructive-5)",
-        ENTERTAINMENT: "var(--pie-chart-destructive-1)",
-        EDUCATION: "var(--pie-chart-destructive-2)",
-        DEBT: "var(--pie-chart-destructive-3)",
-        SAVINGS: "var(--pie-chart-destructive-4)",
-        OTHERS: "var(--pie-chart-destructive-5)",
-    };
-
-    // Converte para o formato do gráfico
-    const expensesChartData = Object.entries(expensesByCategory)
-        .map(([category, total]) => ({
-            expenseName: category,
-            expenses: total,
-            fill: categoryColors[category as keyof typeof categoryColors] || "var(--pie-chart-destructive-5)"
-        }));
-
-    // Ordena por valor (maior para menor)
-    expensesChartData.sort((a, b) => b.expenses - a.expenses);
-
+    const expensesChartData = getExpensesChartData(currentMonthTransactions);
     const goals = await getFinancialGoals(userId);
-
-    const financialGoals = goals?.map(goal => ({
-        name: goal.name,
-        progress: (goal.currentAmount / goal.goalAmount) * 100
-    }));
+    const financialGoals = formatFinancialGoals(goals);
 
     return (
         <div className="flex flex-col gap-6 px-4 sm:px-10 pt-28 pb-10">
