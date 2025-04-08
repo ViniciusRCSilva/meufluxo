@@ -54,18 +54,18 @@ export function BarchartRevenueAndExpenses({ data }: BarchartRevenueAndExpensesP
                             tickMargin={10}
                             axisLine={false}
                             tickFormatter={(value) => value.slice(0, 3)}
-                            className="font-[family-name:var(--font-poppins)]"
+                            className="font-[family-name:var(--font-poppins)] capitalize"
                         />
                         <YAxis
                             tickLine={true}
                             tickMargin={10}
                             axisLine={true}
-                            tickFormatter={(value) => value.toLocaleString()}
+                            tickFormatter={(value) => `R$ ${value.toLocaleString()}`}
                             className="font-[family-name:var(--font-poppins)]"
                         />
                         <ChartTooltip
                             cursor={false}
-                            content={<ChartTooltipContent indicator="line" className="text-font font-[family-name:var(--font-poppins)]" />}
+                            content={<ChartTooltipContent indicator="line" className="text-font font-[family-name:var(--font-poppins)] capitalize" />}
                         />
                         <Bar dataKey="revenue" fill="var(--color-revenue)" radius={4} />
                         <Bar dataKey="expenses" fill="var(--color-expenses)" radius={4} />
