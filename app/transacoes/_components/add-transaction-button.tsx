@@ -31,7 +31,7 @@ import {
     SelectItem,
 } from "@/app/_components/ui/select";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/app/_components/ui/tooltip";
-import { categoryOptions, categorySelect, paymentMethodOptions, paymentMethodSelect, typeOptions, typeSelect } from "@/app/_utils/selectHelper";
+import { categoryOptions, categorySelect, paymentMethodOptions, paymentMethodSelect, typeOptions, typeSelect } from "@/app/_helpers/selectHelper";
 import { useState } from "react";
 import { addTransaction } from "@/app/_actions/transaction";
 import { toast } from "sonner";

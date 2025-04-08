@@ -19,7 +19,7 @@ import Notifications from "./notifications";
 import { DBNotification } from "../_types/notification";
 import { getBillsNotPaid } from "../_actions/bills";
 import { useEffect, useCallback } from "react";
-import { notifyNearbyBill } from "../_utils/billHelper";
+import { notifyNearbyBill } from "../_helpers/billHelper";
 
 interface SidebarProps {
     notifications: DBNotification[]

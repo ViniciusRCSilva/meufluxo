@@ -15,7 +15,7 @@ import {
     ChartContainer,
     ChartTooltip,
 } from "@/app/_components/ui/chart"
-import { transactionCategory } from "../_utils/transactionHelper"
+import { transactionCategory } from "../_helpers/transactionHelper"
 import Link from "next/link"
 
 interface ChartItem {

@@ -1,10 +1,10 @@
 "use client"
 
 import { ColumnDef } from "@tanstack/react-table";
-import { transactionValue, transactionCategory, transactionPaymentMethod } from "@/app/_utils/transactionHelper";
+import { transactionValue, transactionCategory, transactionPaymentMethod } from "@/app/_helpers/transactionHelper";
 import ConfirmPaymentButton from "../_components/confirm-payment-button";
 import { Bill } from "@prisma/client";
-import { billRecurrence } from "@/app/_utils/billHelper";
+import { billRecurrence } from "@/app/_helpers/billHelper";
 import CancelRecurrenceButton from "../_components/cancel-recurrence-button";
 
 export const columns: ColumnDef<Bill>[] = [

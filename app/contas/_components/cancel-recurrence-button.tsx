@@ -16,7 +16,7 @@ import { AlertTriangle, Calendar, Loader2, RefreshCcw, X } from "lucide-react";
 import { cancelRecurrence } from "@/app/_actions/bills";
 import { toast } from "sonner";
 import { addNotification } from "@/app/_actions/notifications";
-import { billRecurrence } from "@/app/_utils/billHelper";
+import { billRecurrence } from "@/app/_helpers/billHelper";
 
 interface CancelRecurrenceButtonProps {
     bill: Bill;

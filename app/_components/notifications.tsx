@@ -3,7 +3,7 @@
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/app/_components/ui/dropdown-menu";
 import { Bell, Check, Eye, Loader2, Trash } from "lucide-react";
 import { ScrollArea } from "./ui/scroll-area";
-import { notificationIcon } from "../_utils/notificationHelper";
+import { notificationIcon } from "../_helpers/notificationHelper";
 import { DBNotification } from "../_types/notification";
 import { deleteNotifications, markAllNotificationsAsRead, markNotificationAsRead } from "../_actions/notifications";
 import { Button } from "./ui/button";

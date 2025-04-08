@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { db } from "@/app/_lib/prisma";
-import { notifyNearbyBill } from "@/app/_utils/billHelper";
+import { notifyNearbyBill } from "@/app/_helpers/billHelper";
 
 export async function GET() {
     try {

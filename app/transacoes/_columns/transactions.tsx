@@ -2,7 +2,7 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import { HelpCircle } from "lucide-react";
-import { transactionType, transactionValue, transactionCategory, transactionPaymentMethod } from "@/app/_utils/transactionHelper";
+import { transactionType, transactionValue, transactionCategory, transactionPaymentMethod } from "@/app/_helpers/transactionHelper";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/app/_components/ui/tooltip";
 
 export const columns: ColumnDef<{ date: string; name: string; category: string; paymentMethod: string; value: number; type: string; }>[] = [

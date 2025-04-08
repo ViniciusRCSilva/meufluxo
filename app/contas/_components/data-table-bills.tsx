@@ -31,7 +31,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/app/_components/ui/select"
-import { categoryOptions, categorySelect, paymentMethodOptions, paymentMethodSelect } from "@/app/_utils/selectHelper"
+import { categoryOptions, categorySelect, paymentMethodOptions, paymentMethodSelect } from "@/app/_helpers/selectHelper"
 import { ArrowDownIcon, ArrowUpIcon, Filter, FilterX, SortAsc, SortDesc } from "lucide-react"
 import {
     DropdownMenu,
@@ -42,7 +42,7 @@ import {
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/app/_components/ui/accordion"
 import { Separator } from "@/app/_components/ui/separator"
 import { Button } from "@/app/_components/ui/button"
-import { billStatusOptions, billStatusSelect } from "@/app/_utils/billHelper"
+import { billStatusOptions, billStatusSelect } from "@/app/_helpers/billHelper"
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]

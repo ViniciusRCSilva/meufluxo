@@ -36,7 +36,7 @@ import {
     SelectValue,
     SelectItem,
 } from "@/app/_components/ui/select";
-import { categoryOptions, categorySelect, paymentMethodOptions, paymentMethodSelect } from "@/app/_utils/selectHelper";
+import { categoryOptions, categorySelect, paymentMethodOptions, paymentMethodSelect } from "@/app/_helpers/selectHelper";
 import { useState } from "react";
 import { addBill } from "@/app/_actions/bills";
 import { format } from "date-fns";
@@ -45,7 +45,7 @@ import { cn } from "@/app/_lib/utils";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/app/_components/ui/tooltip";
 import { toast } from "sonner";
 import { addNotification } from "@/app/_actions/notifications";
-import { recurrenceOptions } from "@/app/_utils/billHelper";
+import { recurrenceOptions } from "@/app/_helpers/billHelper";
 
 const formSchema = z.object({
     name: z.string().min(1, "A descrição é obrigatória"),

@@ -6,7 +6,7 @@ import { addNotification } from "@/app/_actions/notifications";
 import { addTransaction } from "@/app/_actions/transaction";
 import { Button } from "@/app/_components/ui/button";
 import { Dialog, DialogTrigger, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogClose, DialogContent } from "@/app/_components/ui/dialog"
-import { handleRecurrence } from "@/app/_utils/billHelper";
+import { handleRecurrence } from "@/app/_helpers/billHelper";
 import { toast } from "sonner";
 import { useState } from "react";
 import { Bill } from "@prisma/client";
