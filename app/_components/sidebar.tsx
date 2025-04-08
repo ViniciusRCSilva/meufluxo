@@ -54,7 +54,7 @@ const Sidebar = ({ notifications }: SidebarProps) => {
         { icon: <DollarSign className="w-5 h-5 text-link" />, label: "Contas", href: "/contas" },
         { icon: <FileText className="w-5 h-5 text-link" />, label: "Transações", href: "/transacoes" },
         { icon: <Target className="w-5 h-5 text-link" />, label: "Metas Financeiras", href: "/metas-financeiras" },
-        { icon: <BarChart className="w-5 h-5 text-link" />, label: "Relatórios", href: "/relatorios" },
+        { icon: <BarChart className="w-5 h-5 text-link" />, label: "Relatório Financeiro", href: "/relatorio-financeiro" },
         { icon: <Settings className="w-5 h-5 text-link" />, label: "Configurações", href: "/configuracoes" },
     ];
 
