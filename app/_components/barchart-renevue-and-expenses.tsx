@@ -41,7 +41,7 @@ export function BarchartRevenueAndExpenses({ data }: BarchartRevenueAndExpensesP
     return (
         <Card>
             <CardHeader>
-                <CardTitle className="text-xl text-font-foreground font-semibold font-[family-name:var(--font-poppins)]">Receitas x Despesas</CardTitle>
+                <CardTitle className="text-xl text-font-foreground font-semibold font-[family-name:var(--font-poppins)]">Entradas x Saídas</CardTitle>
                 <CardDescription className="text-font-muted font-[family-name:var(--font-poppins)]">Mostrando dados de {data[0].month} a {data[data.length - 1].month}</CardDescription>
             </CardHeader>
             <CardContent>

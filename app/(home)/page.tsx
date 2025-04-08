@@ -2,7 +2,7 @@ import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import DashboardCard from "@/app/_components/dashboard-card";
 import { PiggyBank, TrendingUp, TrendingDown, Calendar } from "lucide-react";
-import { BarchartRevenueAndExpenses } from "./_components/barchart-renevue-and-expenses";
+import { BarchartRevenueAndExpenses } from "../_components/barchart-renevue-and-expenses";
 import LastTransactionsCard from "@/app/_components/last-transactions-card";
 import { ExpensesDivisionCard } from "@/app/_components/expenses-division-card";
 import FinancialInsightsCard from "./_components/financial-insights-card";
