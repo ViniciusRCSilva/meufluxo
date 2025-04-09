@@ -10,6 +10,7 @@ import { getTransactions } from "../_actions/transaction";
 import { getBalance } from "../_actions/balance";
 import { getBillsNotPaid } from "../_actions/bills";
 import { getFinancialGoals } from "../_actions/financial-goals";
+import { getMonthlyBalanceEvolution } from "../_utils/home-page-functions";
 
 const MyProfile = async () => {
     const { userId } = await auth();
@@ -44,6 +45,7 @@ const MyProfile = async () => {
     const highestExpenseOfTheMonth = currentMonthTransactions?.find(transaction => transaction.type === "EXPENSE" && transaction.value === Math.max(...currentMonthTransactions?.filter(transaction => transaction.type === "EXPENSE")?.map(transaction => transaction.value) || []));
 
     const rawBills = await getBillsNotPaid(userId);
+    const monthlyBalanceData = getMonthlyBalanceEvolution(rawTransactions);
 
     const lastBills = rawBills?.map(bill => ({
         id: bill.id,
@@ -88,7 +90,7 @@ const MyProfile = async () => {
                     </div>
                 </div>
                 <div className="mt-6 lg:mt-0">
-                    <AreaChartBalanceEvolution />
+                    <AreaChartBalanceEvolution data={monthlyBalanceData} />
                 </div>
             </div>
         </div>

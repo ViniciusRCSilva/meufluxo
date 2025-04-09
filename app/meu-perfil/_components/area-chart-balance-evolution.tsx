@@ -13,16 +13,17 @@ import {
     ChartConfig,
     ChartContainer,
     ChartTooltip,
-    ChartTooltipContent,
 } from "@/app/_components/ui/chart"
-const chartData = [
-    { month: "Janeiro", balance: 186 },
-    { month: "Fevereiro", balance: 305 },
-    { month: "Março", balance: 237 },
-    { month: "Abril", balance: 73 },
-    { month: "Maio", balance: 209 },
-    { month: "Junho", balance: 214 },
-]
+import { formatCurrency } from "@/app/_utils/formatCurrency"
+
+interface ChartData {
+    month: string
+    balance: number
+}
+
+interface AreaChartBalanceEvolutionProps {
+    data: ChartData[]
+}
 
 const chartConfig = {
     balance: {
@@ -31,55 +32,101 @@ const chartConfig = {
     },
 } satisfies ChartConfig
 
-export function AreaChartBalanceEvolution() {
+export function AreaChartBalanceEvolution({ data }: AreaChartBalanceEvolutionProps) {
     return (
-        <Card className="font-[family-name:var(--font-poppins)]">
+        <Card className="bg-background/50 backdrop-blur-sm border-border/50 font-[family-name:var(--font-poppins)]">
             <CardHeader>
-                <div className="grid flex-1 gap-1 text-center sm:text-left text-font-muted">
-                    <CardTitle className="text-font-foreground">Evolução do saldo</CardTitle>
-                    <CardDescription>
-                        Mostrando a evolução do saldo ao decorrer do ano
-                    </CardDescription>
-                </div>
+                <CardTitle className="text-xl text-font-foreground font-semibold">
+                    Evolução do saldo
+                </CardTitle>
+                <CardDescription className="text-font-muted text-sm">
+                    Mostrando a evolução do saldo ao decorrer do ano
+                </CardDescription>
             </CardHeader>
-            <CardContent>
-                <ChartContainer config={chartConfig} className="w-full max-h-[300px] px-0">
+            <CardContent className="pt-4">
+                <ChartContainer config={chartConfig} className="w-full h-[300px] px-0">
                     <AreaChart
                         accessibilityLayer
-                        data={chartData}
+                        data={data}
                         margin={{
                             left: 12,
                             right: 12,
                         }}
                     >
-                        <CartesianGrid vertical={false} />
+                        <CartesianGrid
+                            vertical={false}
+                            horizontal={true}
+                            strokeDasharray="4"
+                            stroke="var(--border)"
+                            opacity={0.4}
+                        />
                         <XAxis
                             dataKey="month"
                             tickLine={false}
                             axisLine={false}
-                            tickMargin={8}
+                            tickMargin={12}
                             tickFormatter={(value) => value.slice(0, 3)}
+                            className="text-font-muted/70"
+                            fontSize={12}
                         />
                         <YAxis
                             tickLine={false}
                             axisLine={false}
-                            tickMargin={8}
+                            tickMargin={12}
+                            tickFormatter={(value) => formatCurrency(value)}
+                            className="text-font-muted/70"
+                            fontSize={12}
                         />
                         <ChartTooltip
-                            cursor={false}
-                            content={<ChartTooltipContent indicator="line" className="text-font" />}
+                            cursor={{
+                                stroke: "var(--border)",
+                                strokeWidth: 1,
+                                strokeDasharray: "4",
+                                opacity: 0.4,
+                            }}
+                            content={({ payload }) => {
+                                if (payload && payload.length > 0) {
+                                    const data = payload[0].payload;
+                                    return (
+                                        <div className="rounded-lg bg-background/95 backdrop-blur-sm p-3 shadow-lg border border-border/50 font-[family-name:var(--font-poppins)]">
+                                            <p className="text-font-foreground font-medium capitalize mb-2">
+                                                {data.month}
+                                            </p>
+                                            <div className="flex items-center gap-2">
+                                                <div
+                                                    className="h-2.5 w-2.5 rounded-full"
+                                                    style={{ backgroundColor: "var(--color-primary)" }}
+                                                />
+                                                <p className="text-font-foreground/90 text-sm">
+                                                    Saldo:{" "}
+                                                    <span className="font-medium">
+                                                        {formatCurrency(data.balance)}
+                                                    </span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    )
+                                }
+                                return null
+                            }}
                         />
                         <Area
                             dataKey="balance"
                             type="natural"
                             fill="var(--color-primary)"
-                            fillOpacity={0.4}
+                            fillOpacity={0.2}
                             stroke="var(--color-primary)"
                             strokeWidth={2}
                             dot={{
-                                fill: "var(--color-primary)",
+                                fill: "var(--background)",
+                                stroke: "var(--color-primary)",
+                                strokeWidth: 2,
+                                r: 4,
                             }}
                             activeDot={{
+                                fill: "var(--color-primary)",
+                                stroke: "var(--background)",
+                                strokeWidth: 2,
                                 r: 6,
                             }}
                         />
