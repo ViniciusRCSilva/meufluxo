@@ -18,7 +18,7 @@ import {
     calculateMonthlyTotals,
     getExpensesChartData,
     formatFinancialGoals
-} from "@/app/_utils/homePageFunctions";
+} from "@/app/_utils/home-page-functions";
 
 const Home = async () => {
     const { userId } = await auth();
