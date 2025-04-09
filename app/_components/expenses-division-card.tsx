@@ -5,7 +5,6 @@ import { Pie, PieChart } from "recharts"
 import {
     Card,
     CardContent,
-    CardDescription,
     CardFooter,
     CardHeader,
     CardTitle,
@@ -17,6 +16,7 @@ import {
 } from "@/app/_components/ui/chart"
 import { transactionCategory } from "../_helpers/transactionHelper"
 import Link from "next/link"
+import { formatCurrency } from "../_utils/formatCurrency"
 
 interface ChartItem {
     expenseName: string
@@ -41,7 +41,6 @@ export function ExpensesDivisionCard({ data }: ExpensesDivisionCardProps) {
                 <Link href="/transacoes" className="hover:underline hover:text-font-foreground">
                     <CardTitle className="text-xl text-font-foreground">Despesas do mês</CardTitle>
                 </Link>
-                <CardDescription className="text-font-muted">{data.length === 0 ? "Nenhuma despesa registrada" : `Distribuição das despesas em ${new Date().toLocaleDateString('pt-BR', { month: 'long' })}.`}</CardDescription>
             </CardHeader>
             <CardContent className="flex-1 pb-0">
                 <ChartContainer
@@ -60,11 +59,14 @@ export function ExpensesDivisionCard({ data }: ExpensesDivisionCardProps) {
                                         const data = payload[0].payload;
                                         return (
                                             <div className="rounded-lg bg-background p-2 shadow-md border border-border font-[family-name:var(--font-poppins)]">
-                                                <p className="text-font-foreground font-semibold">
-                                                    {transactionCategory(data.expenseName)}
-                                                </p>
+                                                <div className="flex items-center gap-1">
+                                                    <div className="h-2 w-2 rounded-full" style={{ backgroundColor: data.fill }} />
+                                                    <p className="text-font-foreground font-semibold">
+                                                        {transactionCategory(data.expenseName)}
+                                                    </p>
+                                                </div>
                                                 <p className="text-font-foreground text-sm">
-                                                    {new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(data.expenses)}
+                                                    {formatCurrency(data.expenses)}
                                                 </p>
                                             </div>
                                         );
@@ -88,7 +90,7 @@ export function ExpensesDivisionCard({ data }: ExpensesDivisionCardProps) {
                                             fill="var(--font)"
                                             className="text-sm font-semibold"
                                         >
-                                            R$ {payload.expenses}
+                                            {formatCurrency(payload.expenses)}
                                         </text>
                                     )
                                 }}

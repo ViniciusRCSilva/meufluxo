@@ -30,10 +30,14 @@ const DashboardCard = ({ title, description, icon, content, iconBgColor }: Dashb
                 </CardHeader>
                 <CardContent className="text-2xl">
                     <p className="font-semibold text-font">
-                        {title === "Conta a pagar" ? (
-                            content === 0 ? "Nenhuma conta" : formattedContent
+                        {title === "Variação mensal" ? (
+                            content === 0 ? "0%" : `${content}%`
                         ) : (
-                            content < 0 ? <span className="text-destructive">{formattedContent}</span> : formattedContent
+                            title === "Conta a pagar" ? (
+                                content === 0 ? "Nenhuma conta" : formattedContent
+                            ) : (
+                                content < 0 ? <span className="text-destructive">{formattedContent}</span> : formattedContent
+                            )
                         )}
                     </p>
                 </CardContent>
