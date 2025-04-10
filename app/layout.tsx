@@ -7,6 +7,7 @@ import Sidebar from "@/app/_components/sidebar";
 import { Toaster } from "@/app/_components/ui/sonner";
 import { getNotifications } from "./_actions/notifications";
 import { DBNotification } from "./_types/notification";
+import { ScrollArea } from "./_components/ui/scroll-area";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -57,11 +58,15 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${poppins.variable} ${montserrat_alternates.variable} dark antialiased`}
+        className={`${poppins.variable} ${montserrat_alternates.variable} dark antialiased h-screen flex`}
       >
         <ClerkProvider>
           <Sidebar notifications={notifications} />
-          {children}
+          <main className="flex-1 h-screen relative">
+            <ScrollArea className="h-full w-full">
+              {children}
+            </ScrollArea>
+          </main>
           <Toaster toastOptions={{ className: "font-[family-name:var(--font-poppins)]" }} />
         </ClerkProvider>
       </body>
