@@ -53,7 +53,7 @@ const Notifications = ({ notifications, userId }: NotificationProps & UserId) =>
                 <div className="relative">
                     <Bell className="w-5 h-5 text-font-foreground group-hover:text-font transition-colors" />
                     {notifications.some(notification => !notification.isRead) && (
-                        <div className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-link animate-pulse" />
+                        <div className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-link animate-pulse shadow-[0px_0px_10px_2px_rgba(96,165,250,1)]" />
                     )}
                 </div>
             </DropdownMenuTrigger>
