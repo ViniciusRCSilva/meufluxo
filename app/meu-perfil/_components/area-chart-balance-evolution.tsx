@@ -1,6 +1,6 @@
 "use client"
 
-import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from "recharts"
+import { Area, AreaChart, CartesianGrid, LabelList, XAxis, YAxis } from "recharts"
 
 import {
     Card,
@@ -49,6 +49,7 @@ export function AreaChartBalanceEvolution({ data }: AreaChartBalanceEvolutionPro
                         accessibilityLayer
                         data={data}
                         margin={{
+                            top: 20,
                             left: 12,
                             right: 12,
                         }}
@@ -129,7 +130,15 @@ export function AreaChartBalanceEvolution({ data }: AreaChartBalanceEvolutionPro
                                 strokeWidth: 2,
                                 r: 6,
                             }}
-                        />
+                        >
+                            <LabelList
+                                position="top"
+                                offset={12}
+                                className="fill-foreground"
+                                fontSize={12}
+                                formatter={(value: string) => formatCurrency(Number(value))}
+                            />
+                        </Area>
                     </AreaChart>
                 </ChartContainer>
             </CardContent>

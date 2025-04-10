@@ -1,6 +1,6 @@
 "use client"
 
-import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts"
+import { Bar, BarChart, CartesianGrid, LabelList, XAxis, YAxis } from "recharts"
 
 import {
     Card,
@@ -50,7 +50,7 @@ export function BarchartRevenueAndExpenses({ data }: BarchartRevenueAndExpensesP
             </CardHeader>
             <CardContent className="pt-4">
                 <ChartContainer config={chartConfig} className="w-full h-[250px] px-0">
-                    <BarChart accessibilityLayer data={data}>
+                    <BarChart accessibilityLayer data={data} margin={{ top: 25 }}>
                         <CartesianGrid
                             vertical={false}
                             horizontal={true}
@@ -64,7 +64,7 @@ export function BarchartRevenueAndExpenses({ data }: BarchartRevenueAndExpensesP
                             tickMargin={12}
                             axisLine={false}
                             tickFormatter={(value) => value.slice(0, 3)}
-                            className="capitalize text-font-muted/70"
+                            className="capitalize text-font-muted"
                             fontSize={12}
                         />
                         <YAxis
@@ -72,7 +72,7 @@ export function BarchartRevenueAndExpenses({ data }: BarchartRevenueAndExpensesP
                             tickMargin={12}
                             axisLine={false}
                             tickFormatter={(value) => `R$ ${value.toLocaleString()}`}
-                            className="text-font-muted/70"
+                            className="text-font-muted"
                             fontSize={12}
                         />
                         <ChartTooltip
@@ -115,13 +115,29 @@ export function BarchartRevenueAndExpenses({ data }: BarchartRevenueAndExpensesP
                             fill="var(--color-revenue)"
                             radius={[4, 4, 0, 0]}
                             maxBarSize={45}
-                        />
+                        >
+                            <LabelList
+                                position="top"
+                                offset={12}
+                                className="fill-foreground"
+                                fontSize={12}
+                                formatter={(value: string) => formatCurrency(Number(value))}
+                            />
+                        </Bar>
                         <Bar
                             dataKey="expenses"
                             fill="var(--color-expenses)"
                             radius={[4, 4, 0, 0]}
                             maxBarSize={45}
-                        />
+                        >
+                            <LabelList
+                                position="top"
+                                offset={12}
+                                className="fill-foreground"
+                                fontSize={12}
+                                formatter={(value: string) => formatCurrency(Number(value))}
+                            />
+                        </Bar>
                     </BarChart>
                 </ChartContainer>
             </CardContent>

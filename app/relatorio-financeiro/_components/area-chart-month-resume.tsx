@@ -1,6 +1,6 @@
 "use client"
 
-import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from "recharts"
+import { Area, AreaChart, CartesianGrid, LabelList, XAxis, YAxis } from "recharts"
 
 import {
     Card,
@@ -51,6 +51,7 @@ export function AreaChartMonthResume({ data }: AreaChartMonthResumeProps) {
                         accessibilityLayer
                         data={data}
                         margin={{
+                            top: 20,
                             left: 12,
                             right: 12,
                         }}
@@ -68,7 +69,7 @@ export function AreaChartMonthResume({ data }: AreaChartMonthResumeProps) {
                             axisLine={false}
                             tickMargin={12}
                             tickFormatter={(value) => value.slice(0, 3)}
-                            className="text-font-muted/70"
+                            className="text-font-muted"
                             fontSize={12}
                         />
                         <YAxis
@@ -76,7 +77,7 @@ export function AreaChartMonthResume({ data }: AreaChartMonthResumeProps) {
                             axisLine={false}
                             tickMargin={12}
                             tickFormatter={(value) => formatCurrency(value)}
-                            className="text-font-muted/70"
+                            className="text-font-muted"
                             fontSize={12}
                         />
                         <ChartTooltip
@@ -131,7 +132,15 @@ export function AreaChartMonthResume({ data }: AreaChartMonthResumeProps) {
                                 strokeWidth: 2,
                                 r: 6,
                             }}
-                        />
+                        >
+                            <LabelList
+                                position="top"
+                                offset={12}
+                                className="fill-foreground"
+                                fontSize={12}
+                                formatter={(value: string) => formatCurrency(Number(value))}
+                            />
+                        </Area>
                     </AreaChart>
                 </ChartContainer>
             </CardContent>
