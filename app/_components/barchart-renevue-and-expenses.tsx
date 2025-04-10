@@ -39,7 +39,7 @@ const chartConfig = {
 
 export function BarchartRevenueAndExpenses({ data }: BarchartRevenueAndExpensesProps) {
     return (
-        <Card className="bg-background/50 backdrop-blur-sm border-border/50 font-[family-name:var(--font-poppins)]">
+        <Card className="bg-background/50 backdrop-blur-sm border-border/20 font-[family-name:var(--font-poppins)]">
             <CardHeader>
                 <CardTitle className="text-xl text-font-foreground font-semibold">
                     Entradas x Saídas

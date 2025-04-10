@@ -1,7 +1,7 @@
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import DashboardCard from "@/app/_components/dashboard-card";
-import { TrendingUp, TrendingDown, ChartLine, Percent, FileDown } from "lucide-react";
+import { TrendingUp, TrendingDown, ChartLine, Percent } from "lucide-react";
 import { BarchartRevenueAndExpenses } from "../_components/barchart-renevue-and-expenses";
 import { ExpensesDivisionCard } from "@/app/_components/expenses-division-card";
 import { getTransactions } from "../_actions/transaction";
@@ -15,10 +15,10 @@ import {
 import {
     getMonthlyTransactions,
 } from "@/app/_utils/home-page-functions";
-import { Button } from "../_components/ui/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/app/_components/ui/tooltip";
 import { HelpCircle } from "lucide-react";
 import { AreaChartMonthResume } from "./_components/area-chart-month-resume";
+import ExportToPDFButton from "./_components/export-to-pdf-button";
 
 const FinancialReport = async () => {
     const { userId } = await auth();
@@ -41,8 +41,8 @@ const FinancialReport = async () => {
     const monthlyNetProfitData = getMonthlyNetProfitData(currentYearTransactions);
 
     return (
-        <div className="flex flex-col gap-6 px-4 sm:px-10 pt-28 pb-10 font-[family-name:var(--font-poppins)]">
-            <div className="flex items-center justify-between">
+        <div id="relatorio-financeiro" className="flex flex-col gap-6 px-4 sm:px-10 pt-28 pb-10 font-[family-name:var(--font-poppins)]">
+            <div className="flex flex-col lg:flex-row gap-2 items-center lg:justify-between">
                 <div className="flex items-center gap-2">
                     <h1 className="text-xl font-semibold">Relatório Financeiro</h1>
                     <Tooltip>
@@ -54,10 +54,7 @@ const FinancialReport = async () => {
                         </TooltipContent>
                     </Tooltip>
                 </div>
-                <Button variant="outline" className="text-destructive hover:text-destructive/80">
-                    <FileDown className="h-6 w-6" />
-                    Exportar relatório
-                </Button>
+                <ExportToPDFButton />
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 h-fit gap-6">
                 <DashboardCard
