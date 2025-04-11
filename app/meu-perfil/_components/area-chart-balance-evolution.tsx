@@ -34,7 +34,7 @@ const chartConfig = {
 
 export function AreaChartBalanceEvolution({ data }: AreaChartBalanceEvolutionProps) {
     return (
-        <Card className="bg-background/50 backdrop-blur-sm border-border/50 font-[family-name:var(--font-poppins)]">
+        <Card className="bg-card border-border/50 font-[family-name:var(--font-poppins)]">
             <CardHeader>
                 <CardTitle className="text-xl text-font-foreground font-semibold">
                     Evolução do saldo

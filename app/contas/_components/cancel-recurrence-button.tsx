@@ -53,18 +53,22 @@ const CancelRecurrenceButton = ({ bill }: CancelRecurrenceButtonProps) => {
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
                 <Button
-                    className="bg-primary text-primary-foreground"
+                    className="hover:bg-card hover:text-font py-6"
                     variant="outline"
                     disabled={bill.isPaid || bill.recurrence === "NONE"}
                 >
-                    <RefreshCcw className="w-4 h-4 text-destructive" />
+                    <div className="p-2 rounded-md bg-destructive/20">
+                        <X className="w-4 h-4 text-destructive" />
+                    </div>
                     {bill.recurrence === "NONE" ? "Sem recorrência" : "Cancelar recorrência"}
                 </Button>
             </DialogTrigger>
             <DialogContent className="font-[family-name:var(--font-poppins)] sm:max-w-[500px]">
                 <DialogHeader>
-                    <div className="flex items-center gap-2 text-destructive">
-                        <AlertTriangle className="w-8 h-8" />
+                    <div className="flex items-center gap-2">
+                        <div className="p-2 rounded-md bg-destructive/20">
+                            <AlertTriangle className="w-8 h-8 text-destructive" />
+                        </div>
                         <DialogTitle className="text-2xl font-semibold">Cancelar recorrência</DialogTitle>
                     </div>
                     <DialogDescription className="text-base text-font-muted pt-2.5">
@@ -79,7 +83,7 @@ const CancelRecurrenceButton = ({ bill }: CancelRecurrenceButtonProps) => {
                                 <Calendar className="w-4 h-4" />
                                 <span>Recorrência atual</span>
                             </div>
-                            <span className="text-font-foreground font-medium bg-card-foreground px-3 py-1.5 rounded-md">
+                            <span className="text-font-foreground font-medium bg-card dark:bg-card-foreground px-3 py-1.5 rounded-md">
                                 {billRecurrence(bill.recurrence)}
                             </span>
                         </div>
@@ -88,7 +92,7 @@ const CancelRecurrenceButton = ({ bill }: CancelRecurrenceButtonProps) => {
                                 <RefreshCcw className="w-4 h-4" />
                                 <span>Nova recorrência</span>
                             </div>
-                            <span className="text-destructive font-medium bg-card-foreground px-3 py-1.5 rounded-md">
+                            <span className="text-destructive font-medium bg-card dark:bg-card-foreground px-3 py-1.5 rounded-md">
                                 Sem recorrência
                             </span>
                         </div>
@@ -105,7 +109,7 @@ const CancelRecurrenceButton = ({ bill }: CancelRecurrenceButtonProps) => {
                 <DialogFooter className="flex gap-3 pt-6">
                     <Button
                         variant="outline"
-                        className="flex-1 h-11 transition-all duration-200 hover:bg-secondary/80"
+                        className="flex-1 h-11 transition-all duration-200 hover:text-font hover:opacity-70 hover:bg-secondary/80"
                         onClick={() => setOpen(false)}
                     >
                         Manter recorrência

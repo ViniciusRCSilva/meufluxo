@@ -122,12 +122,17 @@ const EditGoalButton = ({ userId, balance, goal }: UserId & UserBalance & Goal) 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                <Button variant="outline"><Edit className="w-4 h-4 text-warning" /></Button>
+                <Button variant="outline" className="hover:bg-warning/20">
+                    <Edit className="w-4 h-4 text-warning" />
+                </Button>
             </DialogTrigger>
-            <DialogContent className="font-[family-name:var(--font-poppins)] max-w-[500px] p-0 bg-card">
+            <DialogContent className="font-[family-name:var(--font-poppins)] max-w-[500px] p-0">
                 <DialogHeader className="p-8 pb-0">
-                    <DialogTitle className="flex items-center gap-2 text-2xl font-semibold text-warning">
-                        <Edit className="w-7 h-7" /> Atualizar Meta Financeira
+                    <DialogTitle className="flex items-center gap-2 text-2xl font-semibold">
+                        <div className="p-2 rounded-md bg-warning/10">
+                            <Edit className="w-7 h-7 text-warning" />
+                        </div>
+                        Atualizar Meta Financeira
                     </DialogTitle>
                     <DialogDescription className="text-font-muted mt-3">
                         Preencha os dados abaixo para atualizar sua meta financeira.

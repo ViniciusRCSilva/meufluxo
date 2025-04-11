@@ -44,12 +44,16 @@ const DeleteGoalButton = ({ id, goalName, goalCurrentAmount, userId }: DeleteGoa
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                <Button variant="outline"><Trash className="w-4 h-4 text-destructive" /></Button>
+                <Button variant="outline" className="hover:bg-destructive/20">
+                    <Trash className="w-4 h-4 text-destructive" />
+                </Button>
             </DialogTrigger>
-            <DialogContent className="font-[family-name:var(--font-poppins)] max-w-[500px] p-0 bg-card">
+            <DialogContent className="font-[family-name:var(--font-poppins)] max-w-[500px] p-0">
                 <DialogHeader className="p-8 pb-0">
-                    <DialogTitle className="flex items-center gap-2 text-2xl font-semibold text-destructive">
-                        <Trash className="w-7 h-7" />
+                    <DialogTitle className="flex items-center gap-2 text-2xl font-semibold">
+                        <div className="p-2 rounded-md bg-destructive/10">
+                            <Trash className="w-7 h-7 text-destructive" />
+                        </div>
                         Deletar Meta Financeira
                     </DialogTitle>
                     <DialogDescription className="text-font-foreground mt-3">
@@ -71,7 +75,7 @@ const DeleteGoalButton = ({ id, goalName, goalCurrentAmount, userId }: DeleteGoa
                     <DialogClose asChild>
                         <Button
                             variant="outline"
-                            className="flex-1 h-11 gap-2 transition-all duration-200 hover:bg-secondary/80"
+                            className="flex-1 h-11 gap-2 transition-all duration-200 hover:text-font hover:bg-background hover:opacity-70"
                         >
                             Cancelar
                         </Button>

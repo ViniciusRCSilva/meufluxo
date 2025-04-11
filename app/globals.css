@@ -131,6 +131,67 @@
   --pie-chart-destructive-6: #FFC9C9;
 }
 
+.light {
+  --background: #ffffff;
+  --foreground: #0F172A;
+
+  --primary: #4F46E5;
+  --primary-foreground: #ffffff;
+  --primary-hover: #4338CA;
+  --primary-ring: rgba(79, 70, 229, 0.2);
+
+  --accent: #6366F1;
+  --accent-foreground: #ffffff;
+  --accent-hover: #4F46E5;
+  --accent-ring: rgba(99, 102, 241, 0.2);
+
+  --success: #22C55E;
+  --success-foreground: #ffffff;
+  --success-hover: #16A34A;
+  --success-ring: rgba(34, 197, 94, 0.2);
+
+  --destructive: #EF4444;
+  --destructive-foreground: #ffffff;
+  --destructive-hover: #DC2626;
+  --destructive-ring: rgba(239, 68, 68, 0.2);
+
+  --warning: #FACC15;
+  --warning-foreground: #0F172A;
+  --warning-hover: #EAB308;
+  --warning-ring: rgba(250, 204, 21, 0.2);
+
+  --border: #E2E8F0;
+  --border-hover: #CBD5E1;
+  --border-ring: rgba(226, 232, 240, 0.2);
+
+  --link: #3B82F6;
+  --link-hover: #2563EB;
+  --link-ring: rgba(59, 130, 246, 0.2);
+
+  --font: #0F172A;
+  --font-foreground: #334155;
+  --font-muted: #64748B;
+
+  --card: #F8FAFC;
+  --card-foreground: #1E293B;
+  --card-hover: #E2E8F0;
+  --card-ring: rgba(226, 232, 240, 0.2);
+
+  --input: #F1F5F9;
+  --input-hover: #E2E8F0;
+  --input-ring: rgba(203, 213, 225, 0.2);
+
+  --color-success: #22C55E;
+  --color-destructive: #EF4444;
+
+  --pie-chart-destructive-1: #EF4444;
+  --pie-chart-destructive-2: #FF6060;
+  --pie-chart-destructive-3: #FF7B7B;
+  --pie-chart-destructive-4: #FF9292;
+  --pie-chart-destructive-5: #FFB0B0;
+  --pie-chart-destructive-6: #FFC9C9;
+}
+
 .dark {
   --background: #0F172A;
   --foreground: #F8FAFC;

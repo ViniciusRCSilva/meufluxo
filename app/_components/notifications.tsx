@@ -66,7 +66,7 @@ const Notifications = ({ notifications, userId }: NotificationProps & UserId) =>
                                 variant="outline"
                                 size="sm"
                                 disabled={!notifications.some(notification => !notification.isRead) || loading}
-                                className="text-link h-8"
+                                className="hover:bg-background hover:text-link hover:opacity-80 text-link h-8"
                                 onClick={handleMarkAllAsRead}
                             >
                                 {loading ? (
@@ -81,7 +81,7 @@ const Notifications = ({ notifications, userId }: NotificationProps & UserId) =>
                                 variant="outline"
                                 size="sm"
                                 disabled={notifications.length === 0 || loading || notifications.some(notification => !notification.isRead)}
-                                className="text-destructive h-8"
+                                className="hover:bg-background hover:text-destructive hover:opacity-80 text-destructive h-8"
                                 onClick={handleDeleteAllNotifications}
                             >
                                 {loading ? (
@@ -101,7 +101,7 @@ const Notifications = ({ notifications, userId }: NotificationProps & UserId) =>
                             <p className="text-sm text-font-foreground text-center border border-border/20 px-10 py-5 mt-4 rounded">Nenhuma notificação</p>
                         ) : (
                             formattedNotifications.map((notification) => (
-                                <DropdownMenuItem key={notification.id} className="cursor-pointer p-3 hover:bg-card-foreground" onSelect={(e) => e.preventDefault()}>
+                                <DropdownMenuItem key={notification.id} className="cursor-pointer p-3 hover:bg-card dark:hover:bg-card-foreground" onSelect={(e) => e.preventDefault()}>
                                     <div className="flex flex-col items-start gap-3">
                                         <div className="flex items-center gap-2">
                                             {notificationIcon(notification.type)}
@@ -117,7 +117,7 @@ const Notifications = ({ notifications, userId }: NotificationProps & UserId) =>
                                                 Lida
                                             </Button>
                                         ) : (
-                                            <Button variant="outline" disabled={loading} className="text-link" onClick={() => handleMarkAsRead(notification.id)}>
+                                            <Button variant="outline" disabled={loading} className="hover:bg-background hover:text-link hover:opacity-80 text-link" onClick={() => handleMarkAsRead(notification.id)}>
                                                 {loading ? (
                                                     <Loader2 className="w-4 h-4 animate-spin" />
                                                 ) : (

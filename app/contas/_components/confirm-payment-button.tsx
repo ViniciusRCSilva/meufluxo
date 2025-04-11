@@ -6,11 +6,11 @@ import { addNotification } from "@/app/_actions/notifications";
 import { addTransaction } from "@/app/_actions/transaction";
 import { Button } from "@/app/_components/ui/button";
 import { Dialog, DialogTrigger, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogClose, DialogContent } from "@/app/_components/ui/dialog"
-import { handleRecurrence } from "@/app/_helpers/billHelper";
+import { billRecurrence, handleRecurrence } from "@/app/_helpers/billHelper";
 import { toast } from "sonner";
 import { useState } from "react";
 import { Bill } from "@prisma/client";
-import { Check, Hourglass, Loader2 } from "lucide-react";
+import { Banknote, Calendar, Check, Loader2, RefreshCcw } from "lucide-react";
 
 interface ConfirmPaymentButtonProps {
     bill: Bill;
@@ -79,18 +79,22 @@ const ConfirmPaymentButton = ({ bill }: ConfirmPaymentButtonProps) => {
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
                 <Button
-                    className="bg-primary text-primary-foreground"
+                    className="hover:bg-card hover:text-font py-6"
                     variant="outline"
                     disabled={bill.isPaid}
                 >
                     {bill.isPaid ? (
                         <span className="flex items-center gap-2">
-                            <Check className="w-4 h-4 text-success" />
+                            <div className="p-2 rounded-md bg-success/20">
+                                <Check className="w-4 h-4 text-success" />
+                            </div>
                             Pago
                         </span>
                     ) : (
                         <span className="flex items-center gap-2">
-                            <Hourglass className="w-4 h-4 text-warning" />
+                            <div className="p-2 rounded-md bg-success/20">
+                                <Check className="w-4 h-4 text-success" />
+                            </div>
                             Confirmar pagamento
                         </span>
                     )}
@@ -98,32 +102,63 @@ const ConfirmPaymentButton = ({ bill }: ConfirmPaymentButtonProps) => {
             </DialogTrigger>
             <DialogContent className="font-[family-name:var(--font-poppins)] sm:max-w-[500px]">
                 <DialogHeader>
-                    <DialogTitle className="text-2xl font-semibold">Confirmar pagamento</DialogTitle>
+                    <div className="flex items-center gap-2">
+                        <div className="p-2 rounded-md bg-success/20">
+                            <Check className="w-8 h-8 text-success" />
+                        </div>
+                        <DialogTitle className="text-2xl font-semibold">
+                            Confirmar pagamento
+                        </DialogTitle>
+                    </div>
                     <DialogDescription className="text-base text-font-muted pt-2.5">
                         Você está prestes a confirmar o pagamento da conta <span className="text-font-foreground font-medium">{bill.name}</span>.
                     </DialogDescription>
                 </DialogHeader>
-                <div className="mt-4 bg-secondary/30 rounded-lg">
-                    <div className="flex flex-col gap-3">
-                        <div className="flex items-center justify-between bg-card-foreground rounded-lg p-4">
+                <div className="flex flex-col mt-4">
+                    <div className="flex items-center justify-between p-4 text-font-muted">
+                        <div className="flex items-center gap-2">
+                            <Banknote className="w-4 h-4" />
                             <span className="text-font-muted">Valor:</span>
+                        </div>
+                        <div className="bg-card dark:bg-card-foreground rounded-lg p-2">
                             <span className="text-font-foreground font-medium">
                                 {new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(bill.value)}
                             </span>
                         </div>
-                        <div className="flex items-center justify-between bg-card-foreground rounded-lg p-4">
+                    </div>
+                    <div className="flex items-center justify-between p-4 text-font-muted">
+                        <div className="flex items-center gap-2">
+                            <Calendar className="w-4 h-4" />
                             <span className="text-font-muted">Vencimento:</span>
+                        </div>
+                        <div className="bg-card dark:bg-card-foreground rounded-lg p-2">
                             <span className="text-font-foreground font-medium">
                                 {bill.dueDate.toLocaleDateString('pt-BR')}
                             </span>
                         </div>
                     </div>
+                    <div className="flex items-center justify-between p-4 text-font-muted">
+                        <div className="flex items-center gap-2">
+                            <RefreshCcw className="w-4 h-4" />
+                            <span className="text-font-muted">Recorrência:</span>
+                        </div>
+                        <div className="bg-card dark:bg-card-foreground rounded-lg p-2">
+                            <span className="text-font-foreground font-medium">
+                                {billRecurrence(bill.recurrence)}
+                            </span>
+                        </div>
+                    </div>
+                    {bill.recurrence !== "NONE" && (
+                        <p className="text-sm bg-link/20 text-link rounded-md p-4">
+                            A conta {bill.name} será gerada automaticamente após o pagamento.
+                        </p>
+                    )}
                 </div>
                 <DialogFooter className="flex gap-3 pt-6">
                     <DialogClose asChild>
                         <Button
                             variant="outline"
-                            className="flex-1 h-11 transition-all duration-200 hover:bg-secondary/80"
+                            className="flex-1 h-11 gap-2 transition-all duration-200 hover:text-font hover:bg-background hover:opacity-70"
                         >
                             Cancelar
                         </Button>

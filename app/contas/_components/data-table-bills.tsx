@@ -75,7 +75,7 @@ export function DataTableBills<TData, TValue>({
 
     return (
         <div className="space-y-4">
-            <Accordion type="single" collapsible className="bg-card-foreground p-6 rounded-md">
+            <Accordion type="single" collapsible className="bg-card-hover dark:bg-card-foreground p-6 rounded-md">
                 <AccordionItem value="filter">
                     <div className="flex items-center justify-between">
                         <AccordionTrigger className="cursor-pointer max-w-fit items-center">
@@ -85,7 +85,7 @@ export function DataTableBills<TData, TValue>({
                             </div>
                         </AccordionTrigger>
                         {columnFilters.length > 0 && (
-                            <Button variant="outline" className="text-destructive hover:text-destructive" onClick={() => setColumnFilters([])}>
+                            <Button variant="outline" className="text-destructive hover:bg-background hover:opacity-80 hover:text-destructive" onClick={() => setColumnFilters([])}>
                                 <FilterX className="h-5 w-5" />
                                 Limpar filtros
                             </Button>
@@ -194,7 +194,7 @@ export function DataTableBills<TData, TValue>({
                     <DropdownMenuTrigger asChild>
                         <Button
                             variant="outline"
-                            className="h-9 gap-2 bg-card-foreground border-border/20 transition-all duration-200 hover:bg-secondary/30"
+                            className="h-9 gap-2 bg-card dark:bg-card-foreground border-border/20 transition-all duration-200 hover:bg-secondary/30"
                         >
                             {(() => {
                                 const sortConfig = table.getState().sorting[0]
@@ -274,14 +274,14 @@ export function DataTableBills<TData, TValue>({
                     </DropdownMenuContent>
                 </DropdownMenu>
             </div>
-            <div className="border border-border/20 rounded-lg overflow-hidden">
+            <div className="border border-border dark:border-border/20 rounded-lg overflow-hidden">
                 <ScrollArea className="w-full">
                     <Table>
                         <TableHeader>
                             {table.getHeaderGroups().map((headerGroup) => (
                                 <TableRow
                                     key={headerGroup.id}
-                                    className="border-b-2 border-border/20 bg-card-foreground hover:bg-card-foreground"
+                                    className="border-b-2 border-border dark:border-border/20 bg-card-hover dark:bg-card-foreground"
                                 >
                                     {headerGroup.headers.map((header) => {
                                         return (
@@ -307,7 +307,7 @@ export function DataTableBills<TData, TValue>({
                                     <TableRow
                                         key={row.id}
                                         className={cn(
-                                            "border-b border-border/20 transition-colors",
+                                            "border-b border-border dark:border-border/20 transition-colors",
                                             "hover:bg-secondary/30"
                                         )}
                                     >

@@ -129,10 +129,13 @@ const AddTransactionButton = ({ userId }: userIdProps) => {
                     Adicionar transação
                 </Button>
             </DialogTrigger>
-            <DialogContent className="font-[family-name:var(--font-poppins)] max-w-[500px] p-0 bg-card">
+            <DialogContent className="font-[family-name:var(--font-poppins)] max-w-[500px] p-0">
                 <DialogHeader className="p-8 pb-0">
                     <DialogTitle className="flex items-center gap-2 text-2xl font-semibold">
-                        <Plus className="w-7 h-7" /> Nova Transação
+                        <div className="p-2 rounded-md bg-primary/10">
+                            <Plus className="w-7 h-7 text-primary" />
+                        </div>
+                        Nova Transação
                         <Tooltip>
                             <TooltipTrigger asChild>
                                 <Button
@@ -281,7 +284,7 @@ const AddTransactionButton = ({ userId }: userIdProps) => {
                                 type="button"
                                 variant="outline"
                                 onClick={resetForm}
-                                className="flex-1 h-11 transition-all duration-200 hover:bg-secondary/80"
+                                className="flex-1 h-11 gap-2 transition-all duration-200 hover:text-font hover:bg-background hover:opacity-70"
                             >
                                 Cancelar
                             </Button>

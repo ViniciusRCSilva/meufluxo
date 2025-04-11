@@ -179,7 +179,7 @@ export const EditProfile = () => {
                         </Avatar>
                         <label
                             htmlFor="avatar"
-                            className="absolute bottom-0 right-0 p-2.5 rounded-full bg-card-foreground hover:bg-card-foreground/80 transition-all duration-300 cursor-pointer shadow-md group-hover:scale-105"
+                            className="absolute bottom-0 right-0 p-2.5 rounded-full bg-card dark:bg-card-foreground hover:bg-card/80 dark:hover:bg-card-foreground/80 transition-all duration-300 cursor-pointer shadow-md group-hover:scale-105"
                         >
                             <Camera className="w-4 h-4" />
                             <Input
@@ -261,7 +261,7 @@ export const EditProfile = () => {
                             onClick={handleResetPassword}
                             disabled={isLoading}
                             variant="outline"
-                            className="w-full h-11 hover:bg-secondary/80 transition-colors flex items-center justify-center gap-2"
+                            className="w-full h-11 hover:text-font hover:opacity-70 hover:bg-secondary/80 transition-colors flex items-center justify-center gap-2"
                         >
                             {isLoading ? (
                                 <>
@@ -285,7 +285,7 @@ export const EditProfile = () => {
                         type="button"
                         variant="ghost"
                         disabled={isLoading}
-                        className="hover:bg-secondary/80 transition-colors"
+                        className="hover:text-font hover:opacity-70 hover:bg-secondary/80 transition-colors"
                     >
                         Fechar
                     </Button>
