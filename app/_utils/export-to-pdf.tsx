@@ -4,13 +4,14 @@ import { toast } from "sonner";
 
 const corrigirOklabNoDOM = () => {
     const elementos = document.querySelectorAll("*");
+    const isDarkTheme = document?.documentElement?.classList.contains("dark");
 
     elementos.forEach((el) => {
         const elemento = el as HTMLElement;
         const styles = getComputedStyle(elemento);
 
         if (styles.color.includes("oklab")) elemento.style.color = "#0f172a";
-        if (styles.backgroundColor.includes("oklab")) elemento.style.backgroundColor = "#0f172a";
+        if (styles.backgroundColor.includes("oklab")) elemento.style.backgroundColor = isDarkTheme ? "#0f172a" : "#ffffff";
         if (styles.borderColor.includes("oklab")) elemento.style.borderColor = "#94A3B8";
     });
 };
@@ -24,7 +25,7 @@ export const exportToPDF = async (userName: string, year: string) => {
     const canvas = await html2canvas(relatorio, {
         scale: 2,
         useCORS: true,
-        backgroundColor: "#0f172a",
+        backgroundColor: document?.documentElement?.classList.contains("dark") ? "#0f172a" : "#ffffff",
     });
 
     const imgData = canvas.toDataURL("image/png");

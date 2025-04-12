@@ -22,16 +22,23 @@ const ExportToPDFButton = () => {
     return (
         <Dialog open={isLoading} onOpenChange={setIsLoading}>
             <DialogTrigger asChild>
-                <Button disabled={isLoading} variant="outline" className="text-destructive hover:text-destructive/80" onClick={handleExportToPDF}>
-                    <FileDown className="h-6 w-6" />
+                <Button disabled={isLoading} variant="outline" className="hover:bg-background text-font hover:text-font/80" onClick={handleExportToPDF}>
+                    <div className="p-1 rounded-md bg-destructive/20">
+                        <FileDown className="h-6 w-6 text-destructive" />
+                    </div>
                     {isLoading ? "Exportando..." : "Exportar relatório"}
                 </Button>
             </DialogTrigger>
             <DialogContent className="font-[family-name:var(--font-poppins)] sm:max-w-[425px]">
                 <DialogHeader className="text-center space-y-6">
-                    <DialogTitle className="text-2xl font-semibold tracking-tight">
-                        Exportando seu relatório
-                    </DialogTitle>
+                    <div className="flex items-center gap-2">
+                        <div className="p-2 rounded-md bg-destructive/20">
+                            <FileDown className="h-8 w-8 text-destructive" />
+                        </div>
+                        <DialogTitle className="text-2xl font-semibold tracking-tight">
+                            Exportando seu relatório
+                        </DialogTitle>
+                    </div>
                 </DialogHeader>
                 <div className="flex flex-col items-center gap-4 pt-4">
                     <div className="flex flex-col items-center gap-2 text-destructive">
