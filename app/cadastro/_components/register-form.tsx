@@ -153,12 +153,16 @@ const RegisterForm = () => {
             <div className="space-y-2 text-center">
                 {pendingVerification ? (
                     <div className="flex flex-col items-center">
-                        <MailSearch className="w-8 h-8" />
+                        <div className="p-2 rounded-md bg-link/20 mb-2">
+                            <MailSearch className="w-8 h-8 text-link" />
+                        </div>
                         <h1 className="text-2xl tracking-tight">Verifique seu e-mail</h1>
                     </div>
                 ) : (
                     <div className="flex flex-col items-center">
-                        <UserRoundPlus className="w-8 h-8" />
+                        <div className="p-2 rounded-md bg-link/20 mb-2">
+                            <UserRoundPlus className="w-8 h-8 text-link" />
+                        </div>
                         <h1 className="text-2xl tracking-tight">Crie sua conta</h1>
                     </div>
                 )}
@@ -301,7 +305,7 @@ const RegisterForm = () => {
                     <Separator className="w-full border-border/20" />
                 </div>
                 <div className="relative flex justify-center text-xs uppercase">
-                    <span className="bg-card-foreground px-2 text-font-muted">
+                    <span className="bg-background dark:bg-card-foreground px-2 text-font-muted">
                         Ou registre-se com
                     </span>
                 </div>
@@ -309,7 +313,7 @@ const RegisterForm = () => {
             <Button
                 type="button"
                 variant="outline"
-                className="w-full h-11 border-border/20 hover:bg-card-hover transition-colors"
+                className="w-full h-11 border-border/20 hover:text-font hover:bg-card dark:hover:bg-card-hover transition-colors"
                 onClick={handleGoogleSignUp}
             >
                 <Image src="/google.svg" alt="Google" width={24} height={24} />

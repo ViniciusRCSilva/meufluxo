@@ -99,7 +99,9 @@ const LoginForm = () => {
     return (
         <div className="w-full max-w-md p-8 space-y-6 font-[family-name:var(--font-poppins)]">
             <div className="flex flex-col items-center">
-                <UserRound className="w-8 h-8" />
+                <div className="p-2 rounded-md bg-link/20 mb-2">
+                    <UserRound className="w-8 h-8 text-link" />
+                </div>
                 <h1 className="text-2xl tracking-tight">Bem-vindo de volta</h1>
                 <p className="text-sm text-font-muted">Entre na sua conta para continuar</p>
             </div>
@@ -175,7 +177,7 @@ const LoginForm = () => {
                     <Separator className="w-full border-border/20" />
                 </div>
                 <div className="relative flex justify-center text-xs uppercase">
-                    <span className="bg-card-foreground px-2 text-font-muted">
+                    <span className="bg-background dark:bg-card-foreground px-2 text-font-muted">
                         Ou continue com
                     </span>
                 </div>
@@ -184,7 +186,7 @@ const LoginForm = () => {
             <Button
                 type="button"
                 variant="outline"
-                className="w-full h-11 border-border/20 hover:bg-card-hover transition-colors"
+                className="w-full h-11 border-border/20 hover:text-font hover:bg-card dark:hover:bg-card-hover transition-colors"
                 onClick={handleGoogleSignIn}
                 disabled={isLoading}
             >

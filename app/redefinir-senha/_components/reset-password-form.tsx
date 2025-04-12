@@ -125,12 +125,16 @@ const ResetPasswordForm = () => {
                 <h1 className="text-2xl tracking-tight font-[var(--font-poppins)]">
                     {pendingVerification ? (
                         <div className="flex flex-col items-center">
-                            <MailSearch className="w-8 h-8" />
+                            <div className="p-2 rounded-md bg-link/20 mb-2">
+                                <MailSearch className="w-8 h-8 text-link" />
+                            </div>
                             <h1 className="text-2xl tracking-tight">Verifique seu e-mail</h1>
                         </div>
                     ) : (
                         <div className="flex flex-col items-center">
-                            <KeyRound className="w-8 h-8" />
+                            <div className="p-2 rounded-md bg-link/20 mb-2">
+                                <KeyRound className="w-8 h-8 text-link" />
+                            </div>
                             <h1 className="text-2xl tracking-tight">Redefinir Senha</h1>
                         </div>
                     )}
