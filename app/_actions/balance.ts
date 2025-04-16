@@ -60,11 +60,19 @@ const removeFromBalance = async (userId: string, amount: number) => {
     }
 }
 
-const getBalance = async (userId: string) => {
+const getBalance = async (userId: string, date?: Date) => {
     try {
         const balance = await db.balance.findFirst({
             where: {
-                userId: userId
+                userId: userId,
+                ...(date && {
+                    createdAt: {
+                        lte: date
+                    }
+                })
+            },
+            orderBy: {
+                createdAt: 'desc'
             }
         });
         return balance;
