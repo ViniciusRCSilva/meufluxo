@@ -32,7 +32,7 @@ const Home = async () => {
     const currentYear = currentDate.getFullYear();
 
     const balance = await getBalance(userId);
-    const rawTransactions = await getTransactions(userId);
+    const rawTransactions = await getTransactions(userId, "asc");
 
     const lastTransactions = formatLastTransactions(rawTransactions);
     const chartData = getMonthlyTransactions(rawTransactions);
@@ -78,7 +78,7 @@ const Home = async () => {
                 <BarchartRevenueAndExpenses data={chartData} />
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <LastTransactionsCard transactions={lastTransactions?.slice(0, 3) || []} />
-                    <ExpensesDivisionCard data={expensesChartData} />
+                    <ExpensesDivisionCard data={expensesChartData} title="mês" />
                 </div>
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-[1.5fr_3fr] gap-6">

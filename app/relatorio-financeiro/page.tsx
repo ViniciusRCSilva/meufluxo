@@ -6,15 +6,13 @@ import { BarchartRevenueAndExpenses } from "../_components/barchart-renevue-and-
 import { ExpensesDivisionCard } from "@/app/_components/expenses-division-card";
 import { getTransactions } from "../_actions/transaction";
 import {
-    getCurrentYearTransactions,
+    getCurrentYearMonthlyTransactions,
     calculateYearTotals,
     MonthlyVariation,
     getExpensesChartData,
     getMonthlyNetProfitData,
+    getCurrentYearTransactions,
 } from "@/app/_utils/financial-report-functions";
-import {
-    getMonthlyTransactions,
-} from "@/app/_utils/home-page-functions";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/app/_components/ui/tooltip";
 import { HelpCircle } from "lucide-react";
 import { AreaChartMonthResume } from "./_components/area-chart-month-resume";
@@ -31,9 +29,9 @@ const FinancialReport = async () => {
     const currentMonth = currentDate.getMonth();
     const currentYear = currentDate.getFullYear();
 
-    const rawTransactions = await getTransactions(userId);
+    const rawTransactions = await getTransactions(userId, "asc");
 
-    const chartData = getMonthlyTransactions(rawTransactions);
+    const chartData = getCurrentYearMonthlyTransactions(rawTransactions, currentYear);
     const currentYearTransactions = getCurrentYearTransactions(rawTransactions, currentYear);
     const { entrances, exits } = calculateYearTotals(currentYearTransactions);
     const monthlyVariation = MonthlyVariation(rawTransactions, currentMonth, currentYear);
@@ -88,7 +86,7 @@ const FinancialReport = async () => {
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-[3.1fr_1fr] gap-6">
                 <BarchartRevenueAndExpenses data={chartData} />
-                <ExpensesDivisionCard data={expensesChartData} />
+                <ExpensesDivisionCard data={expensesChartData} title="ano" />
             </div>
             <div className="w-full">
                 <AreaChartMonthResume data={monthlyNetProfitData} />

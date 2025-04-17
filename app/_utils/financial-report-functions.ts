@@ -11,6 +11,47 @@ const formatFinancialReport = (rawTransactions: Transaction[] | undefined) => {
     }));
 };
 
+const getCurrentYearMonthlyTransactions = (rawTransactions: Transaction[] | undefined, currentYear: number) => {
+    // Filtra transações apenas do ano atual
+    const currentYearTransactions = rawTransactions?.filter(transaction => {
+        const transactionDate = new Date(transaction.createdAt);
+        return transactionDate.getFullYear() === currentYear;
+    });
+
+    if (!currentYearTransactions?.length) return [];
+
+    // Agrupa transações por mês
+    const monthlyTransactions = currentYearTransactions.reduce((acc, transaction) => {
+        const date = new Date(transaction.createdAt);
+        const month = date.toLocaleDateString('pt-BR', { month: 'long' });
+
+        if (!acc[month]) {
+            acc[month] = { revenue: 0, expenses: 0 };
+        }
+
+        if (transaction.type === 'DEPOSIT') {
+            acc[month].revenue += transaction.value;
+        } else {
+            acc[month].expenses += transaction.value;
+        }
+
+        return acc;
+    }, {} as Record<string, { revenue: number, expenses: number }>);
+
+    // Converte para array e ordena os meses cronologicamente
+    const monthOrder = Array.from({ length: 12 }, (_, i) =>
+        new Date(currentYear, i).toLocaleDateString('pt-BR', { month: 'long' })
+    );
+
+    return Object.entries(monthlyTransactions)
+        .map(([month, values]) => ({
+            month,
+            revenue: values.revenue,
+            expenses: values.expenses
+        }))
+        .sort((a, b) => monthOrder.indexOf(a.month) - monthOrder.indexOf(b.month));
+};
+
 const getCurrentYearTransactions = (rawTransactions: Transaction[] | undefined, currentYear: number) => {
     return rawTransactions?.filter(transaction => {
         const transactionDate = new Date(transaction.createdAt);
@@ -119,6 +160,7 @@ const getMonthlyNetProfitData = (transactions: Transaction[] | undefined) => {
 
 export {
     formatFinancialReport,
+    getCurrentYearMonthlyTransactions,
     getCurrentYearTransactions,
     calculateYearTotals,
     MonthlyVariation,

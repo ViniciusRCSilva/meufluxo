@@ -40,14 +40,14 @@ const addTransaction = async (params: Transaction) => {
     }
 }
 
-const getTransactions = async (userId: string) => {
+const getTransactions = async (userId: string, orderBy?: "asc" | "desc") => {
     try {
         const transactions = await db.transaction.findMany({
             where: {
                 userId: userId
             },
             orderBy: {
-                createdAt: "desc"
+                createdAt: orderBy || "desc"
             }
         });
         return transactions;
