@@ -24,7 +24,7 @@ const MyProfile = async () => {
     const currentYear = currentDate.getFullYear();
 
     const balance = await getBalance(userId);
-    const rawTransactions = await getTransactions(userId);
+    const rawTransactions = await getTransactions(userId, "asc");
     const goals = await getFinancialGoals(userId);
 
     const lastTransactions = rawTransactions?.map(transaction => ({
