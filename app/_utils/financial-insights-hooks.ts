@@ -4,10 +4,12 @@ import {
     comparisonWithThePreviousMonth,
     goalsAndObjectives,
     routineAndPlanning,
-    savingsAndEconomy
+    savingsAndEconomy,
+    alertsAndPrevention
 } from './financial-insights-functions'
 import { useState, useEffect } from 'react'
 
+/* Funções de busca */
 const fetchComparison = async (userId: string) => {
     const result = await comparisonWithThePreviousMonth(userId)
     return {
@@ -47,6 +49,15 @@ const fetchRoutineAndPlanning = async (userId: string) => {
     }
 }
 
+const fetchAlertsAndPrevention = async (userId: string) => {
+    const result = await alertsAndPrevention(userId)
+    return {
+        openBillsvalue: result.openBillsvalue,
+        lateBillsAlert: result.lateBillsAlert
+    }
+}
+
+/* Hooks */
 export const useFinancialInsightsData = (userId: string) => {
     /* Comparativo com o mês anterior */
     const [difference, setDifference] = useState<number>(0)
@@ -66,7 +77,14 @@ export const useFinancialInsightsData = (userId: string) => {
     const [transactionsQt, setTransactionsQt] = useState<number>(0)
     const [monthlyTransactions, setMonthlyTransactions] = useState<number>(0)
     const [next7DaysBillsQt, setNext7DaysBillsQt] = useState<number>(0)
+    /* Alertas e prevenção */
+    const [openBillsvalue, setOpenBillsvalue] = useState<number>(0)
+    const [lateBillsAlert, setLateBillsAlert] = useState<{
+        name: string
+        dueDate: Date
+    } | null>(null)
 
+    /* Carrega os dados */
     useEffect(() => {
         const loadData = async () => {
             const comparisonResult = await fetchComparison(userId)
@@ -91,6 +109,10 @@ export const useFinancialInsightsData = (userId: string) => {
             setTransactionsQt(routineResult.transactionsQt)
             setMonthlyTransactions(routineResult.monthlyTransactions)
             setNext7DaysBillsQt(routineResult.next7DaysBillsQt)
+
+            const alertsResult = await fetchAlertsAndPrevention(userId)
+            setOpenBillsvalue(alertsResult.openBillsvalue)
+            setLateBillsAlert(alertsResult.lateBillsAlert)
         }
 
         loadData()
@@ -110,6 +132,8 @@ export const useFinancialInsightsData = (userId: string) => {
         amountToSave,
         transactionsQt,
         monthlyTransactions,
-        next7DaysBillsQt
+        next7DaysBillsQt,
+        openBillsvalue,
+        lateBillsAlert
     }
 }

@@ -27,7 +27,9 @@ const FinancialInsightsCard = ({ userId }: FinancialInsightsCardProps) => {
         amountToSave,
         transactionsQt,
         monthlyTransactions,
-        next7DaysBillsQt
+        next7DaysBillsQt,
+        openBillsvalue,
+        lateBillsAlert
     } = useFinancialInsightsData(userId)
 
     return (
@@ -64,7 +66,10 @@ const FinancialInsightsCard = ({ userId }: FinancialInsightsCardProps) => {
                             />
                         </CarouselItem>
                         <CarouselItem className="h-full">
-                            <AlertsAndPrevention />
+                            <AlertsAndPrevention
+                                openBillsvalue={openBillsvalue}
+                                lateBillsAlert={lateBillsAlert}
+                            />
                         </CarouselItem>
                         <CarouselItem className="h-full">
                             <RoutineAndPlanning

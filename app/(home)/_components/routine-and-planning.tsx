@@ -21,7 +21,7 @@ const RoutineAndPlanning = ({ transactionsQt, monthlyTransactions, next7DaysBill
             <div className="flex-1">
                 <CarouselTemplate itens={[
                     <p key="1">
-                        Você realizou <span className="text-link font-semibold">{transactionsQt} transações</span> este mês. A média mensal é <span className="text-link font-semibold">{monthlyTransactions}</span>.
+                        Você realizou <span className="text-link font-semibold">{transactionsQt} transações</span> no total. Nos últimos dois meses, sua média foi de <span className="text-link font-semibold">{monthlyTransactions} transações</span> por mês.
                     </p>,
                     <p key="2">
                         Planeje os próximos gastos: {

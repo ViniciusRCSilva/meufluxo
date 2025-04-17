@@ -24,15 +24,23 @@ const SavingsAndEconomy = ({ economyPercentage, fixedCostPercentage, monthsToGoa
             <div className="flex-1">
                 <CarouselTemplate itens={[
                     <p key="1">
-                        Você alcançou <span className='text-link font-semibold'>{economyPercentage}%</span> de economia em relação ao que recebeu este mês.
+                        {economyPercentage > 0 ? (
+                            <>Você conseguiu economizar <span className='text-link font-semibold'>{economyPercentage}%</span> da sua renda este mês. {economyPercentage >= 20 ? "Excelente trabalho!" : "Continue assim!"}</>
+                        ) : (
+                            <>Suas despesas superaram sua renda em <span className='text-link font-semibold'>{Math.abs(economyPercentage)}%</span>. Tente reduzir alguns gastos.</>
+                        )}
                     </p>,
                     <p key="2">
-                        Seus gastos fixos representam <span className="text-link font-semibold">{fixedCostPercentage}%</span> da sua renda.
+                        {fixedCostPercentage > 0 ? (
+                            <>Seus gastos fixos mensais consomem <span className="text-link font-semibold">{fixedCostPercentage}%</span> da sua renda. {fixedCostPercentage > 50 ? "Considere revisar alguns gastos." : "Está dentro do recomendado."}</>
+                        ) : (
+                            <>Você não tem gastos fixos registrados.</>
+                        )}
                     </p>,
                     <p key="3">
                         {amountToSave > 0 ? (
                             <>
-                                Considere guardar <span className="text-link font-semibold">{formatCurrency(amountToSave)}</span> por semana para bater a meta &quot;{goalName}&quot; <span className="text-link font-semibold">{monthsToGoal === 0 ? "em algumas semanas" : `em aproximadamente ${monthsToGoal !== 1 ? `${monthsToGoal} meses` : `${monthsToGoal} mês`}.`}</span>
+                                Para atingir sua meta &quot;{goalName}&quot;, sugerimos guardar <span className="text-link font-semibold">{formatCurrency(amountToSave)}</span> por mês. {monthsToGoal > 0 ? `Assim você alcançará o objetivo em aproximadamente ${monthsToGoal !== 1 ? `${monthsToGoal} meses` : `${monthsToGoal} mês`}.` : ""}
                             </>
                         ) : (
                             <>
