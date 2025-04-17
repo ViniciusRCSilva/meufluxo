@@ -1,6 +1,6 @@
 "use client"
 
-import { Pie, PieChart } from "recharts"
+import { Cell, Pie, PieChart } from "recharts"
 
 import {
     Card,
@@ -26,6 +26,7 @@ interface ChartItem {
 
 interface ExpensesDivisionCardProps {
     data: ChartItem[]
+    title: "mês" | "ano"
 }
 
 const chartConfig = {
@@ -34,82 +35,98 @@ const chartConfig = {
     },
 } satisfies ChartConfig
 
-export function ExpensesDivisionCard({ data }: ExpensesDivisionCardProps) {
+export function ExpensesDivisionCard({ data, title }: ExpensesDivisionCardProps) {
     return (
         <Card className="flex flex-col font-[family-name:var(--font-poppins)]">
             <CardHeader className="items-center pb-0">
                 <Link href="/transacoes" className="hover:underline hover:text-font-foreground">
-                    <CardTitle className="text-xl text-font-foreground">Despesas do mês</CardTitle>
+                    <CardTitle className="text-xl text-font-foreground">Despesas do {title}</CardTitle>
                 </Link>
             </CardHeader>
             <CardContent className="flex-1 pb-0">
                 <ChartContainer
                     config={chartConfig}
-                    className="mx-auto max-h-[200px] px-0"
+                    className="mx-auto h-[200px] px-0"
                 >
                     {data.length === 0 ? (
                         <div className="flex items-center justify-center h-[200px] text-font-muted">
                             Nenhuma despesa para exibir
                         </div>
                     ) : (
-                        <PieChart>
-                            <ChartTooltip
-                                content={({ payload }) => {
-                                    if (payload && payload.length > 0) {
-                                        const data = payload[0].payload;
-                                        return (
-                                            <div className="rounded-lg bg-background p-2 shadow-md border border-border font-[family-name:var(--font-poppins)]">
-                                                <div className="flex items-center gap-1">
-                                                    <div className="h-2 w-2 rounded-full" style={{ backgroundColor: data.fill }} />
-                                                    <p className="text-font-foreground font-semibold">
-                                                        {transactionCategory(data.expenseName)}
-                                                    </p>
+                        <div className="flex flex-col items-center">
+                            <PieChart
+                                width={300}
+                                height={200}
+                            >
+                                <ChartTooltip
+                                    content={({ payload }) => {
+                                        if (payload && payload.length > 0) {
+                                            const data = payload[0].payload;
+                                            return (
+                                                <div className="rounded-lg bg-background p-2 shadow-md border border-border font-[family-name:var(--font-poppins)]">
+                                                    <div className="flex items-center gap-1">
+                                                        <div
+                                                            className="h-3 w-3 rounded-sm"
+                                                            style={{
+                                                                backgroundColor: data.fill,
+                                                            }}
+                                                        />
+                                                        <span className="text-font-foreground font-semibold">
+                                                            {transactionCategory(data.expenseName)}
+                                                        </span>
+                                                    </div>
+                                                    <div className="mt-1 text-font-foreground text-sm">
+                                                        {formatCurrency(data.expenses)}
+                                                    </div>
                                                 </div>
-                                                <p className="text-font-foreground text-sm">
-                                                    {formatCurrency(data.expenses)}
-                                                </p>
-                                            </div>
-                                        );
-                                    }
-                                    return null;
-                                }}
-                            />
-                            <Pie
-                                data={data}
-                                dataKey="expenses"
-                                labelLine={false}
-                                label={({ payload, ...props }) => {
-                                    return (
-                                        <text
-                                            cx={props.cx}
-                                            cy={props.cy}
-                                            x={props.x}
-                                            y={props.y}
-                                            textAnchor={props.textAnchor}
-                                            dominantBaseline={props.dominantBaseline}
-                                            fill="var(--font)"
-                                            className="text-sm font-semibold"
-                                        >
-                                            {formatCurrency(payload.expenses)}
-                                        </text>
-                                    )
-                                }}
-                                nameKey={(item) => <p className="text-font">{transactionCategory(item.expenseName)}</p>}
-                            />
-                        </PieChart>
+                                            );
+                                        }
+                                        return null;
+                                    }}
+                                />
+                                <Pie
+                                    data={data}
+                                    dataKey="expenses"
+                                    nameKey="expenseName"
+                                    cx="50%"
+                                    cy="50%"
+                                    innerRadius={35}
+                                    outerRadius={70}
+                                    labelLine={false}
+                                >
+                                    {data.map((entry) => (
+                                        <Cell
+                                            key={entry.expenseName}
+                                            fill={entry.fill}
+                                            stroke={entry.fill}
+                                        />
+                                    ))}
+                                </Pie>
+                            </PieChart>
+                        </div>
                     )}
                 </ChartContainer>
             </CardContent>
-            {data.length > 0 && (
-                <CardFooter className="grid grid-cols-2 gap-2 text-sm">
-                    {data.map((item) => (
-                        <div key={item.expenseName} className="flex items-center justify-center gap-2">
-                            <div className="h-2 w-2 rounded-full" style={{ backgroundColor: item.fill }} />
-                            <span className="text-font">{transactionCategory(item.expenseName)}</span>
+            <CardFooter>
+                <div className="flex flex-wrap justify-center gap-4 mt-4">
+                    {data.map((entry) => (
+                        <div key={entry.expenseName} className="flex flex-col items-center">
+                            <div className="flex items-center gap-2">
+                                <div
+                                    className="h-3 w-3 rounded-sm"
+                                    style={{ backgroundColor: entry.fill }}
+                                />
+                                <span className="text-sm text-font-foreground font-semibold">
+                                    {transactionCategory(entry.expenseName)}
+                                </span>
+                            </div>
+                            <span className="text-sm text-font-foreground">
+                                {formatCurrency(entry.expenses)}
+                            </span>
                         </div>
                     ))}
-                </CardFooter>
-            )}
+                </div>
+            </CardFooter>
         </Card>
     )
 }
