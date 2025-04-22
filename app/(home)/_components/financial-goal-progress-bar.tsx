@@ -7,10 +7,23 @@ interface FinancialGoalProgressBarProps {
 
 const FinancialGoalProgressBar = ({ name, progress }: FinancialGoalProgressBarProps) => {
     return (
-        <div className="grid grid-cols-[1fr_2fr_1fr] lg:grid-cols-[1fr_4fr_1fr] gap-4 items-center">
-            <p className="text-font w-20 lg:w-40 text-ellipsis overflow-hidden font-[family-name:var(--font-poppins)] text-left">{name}</p>
-            <Progress value={progress} />
-            <p className="text-font-muted font-[family-name:var(--font-poppins)] text-right">{progress.toFixed(2)}%</p>
+        <div className="group relative p-4 rounded-lg hover:bg-muted/40 transition-colors">
+            <div className="flex flex-col gap-2">
+                <div className="flex items-center justify-between">
+                    <p className="text-font-foreground font-medium text-sm truncate max-w-[180px] lg:max-w-[240px]">
+                        {name}
+                    </p>
+                    <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-link/10 text-link">
+                        {progress.toFixed(1)}%
+                    </span>
+                </div>
+                <div className="relative">
+                    <Progress
+                        value={progress}
+                        className="h-2 bg-muted"
+                    />
+                </div>
+            </div>
         </div>
     )
 }

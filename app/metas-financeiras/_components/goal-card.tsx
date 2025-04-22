@@ -58,7 +58,7 @@ const GoalCard = ({ id, name, createdAt, goalAchievedDate, currentAmount, goalAm
                         className="h-2"
                         value={goalPercentage}
                     />
-                    <p className="text-sm">{goalPercentage.toFixed(2)}%</p>
+                    <p className="text-xs font-medium w-fit px-2 py-0.5 rounded-full bg-link/10 text-link">{goalPercentage.toFixed(2)}%</p>
                 </div>
             </CardContent>
         </Card>
