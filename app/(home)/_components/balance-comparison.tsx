@@ -26,7 +26,7 @@ const BalanceComparison = ({ difference, spentPercentage, expensesPercentage }: 
                         {difference > 0 ? " Bom trabalho!" : ""}
                     </p>,
                     <p key="2">
-                        Você {difference >= 0 ? "economizou" : "gastou"} <span className="text-link font-semibold">{spentPercentage}%</span> {difference >= 0 ? "a mais" : "a menos"} do que no mês anterior.
+                        Você {difference >= 0 ? "economizou" : "gastou"} <span className="text-link font-semibold">{Math.abs(spentPercentage)}%</span> {difference >= 0 ? "a mais" : "a menos"} do que no mês anterior.
                         {difference >= 0 ? " Continue assim!" : ""}
                     </p>,
                     <p key="3">Suas despesas {expensesPercentage > 0 ? "aumentaram" : "diminuíram"} <span className="text-link font-semibold">{Math.abs(expensesPercentage)}%</span> em relação ao mês anterior.</p>,
