@@ -69,6 +69,7 @@
   }
 }
 
+/* Tema padrão (Azul) */
 :root {
   --radius: 0.625rem;
   --background: #0F172A;
@@ -131,6 +132,49 @@
   --pie-chart-destructive-6: #FFC9C9;
 }
 
+/* Tema Verde Água */
+:root[data-theme="teal"],
+.light[data-theme="teal"],
+.dark[data-theme="teal"] {
+  --primary: #06b6d4;
+  --primary-foreground: #ffffff;
+  --primary-hover: #0891b2;
+  --primary-ring: rgba(6, 182, 212, 0.3);
+
+  --link: #06b6d4;
+  --link-hover: #0891b2;
+  --link-ring: rgba(6, 182, 212, 0.3);
+}
+
+/* Tema Rosa */
+:root[data-theme="pink"],
+.light[data-theme="pink"],
+.dark[data-theme="pink"] {
+  --primary: #ec4899;
+  --primary-foreground: #ffffff;
+  --primary-hover: #db2777;
+  --primary-ring: rgba(236, 72, 153, 0.3);
+
+  --link: #ec4899;
+  --link-hover: #db2777;
+  --link-ring: rgba(236, 72, 153, 0.3);
+}
+
+/* Tema Âmbar */
+:root[data-theme="amber"],
+.light[data-theme="amber"],
+.dark[data-theme="amber"] {
+  --primary: #f59e0b;
+  --primary-foreground: #ffffff;
+  --primary-hover: #d97706;
+  --primary-ring: rgba(245, 158, 11, 0.3);
+
+  --link: #f59e0b;
+  --link-hover: #d97706;
+  --link-ring: rgba(245, 158, 11, 0.3);
+}
+
+/* Modo Claro */
 .light {
   --background: #ffffff;
   --foreground: #0F172A;
@@ -192,6 +236,7 @@
   --pie-chart-destructive-6: #FFC9C9;
 }
 
+/* Modo Escuro */
 .dark {
   --background: #0F172A;
   --foreground: #F8FAFC;
