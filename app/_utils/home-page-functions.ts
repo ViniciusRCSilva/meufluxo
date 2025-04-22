@@ -1,5 +1,4 @@
 import { Transaction } from "../_types/transaction";
-import { TransactionType } from "@prisma/client";
 
 const formatLastTransactions = (rawTransactions: Transaction[] | undefined) => {
     return rawTransactions?.map(transaction => ({
@@ -113,43 +112,11 @@ const formatFinancialGoals = (goals: {
     }));
 };
 
-const getMonthlyBalanceEvolution = (transactions: Transaction[] | undefined) => {
-    if (!transactions) return [];
-
-    const monthlyData = transactions.reduce((acc, transaction) => {
-        const date = new Date(transaction.createdAt);
-        const monthKey = date.toLocaleString('pt-BR', { month: 'long' });
-
-        if (!acc[monthKey]) {
-            acc[monthKey] = { balance: 0 };
-        }
-
-        if (transaction.type === TransactionType.DEPOSIT) {
-            acc[monthKey].balance += transaction.value;
-        } else {
-            acc[monthKey].balance -= transaction.value;
-        }
-
-        return acc;
-    }, {} as Record<string, { balance: number }>);
-
-    // Calcular o saldo acumulado
-    let runningBalance = 0;
-    return Object.entries(monthlyData).map(([month, data]) => {
-        runningBalance += data.balance;
-        return {
-            month: month.charAt(0).toUpperCase() + month.slice(1),
-            balance: runningBalance
-        };
-    });
-};
-
 export {
     formatLastTransactions,
     getMonthlyTransactions,
     getCurrentMonthTransactions,
     calculateMonthlyTotals,
     getExpensesChartData,
-    getMonthlyBalanceEvolution,
     formatFinancialGoals,
 }

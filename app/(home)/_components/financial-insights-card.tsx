@@ -8,6 +8,7 @@ import SavingsAndEconomy from "./savings-and-economy"
 import AlertsAndPrevention from "./alerts-and-prevention"
 import RoutineAndPlanning from "./routine-and-planning"
 import { useFinancialInsightsData } from '@/app/_utils/financial-insights-hooks'
+import { Separator } from "@/app/_components/ui/separator"
 
 interface FinancialInsightsCardProps {
     userId: string
@@ -38,8 +39,8 @@ const FinancialInsightsCard = ({ userId }: FinancialInsightsCardProps) => {
                 <CardTitle className="text-xl text-font-foreground">Insights financeiros</CardTitle>
                 <CardDescription className="text-font-muted">Análises e dicas para melhorar sua gestão financeira.</CardDescription>
             </CardHeader>
-            <CardContent className="flex-1 overflow-hidden">
-                <Carousel opts={{ loop: true }} className="h-full">
+            <CardContent className="flex-1 h-full overflow-hidden">
+                <Carousel opts={{ loop: true }} className="flex flex-col justify-between h-full">
                     <CarouselContent className="h-full">
                         <CarouselItem className="h-full">
                             <BalanceComparison
@@ -79,6 +80,9 @@ const FinancialInsightsCard = ({ userId }: FinancialInsightsCardProps) => {
                             />
                         </CarouselItem>
                     </CarouselContent>
+
+                    <Separator className="my-4" />
+
                     <div className="flex items-center justify-between gap-2 mt-4">
                         <div className="flex items-center gap-2">
                             <CarouselPrevious variant="outline" size="icon" className="text-font-foreground static" />
