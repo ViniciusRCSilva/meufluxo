@@ -32,11 +32,12 @@ const Home = async () => {
     const currentYear = currentDate.getFullYear();
 
     const balance = await getBalance(userId);
-    const rawTransactions = await getTransactions(userId, "asc");
+    const descTransactions = await getTransactions(userId, "desc");
+    const ascTransactions = await getTransactions(userId, "asc");
 
-    const lastTransactions = formatLastTransactions(rawTransactions);
-    const chartData = getMonthlyTransactions(rawTransactions);
-    const currentMonthTransactions = getCurrentMonthTransactions(rawTransactions, currentMonth, currentYear);
+    const lastTransactions = formatLastTransactions(descTransactions);
+    const chartData = getMonthlyTransactions(ascTransactions);
+    const currentMonthTransactions = getCurrentMonthTransactions(ascTransactions, currentMonth, currentYear);
     const { entrances, exits } = calculateMonthlyTotals(currentMonthTransactions);
     const bill = await getNearestBill(userId);
     const expensesChartData = getExpensesChartData(currentMonthTransactions);
