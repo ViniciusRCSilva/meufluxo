@@ -4,7 +4,7 @@ import { useAuth } from "@clerk/nextjs"
 import { CurrencyType } from "@prisma/client"
 import { DollarSign, Euro, Coins } from "lucide-react"
 import { useEffect, useState } from "react"
-import { getUserPreferences, updateUserPreferences } from "../../_actions/user-preferences"
+import { getUserPreferences, updateUserCurrencyPreferences } from "../../_actions/user-preferences"
 import { DialogCardTemplate } from "./dialog-card-template"
 import { Button } from "@/app/_components/ui/button"
 
@@ -28,12 +28,7 @@ export const FinancialPreference = () => {
         const currencyType = value as CurrencyType;
         setSelectedCurrency(currencyType);
 
-        await updateUserPreferences(userId, {
-            selectedCurrencyType: currencyType,
-            transactionsThreshold: null,
-            transactionThresholdValue: null,
-            isNotificationsActive: true
-        });
+        await updateUserCurrencyPreferences(userId, currencyType);
     };
 
     return (
