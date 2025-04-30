@@ -1,6 +1,9 @@
+"use client"
+
 import { PiggyBank } from "lucide-react"
 import CarouselTemplate from "./carousel-template"
 import { formatCurrency } from "@/app/_utils/formatCurrency"
+import { useCurrencyPreference } from "@/app/_hooks/useCurrencyPreference"
 
 interface SavingsAndEconomyProps {
     economyPercentage: number
@@ -11,6 +14,7 @@ interface SavingsAndEconomyProps {
 }
 
 const SavingsAndEconomy = ({ economyPercentage, fixedCostPercentage, monthsToGoal, goalName, amountToSave }: SavingsAndEconomyProps) => {
+    const { currencyType } = useCurrencyPreference();
     return (
         <div className="flex flex-col h-full">
             <div className="flex items-center gap-2 mb-4">
@@ -40,7 +44,7 @@ const SavingsAndEconomy = ({ economyPercentage, fixedCostPercentage, monthsToGoa
                     <p key="3">
                         {amountToSave > 0 ? (
                             <>
-                                Para atingir sua meta &quot;{goalName}&quot;, sugerimos guardar <span className="text-link font-semibold">{formatCurrency(amountToSave)}</span> por mês. {monthsToGoal > 0 ? `Assim você alcançará o objetivo em aproximadamente ${monthsToGoal !== 1 ? `${monthsToGoal} meses` : `${monthsToGoal} mês`}.` : ""}
+                                Para atingir sua meta &quot;{goalName}&quot;, sugerimos guardar <span className="text-link font-semibold">{formatCurrency({ value: amountToSave, currencyType })}</span> por mês. {monthsToGoal > 0 ? `Assim você alcançará o objetivo em aproximadamente ${monthsToGoal !== 1 ? `${monthsToGoal} meses` : `${monthsToGoal} mês`}.` : ""}
                             </>
                         ) : (
                             <>

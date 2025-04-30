@@ -1,4 +1,8 @@
+"use client"
+
 import { Banknote, BookOpen, CarFront, Clapperboard, CreditCard, ForkKnife, Hospital, House, LayoutGrid, PiggyBank, ScrollText, Shapes, TrendingDown, TrendingUp, Wrench } from "lucide-react";
+import { formatCurrency } from "@/app/_utils/formatCurrency";
+import { useCurrencyPreference } from "@/app/_hooks/useCurrencyPreference";
 
 const transactionType = (type: string) => {
     switch (type) {
@@ -28,11 +32,13 @@ const transactionType = (type: string) => {
     }
 };
 
+const TransactionValue = ({ value }: { value: number }) => {
+    const { currencyType } = useCurrencyPreference();
+    return formatCurrency({ value, currencyType });
+};
+
 const transactionValue = (value: number) => {
-    return new Intl.NumberFormat('pt-BR', {
-        style: 'currency',
-        currency: 'BRL'
-    }).format(value);
+    return <TransactionValue value={value} />;
 };
 
 const transactionCategory = (category: string) => {

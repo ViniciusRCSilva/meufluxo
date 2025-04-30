@@ -4,6 +4,8 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/app
 import { Separator } from "./ui/separator";
 import Link from "next/link";
 import { TrendingUp, TrendingDown } from "lucide-react";
+import { useCurrencyPreference } from "../_hooks/useCurrencyPreference";
+import { formatCurrency } from "../_utils/formatCurrency";
 
 interface LastTransactionsCardProps {
     transactions: {
@@ -15,6 +17,7 @@ interface LastTransactionsCardProps {
 }
 
 const LastTransactionsCard = ({ transactions }: LastTransactionsCardProps) => {
+    const { currencyType } = useCurrencyPreference();
     return (
         <Card className="font-[family-name:var(--font-poppins)]">
             <CardHeader>
@@ -42,7 +45,7 @@ const LastTransactionsCard = ({ transactions }: LastTransactionsCardProps) => {
                                     <span className="text-sm text-font-muted">{transaction.date}</span>
                                 </div>
                             </div>
-                            <span className={`font-semibold ${transaction.type === "DEPOSIT" ? "text-success" : "text-destructive"}`}>{transaction.type === "DEPOSIT" ? "+" : "-"}R$ {transaction.value.toLocaleString()}</span>
+                            <span className={`font-semibold ${transaction.type === "DEPOSIT" ? "text-success" : "text-destructive"}`}>{transaction.type === "DEPOSIT" ? "+" : "-"}{formatCurrency({ value: transaction.value, currencyType })}</span>
                         </div>
                         <Separator className="opacity-50" />
                     </div>

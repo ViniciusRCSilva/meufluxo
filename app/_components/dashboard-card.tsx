@@ -1,3 +1,5 @@
+"use client"
+
 import {
     Card,
     CardContent,
@@ -6,6 +8,7 @@ import {
     CardTitle,
 } from "@/app/_components/ui/card"
 import { formatCurrency } from "@/app/_utils/formatCurrency";
+import { useCurrencyPreference } from "../_hooks/useCurrencyPreference";
 
 interface DashboardCardProps {
     title: string;
@@ -16,7 +19,8 @@ interface DashboardCardProps {
 }
 
 const DashboardCard = ({ title, description, icon, content, iconBgColor }: DashboardCardProps) => {
-    const formattedContent = formatCurrency(content);
+    const { currencyType } = useCurrencyPreference();
+    const formattedContent = formatCurrency({ value: content, currencyType });
 
     return (
         <Card className="grid grid-cols-[0.5fr_2fr] items-center p-6 gap-0 font-[family-name:var(--font-poppins)]">

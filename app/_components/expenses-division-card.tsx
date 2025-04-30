@@ -1,6 +1,10 @@
 "use client"
 
-import { Cell, Pie, PieChart } from "recharts"
+import {
+    Cell, 
+    Pie, 
+    PieChart 
+} from "recharts"
 
 import {
     Card,
@@ -16,7 +20,9 @@ import {
 } from "@/app/_components/ui/chart"
 import { transactionCategory } from "../_helpers/transactionHelper"
 import Link from "next/link"
+
 import { formatCurrency } from "../_utils/formatCurrency"
+import { useCurrencyPreference } from "../_hooks/useCurrencyPreference"
 
 interface ChartItem {
     expenseName: string
@@ -35,7 +41,8 @@ const chartConfig = {
     },
 } satisfies ChartConfig
 
-export function ExpensesDivisionCard({ data, title }: ExpensesDivisionCardProps) {
+export const ExpensesDivisionCard = ({ data, title }: ExpensesDivisionCardProps) => {
+    const { currencyType } = useCurrencyPreference();
     return (
         <Card className="flex flex-col font-[family-name:var(--font-poppins)]">
             <CardHeader className="items-center pb-0">
@@ -76,7 +83,7 @@ export function ExpensesDivisionCard({ data, title }: ExpensesDivisionCardProps)
                                                         </span>
                                                     </div>
                                                     <div className="mt-1 text-font-foreground text-sm">
-                                                        {formatCurrency(data.expenses)}
+                                                        {formatCurrency({ value: data.expenses, currencyType })}
                                                     </div>
                                                 </div>
                                             );
@@ -121,7 +128,7 @@ export function ExpensesDivisionCard({ data, title }: ExpensesDivisionCardProps)
                                 </span>
                             </div>
                             <span className="text-sm text-font-foreground">
-                                {formatCurrency(entry.expenses)}
+                                {formatCurrency({ value: entry.expenses, currencyType })}
                             </span>
                         </div>
                     ))}

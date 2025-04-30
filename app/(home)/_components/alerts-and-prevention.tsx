@@ -1,6 +1,9 @@
+"use client"
+
 import { AlertTriangle } from "lucide-react"
 import CarouselTemplate from "./carousel-template"
 import { formatCurrency } from "@/app/_utils/formatCurrency"
+import { useCurrencyPreference } from "@/app/_hooks/useCurrencyPreference"
 
 interface AlertsAndPreventionProps {
     openBillsvalue: number
@@ -10,7 +13,9 @@ interface AlertsAndPreventionProps {
     } | null
 }
 
-const AlertsAndPrevention = ({ openBillsvalue, lateBillsAlert }: AlertsAndPreventionProps) => {
+export function AlertsAndPrevention({ openBillsvalue, lateBillsAlert }: AlertsAndPreventionProps) {
+    const { currencyType } = useCurrencyPreference();
+
     // Formata a data de vencimento para dd/mm/yyyy
     const formatDueDate = (date: Date) => {
         return new Date(date).toLocaleDateString('pt-BR')
@@ -23,7 +28,7 @@ const AlertsAndPrevention = ({ openBillsvalue, lateBillsAlert }: AlertsAndPreven
     if (openBillsvalue > 0) {
         alerts.push(
             <p key="open-bills">
-                Você tem <span className="text-link font-semibold">{formatCurrency(openBillsvalue)}</span> em contas em aberto.
+                Você tem <span className="text-link font-semibold">{formatCurrency({ value: openBillsvalue, currencyType })}</span> em contas em aberto.
             </p>
         )
     }

@@ -46,6 +46,8 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "@/app/_components/ui/to
 import { toast } from "sonner";
 import { addNotification } from "@/app/_actions/notifications";
 import { recurrenceOptions } from "@/app/_helpers/billHelper";
+import { useCurrencyPreference } from "@/app/_hooks/useCurrencyPreference";
+import { CurrencyType } from "@prisma/client";
 
 const formSchema = z.object({
     name: z.string().min(1, "A descrição é obrigatória"),
@@ -93,6 +95,7 @@ interface AddBillButtonProps {
 const AddBillButton = ({ userId }: AddBillButtonProps) => {
     const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(false);
+    const { currencyType } = useCurrencyPreference();
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -209,7 +212,9 @@ const AddBillButton = ({ userId }: AddBillButtonProps) => {
                                             <FormLabel className="text-foreground/90 font-medium">Valor</FormLabel>
                                             <FormControl>
                                                 <div className="flex items-center gap-2">
-                                                    <p className="text-font-foreground">R$</p>
+                                                    <p className="text-font-foreground">
+                                                        {currencyType === CurrencyType.BRL ? "R$" : currencyType === CurrencyType.USD ? "$" : "€"}
+                                                    </p>
                                                     <Input
                                                         type="number"
                                                         placeholder="0.00"

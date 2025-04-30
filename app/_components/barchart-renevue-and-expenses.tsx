@@ -15,6 +15,7 @@ import {
     ChartTooltip,
 } from "@/app/_components/ui/chart"
 import { formatCurrency } from "../_utils/formatCurrency"
+import { useCurrencyPreference } from "../_hooks/useCurrencyPreference"
 
 interface ChartData {
     month: string
@@ -38,6 +39,7 @@ const chartConfig = {
 } satisfies ChartConfig
 
 export function BarchartRevenueAndExpenses({ data }: BarchartRevenueAndExpensesProps) {
+    const { currencyType } = useCurrencyPreference();
     return (
         <Card className="bg-card border-border/20 font-[family-name:var(--font-poppins)]">
             <CardHeader>
@@ -101,7 +103,7 @@ export function BarchartRevenueAndExpenses({ data }: BarchartRevenueAndExpensesP
                                                             <p className="text-font-foreground/90 text-sm">
                                                                 {chartConfig[entry.dataKey as keyof typeof chartConfig].label}:{' '}
                                                                 <span className="font-medium">
-                                                                    {formatCurrency(entry.value as number)}
+                                                                    {formatCurrency({ value: entry.value as number, currencyType })}
                                                                 </span>
                                                             </p>
                                                         </div>
@@ -124,7 +126,7 @@ export function BarchartRevenueAndExpenses({ data }: BarchartRevenueAndExpensesP
                                     offset={12}
                                     className="fill-foreground"
                                     fontSize={12}
-                                    formatter={(value: string) => formatCurrency(Number(value))}
+                                    formatter={(value: string) => formatCurrency({ value: Number(value), currencyType })}
                                 />
                             </Bar>
                             <Bar
@@ -138,7 +140,7 @@ export function BarchartRevenueAndExpenses({ data }: BarchartRevenueAndExpensesP
                                     offset={12}
                                     className="fill-foreground"
                                     fontSize={12}
-                                    formatter={(value: string) => formatCurrency(Number(value))}
+                                    formatter={(value: string) => formatCurrency({ value: Number(value), currencyType })}
                                 />
                             </Bar>
                         </BarChart>

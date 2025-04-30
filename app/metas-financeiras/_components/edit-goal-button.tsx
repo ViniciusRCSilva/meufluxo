@@ -20,6 +20,8 @@ import { Input } from "@/app/_components/ui/input";
 import { addToBalance, removeFromBalance } from "@/app/_actions/balance";
 import { updateFinancialGoal } from "@/app/_actions/financial-goals";
 import { addNotification } from "@/app/_actions/notifications";
+import { useCurrencyPreference } from "@/app/_hooks/useCurrencyPreference";
+import { CurrencyType } from "@prisma/client";
 
 const formSchema = z.object({
     name: z.string().min(1, "O nome da meta é obrigatória"),
@@ -48,6 +50,7 @@ const EditGoalButton = ({ userId, balance, goal }: UserId & UserBalance & Goal) 
     const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
+    const { currencyType } = useCurrencyPreference();
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -169,7 +172,9 @@ const EditGoalButton = ({ userId, balance, goal }: UserId & UserBalance & Goal) 
                                         <FormLabel>Valor atual</FormLabel>
                                         <FormControl>
                                             <div className="flex items-center gap-2">
-                                                <p className="text-font-foreground">R$</p>
+                                                <p className="text-font-foreground">
+                                                    {currencyType === CurrencyType.BRL ? "R$" : currencyType === CurrencyType.USD ? "$" : "€"}
+                                                </p>
                                                 <Input
                                                     type="number"
                                                     placeholder="0.00"
@@ -190,7 +195,9 @@ const EditGoalButton = ({ userId, balance, goal }: UserId & UserBalance & Goal) 
                                         <FormLabel>Valor meta</FormLabel>
                                         <FormControl>
                                             <div className="flex items-center gap-2">
-                                                <p className="text-font-foreground">R$</p>
+                                                <p className="text-font-foreground">
+                                                    {currencyType === CurrencyType.BRL ? "R$" : currencyType === CurrencyType.USD ? "$" : "€"}
+                                                </p>
                                                 <Input
                                                     type="number"
                                                     placeholder="0.00"

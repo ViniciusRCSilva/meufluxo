@@ -11,6 +11,8 @@ import { toast } from "sonner";
 import { useState } from "react";
 import { Bill } from "@prisma/client";
 import { Banknote, Calendar, Check, Loader2, RefreshCcw } from "lucide-react";
+import { formatCurrency } from "@/app/_utils/formatCurrency";
+import { useCurrencyPreference } from "@/app/_hooks/useCurrencyPreference";
 
 interface ConfirmPaymentButtonProps {
     bill: Bill;
@@ -19,6 +21,7 @@ interface ConfirmPaymentButtonProps {
 const ConfirmPaymentButton = ({ bill }: ConfirmPaymentButtonProps) => {
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(false);
+    const { currencyType } = useCurrencyPreference();
 
     const handleConfirmPayment = async () => {
         try {
@@ -122,7 +125,7 @@ const ConfirmPaymentButton = ({ bill }: ConfirmPaymentButtonProps) => {
                         </div>
                         <div className="bg-card dark:bg-card-foreground rounded-lg p-2">
                             <span className="text-font-foreground font-medium">
-                                {new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(bill.value)}
+                                {formatCurrency({ value: bill.value, currencyType })}
                             </span>
                         </div>
                     </div>

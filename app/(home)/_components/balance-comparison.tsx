@@ -1,6 +1,9 @@
+"use client"
+
 import { ArrowLeftRight } from "lucide-react"
 import CarouselTemplate from "./carousel-template"
 import { formatCurrency } from "@/app/_utils/formatCurrency"
+import { useCurrencyPreference } from "@/app/_hooks/useCurrencyPreference"
 
 interface BalanceComparisonProps {
     difference: number
@@ -9,6 +12,7 @@ interface BalanceComparisonProps {
 }
 
 const BalanceComparison = ({ difference, spentPercentage, expensesPercentage }: BalanceComparisonProps) => {
+    const { currencyType } = useCurrencyPreference();
     return (
         <div className="flex flex-col h-full">
             <div className="flex items-center gap-2 mb-4">
@@ -22,7 +26,7 @@ const BalanceComparison = ({ difference, spentPercentage, expensesPercentage }: 
             <div className="flex-1">
                 <CarouselTemplate itens={[
                     <p key="1">
-                        Seu saldo {difference >= 0 ? "aumentou" : "diminuiu"} <span className="text-link font-semibold">{formatCurrency(Math.abs(difference))}</span> em relação ao mês passado.
+                        Seu saldo {difference >= 0 ? "aumentou" : "diminuiu"} <span className="text-link font-semibold">{formatCurrency({ value: Math.abs(difference), currencyType })}</span> em relação ao mês passado.
                         {difference > 0 ? " Bom trabalho!" : ""}
                     </p>,
                     <p key="2">

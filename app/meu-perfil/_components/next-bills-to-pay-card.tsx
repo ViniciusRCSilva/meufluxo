@@ -2,8 +2,10 @@
 
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/app/_components/ui/card";
 import { Separator } from "@/app/_components/ui/separator";
+import { formatCurrency } from "@/app/_utils/formatCurrency";
 import { Calendar } from "lucide-react";
 import Link from "next/link";
+import { useCurrencyPreference } from "@/app/_hooks/useCurrencyPreference";
 
 interface NextBillsToPayCardProps {
     bills: {
@@ -14,6 +16,8 @@ interface NextBillsToPayCardProps {
 }
 
 const NextBillsToPayCard = ({ bills }: NextBillsToPayCardProps) => {
+    const { currencyType } = useCurrencyPreference();
+
     return (
         <Card className="font-[family-name:var(--font-poppins)]">
             <CardHeader>
@@ -34,7 +38,7 @@ const NextBillsToPayCard = ({ bills }: NextBillsToPayCardProps) => {
                                         <span className="text-sm text-font-muted">{bill.date}</span>
                                     </div>
                                 </div>
-                                <span className="font-semibold text-destructive">R$ {bill.value.toLocaleString()}</span>
+                                <span className="font-semibold text-destructive">{formatCurrency({ value: bill.value, currencyType })}</span>
                             </div>
                             <Separator className="opacity-50" />
                         </div>

@@ -1,5 +1,8 @@
+"use client"
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/app/_components/ui/card"
 import { formatCurrency } from "@/app/_utils/formatCurrency"
+import { useCurrencyPreference } from "@/app/_hooks/useCurrencyPreference"
 import { Progress } from "@/app/_components/ui/progress"
 import EditGoalButton from "./edit-goal-button"
 import DeleteGoalButton from "./delete-goal-button"
@@ -23,8 +26,9 @@ interface GoalCardProps {
 }
 
 const GoalCard = ({ id, name, createdAt, goalAchievedDate, currentAmount, goalAmount, userId, balance }: GoalCardProps & UserId & UserBalance) => {
-    const formattedCurrentAmount = formatCurrency(currentAmount)
-    const formattedGoalAmount = formatCurrency(goalAmount)
+    const { currencyType } = useCurrencyPreference();
+    const formattedCurrentAmount = formatCurrency({ value: currentAmount, currencyType })
+    const formattedGoalAmount = formatCurrency({ value: goalAmount, currencyType })
     const goalPercentage = (currentAmount / goalAmount) * 100
     const goal = { id: id, name: name, createdAt: createdAt, goalAchievedDate: goalAchievedDate, currentAmount: currentAmount, goalAmount: goalAmount }
 

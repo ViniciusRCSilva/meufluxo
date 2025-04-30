@@ -15,6 +15,7 @@ import {
     ChartTooltip,
 } from "@/app/_components/ui/chart"
 import { formatCurrency } from "@/app/_utils/formatCurrency"
+import { useCurrencyPreference } from "@/app/_hooks/useCurrencyPreference"
 
 interface ChartData {
     month: string
@@ -33,6 +34,7 @@ const chartConfig = {
 } satisfies ChartConfig
 
 export function AreaChartBalanceEvolution({ data }: AreaChartBalanceEvolutionProps) {
+    const { currencyType } = useCurrencyPreference();
     return (
         <Card className="bg-card border-border/20 font-[family-name:var(--font-poppins)]">
             <CardHeader>
@@ -79,7 +81,7 @@ export function AreaChartBalanceEvolution({ data }: AreaChartBalanceEvolutionPro
                                 tickLine={false}
                                 axisLine={false}
                                 tickMargin={12}
-                                tickFormatter={(value) => formatCurrency(value)}
+                                tickFormatter={(value) => formatCurrency({ value, currencyType })}
                                 className="text-font-muted/70"
                                 fontSize={12}
                             />
@@ -106,7 +108,7 @@ export function AreaChartBalanceEvolution({ data }: AreaChartBalanceEvolutionPro
                                                     <p className="text-font-foreground/90 text-sm">
                                                         Saldo:{" "}
                                                         <span className="font-medium">
-                                                            {formatCurrency(data.balance)}
+                                                            {formatCurrency({ value: data.balance, currencyType })}
                                                         </span>
                                                     </p>
                                                 </div>
@@ -141,7 +143,7 @@ export function AreaChartBalanceEvolution({ data }: AreaChartBalanceEvolutionPro
                                     offset={12}
                                     className="fill-foreground"
                                     fontSize={12}
-                                    formatter={(value: string) => formatCurrency(Number(value))}
+                                    formatter={(value: string) => formatCurrency({ value: Number(value), currencyType })}
                                 />
                             </Area>
                         </AreaChart>
