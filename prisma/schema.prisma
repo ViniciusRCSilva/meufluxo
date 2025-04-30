@@ -7,6 +7,21 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum CurrencyType {
+  USD
+  EUR
+  BRL
+}
+
+model UserPreferences {
+  id                        String       @id @default(cuid())
+  userId                    String       @unique
+  selectedCurrencyType      CurrencyType @default(BRL)
+  transactionsThreshold     Int?
+  transactionThresholdValue Float?
+  isNotificationsActive     Boolean      @default(true)
+}
+
 model Balance {
   id        String   @id @default(cuid())
   amount    Float
