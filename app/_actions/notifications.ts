@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { db } from "../_lib/prisma"
 import { NotificationType } from "../_types/notification"
+import { getUserPreferences } from "./user-preferences"
 
 interface Notification {
     title: string;
@@ -14,6 +15,12 @@ interface Notification {
 
 const addNotification = async (notification: Notification) => {
     try {
+        const userPreferences = await getUserPreferences(notification.userId);
+
+        if (!userPreferences?.isNotificationsActive) {
+            return;
+        }
+
         await db.notification.create({
             data: notification
         })

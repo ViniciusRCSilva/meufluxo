@@ -42,22 +42,50 @@ const createUserPreferences = async (userId: string, data: CreateUserPreferences
     return userPreferences;
 };
 
-const updateUserPreferences = async (userId: string, data: CreateUserPreferencesData) => {
+const updateUserNotificationPreferences = async (userId: string, isNotificationsActive: boolean) => {
     try {
         const userPreferences = await getUserPreferences(userId);
         if (!userPreferences) {
-            return await createUserPreferences(userId, data);
+            return await createUserPreferences(userId, {
+                selectedCurrencyType: CurrencyType.BRL,
+                transactionsThreshold: null,
+                transactionThresholdValue: null,
+                isNotificationsActive
+            });
         }
 
-        const updatedUserPreferences = await db.userPreferences.update({
+        const updatedPreferences = await db.userPreferences.update({
             where: { userId },
-            data,
+            data: { isNotificationsActive }
         });
 
-        return updatedUserPreferences;
+        return updatedPreferences;
     } catch (error) {
         console.error(error);
     }
 }
 
-export { getUserPreferences, updateUserPreferences };
+const updateUserCurrencyPreferences = async (userId: string, selectedCurrencyType: CurrencyType) => {
+    try {
+        const userPreferences = await getUserPreferences(userId);
+        if (!userPreferences) {
+            return await createUserPreferences(userId, {
+                selectedCurrencyType,
+                transactionsThreshold: null,
+                transactionThresholdValue: null,
+                isNotificationsActive: true
+            });
+        }
+
+        const updatedPreferences = await db.userPreferences.update({
+            where: { userId },
+            data: { selectedCurrencyType }
+        });
+
+        return updatedPreferences;
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+export { getUserPreferences, updateUserNotificationPreferences, updateUserCurrencyPreferences };
